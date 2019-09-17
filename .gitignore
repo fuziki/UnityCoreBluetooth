@@ -1,0 +1,8 @@
+.DS_Store
+UserInterfaceState.xcuserstate
+ZUnityProject/build/**
+
+Carthage/Checkouts
+!Carthage/Build
+
+_sh/**
