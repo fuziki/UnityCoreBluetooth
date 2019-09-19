@@ -11,6 +11,8 @@
 
 #ifdef UnityCoreBluetoothIOS
 #import <UnityCoreBluetoothIOS/UnityCoreBluetoothIOS-Swift.h>
+#elif libUnityCoreBluetoothIOS
+#import <libUnityCoreBluetoothIOS-Swift.h>
 #elif UnityCoreBluetoothMacOS
 #import <UnityCoreBluetoothMacOS-Swift.h>
 #endif
