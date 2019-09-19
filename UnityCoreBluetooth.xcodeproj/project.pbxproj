@@ -24,6 +24,9 @@
 		523C4FDC233119C600882F2E /* UnityCoreBluetooth.mm in Sources */ = {isa = PBXBuildFile; fileRef = 523C4FB52331143400882F2E /* UnityCoreBluetooth.mm */; };
 		523C4FDD233119C600882F2E /* UnityCoreBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523C4FB62331143400882F2E /* UnityCoreBluetooth.swift */; };
 		523C4FEA2333C21D00882F2E /* libUnityCoreBluetoothIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523C4FE92333C21D00882F2E /* libUnityCoreBluetoothIOS.swift */; };
+		523C4FEF2333C74500882F2E /* UnityCoreBluetooth.mm in Sources */ = {isa = PBXBuildFile; fileRef = 523C4FB52331143400882F2E /* UnityCoreBluetooth.mm */; };
+		523C4FF02333C74500882F2E /* UnityCoreBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523C4FB62331143400882F2E /* UnityCoreBluetooth.swift */; };
+		523C4FF22333C75E00882F2E /* libUnityCoreBluetoothIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 523C4FEE2333C73100882F2E /* libUnityCoreBluetoothIOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +88,7 @@
 		523C4FE223311A7400882F2E /* UnityCoreBluetoothMacOS.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnityCoreBluetoothMacOS.pch; sourceTree = "<group>"; };
 		523C4FE72333C21D00882F2E /* liblibUnityCoreBluetoothIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibUnityCoreBluetoothIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		523C4FE92333C21D00882F2E /* libUnityCoreBluetoothIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = libUnityCoreBluetoothIOS.swift; sourceTree = "<group>"; };
+		523C4FEE2333C73100882F2E /* libUnityCoreBluetoothIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libUnityCoreBluetoothIOS.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				523C4FE92333C21D00882F2E /* libUnityCoreBluetoothIOS.swift */,
+				523C4FEE2333C73100882F2E /* libUnityCoreBluetoothIOS.h */,
 			);
 			path = libUnityCoreBluetoothIOS;
 			sourceTree = "<group>";
@@ -230,6 +235,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				523C4F7A233112D200882F2E /* UnityCoreBluetoothIOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		523C4FF12333C75300882F2E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				523C4FF22333C75E00882F2E /* libUnityCoreBluetoothIOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +324,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 523C4FED2333C21D00882F2E /* Build configuration list for PBXNativeTarget "libUnityCoreBluetoothIOS" */;
 			buildPhases = (
+				523C4FF12333C75300882F2E /* Headers */,
 				523C4FE32333C21D00882F2E /* Sources */,
 				523C4FE42333C21D00882F2E /* Frameworks */,
 				523C4FE52333C21D00882F2E /* CopyFiles */,
@@ -451,6 +465,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				523C4FEF2333C74500882F2E /* UnityCoreBluetooth.mm in Sources */,
+				523C4FF02333C74500882F2E /* UnityCoreBluetooth.swift in Sources */,
 				523C4FEA2333C21D00882F2E /* libUnityCoreBluetoothIOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -798,6 +814,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					libUnityCoreBluetoothIOS,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -810,6 +831,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = libUnityCoreBluetoothIOS;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
