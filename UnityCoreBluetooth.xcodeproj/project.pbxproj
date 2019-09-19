@@ -23,6 +23,7 @@
 		523C4FD42331175400882F2E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 523C4FD32331175400882F2E /* LaunchScreen.storyboard */; };
 		523C4FDC233119C600882F2E /* UnityCoreBluetooth.mm in Sources */ = {isa = PBXBuildFile; fileRef = 523C4FB52331143400882F2E /* UnityCoreBluetooth.mm */; };
 		523C4FDD233119C600882F2E /* UnityCoreBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523C4FB62331143400882F2E /* UnityCoreBluetooth.swift */; };
+		523C4FEA2333C21D00882F2E /* libUnityCoreBluetoothIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523C4FE92333C21D00882F2E /* libUnityCoreBluetoothIOS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,15 @@
 				523C4FBC233114F000882F2E /* UnityCoreBluetoothIOS.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		523C4FE52333C21D00882F2E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -73,6 +83,8 @@
 		523C4FD32331175400882F2E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		523C4FDB233118DC00882F2E /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		523C4FE223311A7400882F2E /* UnityCoreBluetoothMacOS.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnityCoreBluetoothMacOS.pch; sourceTree = "<group>"; };
+		523C4FE72333C21D00882F2E /* liblibUnityCoreBluetoothIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibUnityCoreBluetoothIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		523C4FE92333C21D00882F2E /* libUnityCoreBluetoothIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = libUnityCoreBluetoothIOS.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +117,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		523C4FE42333C21D00882F2E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -116,6 +135,7 @@
 				523C4F84233112FB00882F2E /* ExampleIOS */,
 				523C4F9A2331136A00882F2E /* UnityCoreBluetoothMacOS */,
 				523C4FA42331138200882F2E /* ExampleMacOS */,
+				523C4FE82333C21D00882F2E /* libUnityCoreBluetoothIOS */,
 				523C4F672331127200882F2E /* Products */,
 				523C4FB9233114EA00882F2E /* Frameworks */,
 			);
@@ -128,6 +148,7 @@
 				523C4F83233112FB00882F2E /* ExampleIOS.app */,
 				523C4F992331136A00882F2E /* UnityCoreBluetoothMacOS.bundle */,
 				523C4FA32331138200882F2E /* ExampleMacOS.app */,
+				523C4FE72333C21D00882F2E /* liblibUnityCoreBluetoothIOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -191,6 +212,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		523C4FE82333C21D00882F2E /* libUnityCoreBluetoothIOS */ = {
+			isa = PBXGroup;
+			children = (
+				523C4FE92333C21D00882F2E /* libUnityCoreBluetoothIOS.swift */,
+			);
+			path = libUnityCoreBluetoothIOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +307,23 @@
 			productReference = 523C4FA32331138200882F2E /* ExampleMacOS.app */;
 			productType = "com.apple.product-type.application";
 		};
+		523C4FE62333C21D00882F2E /* libUnityCoreBluetoothIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 523C4FED2333C21D00882F2E /* Build configuration list for PBXNativeTarget "libUnityCoreBluetoothIOS" */;
+			buildPhases = (
+				523C4FE32333C21D00882F2E /* Sources */,
+				523C4FE42333C21D00882F2E /* Frameworks */,
+				523C4FE52333C21D00882F2E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libUnityCoreBluetoothIOS;
+			productName = libUnityCoreBluetoothIOS;
+			productReference = 523C4FE72333C21D00882F2E /* liblibUnityCoreBluetoothIOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -301,6 +347,9 @@
 					523C4FA22331138200882F2E = {
 						CreatedOnToolsVersion = 10.2.1;
 					};
+					523C4FE62333C21D00882F2E = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
 				};
 			};
 			buildConfigurationList = 523C4F602331127200882F2E /* Build configuration list for PBXProject "UnityCoreBluetooth" */;
@@ -320,6 +369,7 @@
 				523C4F82233112FB00882F2E /* ExampleIOS */,
 				523C4F982331136A00882F2E /* UnityCoreBluetoothMacOS */,
 				523C4FA22331138200882F2E /* ExampleMacOS */,
+				523C4FE62333C21D00882F2E /* libUnityCoreBluetoothIOS */,
 			);
 		};
 /* End PBXProject section */
@@ -394,6 +444,14 @@
 			files = (
 				523C4FA82331138200882F2E /* ViewController.swift in Sources */,
 				523C4FA62331138200882F2E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		523C4FE32333C21D00882F2E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				523C4FEA2333C21D00882F2E /* libUnityCoreBluetoothIOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -736,6 +794,30 @@
 			};
 			name = Release;
 		};
+		523C4FEB2333C21D00882F2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		523C4FEC2333C21D00882F2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -780,6 +862,15 @@
 			buildConfigurations = (
 				523C4FB12331138300882F2E /* Debug */,
 				523C4FB22331138300882F2E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		523C4FED2333C21D00882F2E /* Build configuration list for PBXNativeTarget "libUnityCoreBluetoothIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				523C4FEB2333C21D00882F2E /* Debug */,
+				523C4FEC2333C21D00882F2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
