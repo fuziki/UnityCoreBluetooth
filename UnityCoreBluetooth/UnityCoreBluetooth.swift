@@ -91,37 +91,51 @@ extension CBCharacteristic {
 public class UnityCoreBluetooth: NSObject {
     private var onErrorMessageHandler: ((_ message: String) -> Void)? = nil
     public func onErrorMessage(handler: @escaping (_ message: String) -> Void) {
-        onErrorMessageHandler = handler
+        DispatchQueue.main.async { [weak self] in
+            self?.onErrorMessageHandler = handler
+        }
     }
     
     private var onUpdateStateHandler: ((_ state: String) -> Void)? = nil
     public func onUpdateState(handler: @escaping (_ state: String) -> Void) {
-        onUpdateStateHandler = handler
+        DispatchQueue.main.async { [weak self] in
+            self?.onUpdateStateHandler = handler
+        }
     }
     
     private var onDiscoverPeripheralHandler: ((_ peripheral: CBPeripheral) -> Void)? = nil
     public func onDiscoverPeripheral(handler: @escaping (_ peripheral: CBPeripheral) -> Void) {
-        onDiscoverPeripheralHandler = handler
+        DispatchQueue.main.async { [weak self] in
+            self?.onDiscoverPeripheralHandler = handler
+        }
     }
     
     private var onConnectPeripheralHandler: ((_ peripheral: CBPeripheral) -> Void)? = nil
     public func onConnectPeripheral(handler: @escaping (_ peripheral: CBPeripheral) -> Void) {
-        onConnectPeripheralHandler = handler
+        DispatchQueue.main.async { [weak self] in
+            self?.onConnectPeripheralHandler = handler
+        }
     }
     
     private var onDiscoverServicelHandler: ((_ service: CBService) -> Void)? = nil
     public func onDiscoverService(handler: @escaping (_ services: CBService) -> Void) {
-        onDiscoverServicelHandler = handler
+        DispatchQueue.main.async { [weak self] in
+            self?.onDiscoverServicelHandler = handler
+        }
     }
     
     private var onDiscoverCharacteristiclHandler: ((_ characteristic: CBCharacteristic) -> Void)? = nil
     public func onDiscoverCharacteristic(handler: @escaping (_ characteristic: CBCharacteristic) -> Void) {
-        onDiscoverCharacteristiclHandler = handler
+        DispatchQueue.main.async { [weak self] in
+            self?.onDiscoverCharacteristiclHandler = handler
+        }
     }
     
     private var onUpdateValueHandler: ((_ characteristic: CBCharacteristic, _ value: Data) -> Void)? = nil
     public func onUpdateValue(handler: @escaping (_ characteristic: CBCharacteristic, _ value: Data) -> Void) {
-        onUpdateValueHandler = handler
+        DispatchQueue.main.async { [weak self] in
+            self?.onUpdateValueHandler = handler
+        }
     }
     
     private var manager: CBCentralManager?
