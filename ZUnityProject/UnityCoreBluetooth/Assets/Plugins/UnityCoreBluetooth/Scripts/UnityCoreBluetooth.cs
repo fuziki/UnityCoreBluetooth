@@ -22,8 +22,7 @@ public class UnityCoreBluetooth
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void OnDiscoverCharacteristicHandler(IntPtr characteristic);
 
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void OnUpdateValueHandler(IntPtr characteristic, IntPtr data, long length);
+
 
     [DllImport("UnityCoreBluetoothMacOS")]
     private static extern void unityCoreBluetooth_onUpdateState(IntPtr unityCoreBluetooth, OnUpdateStateHandler handler);
@@ -40,8 +39,31 @@ public class UnityCoreBluetooth
     [DllImport("UnityCoreBluetoothMacOS")]
     private static extern void unityCoreBluetooth_onDiscoverCharacteristic(IntPtr unityCoreBluetooth, OnDiscoverCharacteristicHandler handler);
 
+
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void unityCoreBluetooth_onUpdateValue_delegate(IntPtr characteristic, IntPtr data, long length);
+
     [DllImport("UnityCoreBluetoothMacOS")]
-    private static extern void unityCoreBluetooth_onUpdateValue(IntPtr unityCoreBluetooth, OnUpdateValueHandler handler);
+    private static extern void unityCoreBluetooth_onUpdateValue(IntPtr unityCoreBluetooth, unityCoreBluetooth_onUpdateValue_delegate handler);
+
+    private static event Action<UnityCBCharacteristic, byte[]> onUpdateValueHandler;
+
+    [MonoPInvokeCallback(typeof(unityCoreBluetooth_onUpdateValue_delegate))]
+    private static void staticOnUpdateValue(IntPtr characteristic, IntPtr data, long length)
+    {
+        UnityCBCharacteristic c = new UnityCBCharacteristic(characteristic);
+        byte[] result = new byte[length];
+        Marshal.Copy(data, result, 0, (int)length);
+        UnityCoreBluetooth.onUpdateValueHandler(c, result);
+    }
+
+    public void OnUpdateValue(Action<UnityCBCharacteristic, byte[]> handler)
+    {
+        UnityCoreBluetooth.onUpdateValueHandler = handler;
+    }
+
+
 
     [DllImport("UnityCoreBluetoothMacOS")]
     private static extern IntPtr unityCoreBluetooth_init();
@@ -68,13 +90,36 @@ public class UnityCoreBluetooth
     private IntPtr nativePtr;
 
 
-    public UnityCoreBluetooth()
+    private static UnityCoreBluetooth _shared;
+    public static UnityCoreBluetooth Shared
+    {
+        get
+        {
+            if (_shared == null) _shared = new UnityCoreBluetooth();
+            return _shared;
+        }
+    }
+
+    public static void CreateSharedInstance()
+    {
+        _shared = new UnityCoreBluetooth();
+    }
+
+    public static void ReleaseSharedInstance()
+    {
+        _shared = null;
+    }
+
+    private UnityCoreBluetooth()
     {
         nativePtr = unityCoreBluetooth_init();
+        unityCoreBluetooth_onUpdateValue(nativePtr, staticOnUpdateValue);
     }
 
     ~UnityCoreBluetooth()
     {
+        UnityCoreBluetooth.onUpdateValueHandler = null;
+        Debug.Log("UnityCoreBluetooth deinit");
         unityCoreBluetooth_stopScan(nativePtr);
         unityCoreBluetooth_release(nativePtr);
     }
@@ -105,10 +150,33 @@ public class UnityCoreBluetooth
         unityCoreBluetooth_onDiscoverCharacteristic(nativePtr, handler);
     }
 
-    public void OnUpdateValue(OnUpdateValueHandler handler)
-    {
-        unityCoreBluetooth_onUpdateValue(nativePtr, handler);
-    }
+    //public void OnUpdateValue(OnUpdateValueHandler handler)
+    //{
+    //    unityCoreBluetooth_onUpdateValue(nativePtr, handler);
+    //}
+
+
+//    public delegate void OnUpdateValueHandler2(IntPtr characteristic, IntPtr data, long length);
+    //private static event Action<UnityCBCharacteristic, byte[]> OnUpdateValueHandler2Event;
+
+    //[MonoPInvokeCallback(typeof(OnUpdateValueHandler))]
+    //private static void staticOnUpdateValue(IntPtr characteristic, IntPtr data, long length)
+    //{
+    //    UnityCBCharacteristic c = new UnityCBCharacteristic(characteristic);
+    //    byte[] result = new byte[length];
+    //    Marshal.Copy(data, result, 0, (int)length);
+    //    UnityCoreBluetooth.OnUpdateValueHandler2Event(c, result);
+    //}
+
+    //public void OnUpdateValue(Action<UnityCBCharacteristic, byte[]> handler)
+    //{
+    //    UnityCoreBluetooth.OnUpdateValueHandler2Event = handler;
+    //    //UnityCoreBluetooth.OnUpdateValueHandler2Event += delegate (IntPtr characteristic, IntPtr data, long length)
+    //    //{
+    //    //    handler(characteristic, data, length);
+    //    //};
+    //    //unityCoreBluetooth_onUpdateValue(nativePtr, handler);
+    //}
 
 
     public void StartCoreBluetooth()
