@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using AOT;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class UnityCBCharacteristic {
 
@@ -23,19 +19,23 @@ public class UnityCBCharacteristic {
         this.nativePtr = ptr;
     }
 
+    private string _uuid = null;
     public string uuid
     {
         get
         {
-            return cbCharacteristic_uuid(nativePtr);
+            if (_uuid == null) _uuid = cbCharacteristic_uuid(nativePtr);
+            return _uuid;
         }
     }
 
+    private string[] _propertis = null;
     public string[] propertis
     {
         get
         {
-            return new string[] { cbCharacteristic_propertyString(nativePtr) };
+            if (_propertis == null) _propertis = new string[] { cbCharacteristic_propertyString(nativePtr) };
+            return _propertis;
         }
     }
 
