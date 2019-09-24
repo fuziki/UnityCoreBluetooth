@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using AOT;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class UnityCBService {
 
@@ -19,11 +15,13 @@ public class UnityCBService {
         this.nativePtr = ptr;
     }
 
+    private string _uuid = null;
     public string uuid
     {
         get
         {
-            return cbService_uuid(nativePtr);
+            if (_uuid == null) _uuid = cbService_uuid(nativePtr);
+            return _uuid;
         }
     }
 
