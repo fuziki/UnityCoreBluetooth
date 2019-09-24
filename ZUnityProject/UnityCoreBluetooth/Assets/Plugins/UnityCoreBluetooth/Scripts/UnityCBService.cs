@@ -1,34 +1,37 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-public class UnityCBService {
-
-    [DllImport("UnityCoreBluetoothMacOS")]
-    private static extern string cbService_uuid(IntPtr service);
-
-    [DllImport("UnityCoreBluetoothMacOS")]
-    private static extern void cbService_discoverCharacteristic(IntPtr service);
-
-    private IntPtr nativePtr;
-    public UnityCBService(IntPtr ptr)
+#if UNITY_EDITOR_OSX || UNITY_IOS
+namespace UnityCoreBluetoothFramework
+{
+    public class UnityCBService
     {
-        this.nativePtr = ptr;
-    }
+        [DllImport(LIBRARY.NAME)]
+        private static extern string cbService_uuid(IntPtr service);
 
-    private string _uuid = null;
-    public string uuid
-    {
-        get
+        [DllImport(LIBRARY.NAME)]
+        private static extern void cbService_discoverCharacteristic(IntPtr service);
+
+        private IntPtr nativePtr;
+        public UnityCBService(IntPtr ptr)
         {
-            if (_uuid == null) _uuid = cbService_uuid(nativePtr);
-            return _uuid;
+            this.nativePtr = ptr;
+        }
+
+        private string _uuid = null;
+        public string uuid
+        {
+            get
+            {
+                if (_uuid == null) _uuid = cbService_uuid(nativePtr);
+                return _uuid;
+            }
+        }
+
+        public void discoverCharacteristics()
+        {
+            cbService_discoverCharacteristic(nativePtr);
         }
     }
-
-    public void discoverCharacteristics()
-    {
-        cbService_discoverCharacteristic(nativePtr);
-    }
-
-
 }
+#endif

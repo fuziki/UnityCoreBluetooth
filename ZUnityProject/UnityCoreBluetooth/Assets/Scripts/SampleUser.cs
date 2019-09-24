@@ -1,7 +1,11 @@
 ﻿using System;
 using UnityEngine;
+using UnityCoreBluetoothFramework;
+using UnityEngine.UI;
 
 public class SampleUser : MonoBehaviour {
+
+    public Text text;
 
     // Use this for initialization
     void Start()
@@ -63,6 +67,7 @@ public class SampleUser : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (flag == false) return;
+        text.text = BitConverter.ToString(value);
         Debug.Log("value: " + BitConverter.ToString(value));
     }
 
