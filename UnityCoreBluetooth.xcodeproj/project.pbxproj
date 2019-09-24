@@ -27,6 +27,7 @@
 		523C4FEF2333C74500882F2E /* UnityCoreBluetooth.mm in Sources */ = {isa = PBXBuildFile; fileRef = 523C4FB52331143400882F2E /* UnityCoreBluetooth.mm */; };
 		523C4FF02333C74500882F2E /* UnityCoreBluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523C4FB62331143400882F2E /* UnityCoreBluetooth.swift */; };
 		523C4FF22333C75E00882F2E /* libUnityCoreBluetoothIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 523C4FEE2333C73100882F2E /* libUnityCoreBluetoothIOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		523C4FF42339D4DD00882F2E /* Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 523C4FF32339D4DD00882F2E /* Bridging-Header.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		523C4FE72333C21D00882F2E /* liblibUnityCoreBluetoothIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibUnityCoreBluetoothIOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		523C4FE92333C21D00882F2E /* libUnityCoreBluetoothIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = libUnityCoreBluetoothIOS.swift; sourceTree = "<group>"; };
 		523C4FEE2333C73100882F2E /* libUnityCoreBluetoothIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libUnityCoreBluetoothIOS.h; sourceTree = "<group>"; };
+		523C4FF32339D4DD00882F2E /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +225,7 @@
 			children = (
 				523C4FE92333C21D00882F2E /* libUnityCoreBluetoothIOS.swift */,
 				523C4FEE2333C73100882F2E /* libUnityCoreBluetoothIOS.h */,
+				523C4FF32339D4DD00882F2E /* Bridging-Header.h */,
 			);
 			path = libUnityCoreBluetoothIOS;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				523C4FF22333C75E00882F2E /* libUnityCoreBluetoothIOS.h in Headers */,
+				523C4FF42339D4DD00882F2E /* Bridging-Header.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -822,6 +826,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PRODUCT)libUnityCoreBluetoothIOS/Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -835,6 +840,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PRODUCT)libUnityCoreBluetoothIOS/Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
