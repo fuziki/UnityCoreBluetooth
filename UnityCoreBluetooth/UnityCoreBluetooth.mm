@@ -53,41 +53,52 @@ extern "C" {
 }
 
 void unityCoreBluetooth_onUpdateState(UnityCoreBluetooth* unityCoreBluetooth, OnUpdateStateHandler handler) {
+    @autoreleasepool {
     if (unityCoreBluetooth == nil) return;
     [unityCoreBluetooth onUpdateStateWithHandler: ^(NSString* state) {
         handler([state UTF8String]);
     }];
+    }
 }
 
 void unityCoreBluetooth_onDiscoverPeripheral(UnityCoreBluetooth* unityCoreBluetooth, OnDiscoverPeripheralHandler handler) {
+    @autoreleasepool {
     if (unityCoreBluetooth == nil) return;
     [unityCoreBluetooth onDiscoverPeripheralWithHandler: ^(CBPeripheral* peripheral) {
         handler(peripheral);
     }];
+    }
 }
 
 void unityCoreBluetooth_onConnectPeripheral(UnityCoreBluetooth* unityCoreBluetooth, OnConnectPeripheralHandler handler) {
+    @autoreleasepool {
     if (unityCoreBluetooth == nil) return;
     [unityCoreBluetooth onConnectPeripheralWithHandler: ^(CBPeripheral* peripheral) {
         handler(peripheral);
     }];
+    }
 }
 
 void unityCoreBluetooth_onDiscoverService(UnityCoreBluetooth* unityCoreBluetooth, OnDiscoverServiceHandler handler) {
+    @autoreleasepool {
     if (unityCoreBluetooth == nil) return;
     [unityCoreBluetooth onDiscoverServiceWithHandler: ^(CBService* service) {
         handler(service);
     }];
+    }
 }
 
 void unityCoreBluetooth_onDiscoverCharacteristic(UnityCoreBluetooth* unityCoreBluetooth, OnDiscoverCharacteristicHandler handler) {
+    @autoreleasepool {
     if (unityCoreBluetooth == nil) return;
     [unityCoreBluetooth onDiscoverCharacteristicWithHandler: ^(CBCharacteristic* characteristic) {
         handler(characteristic);
     }];
+    }
 }
 
 void unityCoreBluetooth_onUpdateValue(UnityCoreBluetooth* unityCoreBluetooth, OnUpdateValueHandler handler) {
+    @autoreleasepool {
     if (unityCoreBluetooth == nil) return;
     [unityCoreBluetooth onUpdateValueWithHandler: ^(CBCharacteristic* characteristic, NSData* data) {
         NSUInteger length = [data length];
@@ -96,12 +107,15 @@ void unityCoreBluetooth_onUpdateValue(UnityCoreBluetooth* unityCoreBluetooth, On
         handler(characteristic, ptrDest, length);
         free(ptrDest);
     }];
+    }
 }
 
 UnityCoreBluetooth* unityCoreBluetooth_init() {
+    @autoreleasepool {
     UnityCoreBluetooth* unityCoreBluetooth = [[UnityCoreBluetooth alloc] init];
     CFRetain((CFTypeRef)unityCoreBluetooth);
     return unityCoreBluetooth;
+    }
 }
 
 void unityCoreBluetooth_release(UnityCoreBluetooth* unityCoreBluetooth) {
@@ -119,13 +133,17 @@ void unityCoreBluetooth_startScan(UnityCoreBluetooth* unityCoreBluetooth) {
 }
 
 void unityCoreBluetooth_stopScan(UnityCoreBluetooth* unityCoreBluetooth) {
+    @autoreleasepool {
     if (unityCoreBluetooth == nil) return;
     [unityCoreBluetooth stopScan];
+    }
 }
 
 void unityCoreBluetooth_connect(UnityCoreBluetooth* unityCoreBluetooth, CBPeripheral* peripheral) {
+    @autoreleasepool {
     if (unityCoreBluetooth == nil) return;
     [unityCoreBluetooth connectWithPeripheral: peripheral];
+    }
 }
 
 void unityCoreBluetooth_clearPeripherals(UnityCoreBluetooth* unityCoreBluetooth) {

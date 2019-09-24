@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using AOT;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class UnityCBPeripheral {
 
@@ -19,11 +15,13 @@ public class UnityCBPeripheral {
         this.nativePtr = ptr;
     }
 
+    private string _name = null;
     public string name
     {
         get
         {
-            return cbPeripheral_name(nativePtr);
+            if (_name == null) _name = cbPeripheral_name(nativePtr);
+            return _name;
         }
     }
 
