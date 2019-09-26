@@ -28,27 +28,23 @@ namespace Hakumuchu.DayDreamController.Components
 
     public class ButtonsAnalyzer
     {
-        public class VolumeAnalyzer
-        {
-            public ComponentValue<bool> up = new ComponentValue<bool>(new Range(147, 148), (int data) => {
-                return data != 0;
-            });
-            public ComponentValue<bool> down = new ComponentValue<bool>(new Range(148, 149), (int data) => {
-                return data != 0;
-            });
-        }
         public ComponentValue<bool> app = new ComponentValue<bool>(new Range(149, 150), (int data) => {
             return data != 0;
         });
         public ComponentValue<bool> home = new ComponentValue<bool>(new Range(150, 151), (int data) => {
             return data != 0;
         });
-        public VolumeAnalyzer volume;
+        public ComponentValue<bool> up = new ComponentValue<bool>(new Range(147, 148), (int data) => {
+            return data != 0;
+        });
+        public ComponentValue<bool> down = new ComponentValue<bool>(new Range(148, 149), (int data) => {
+            return data != 0;
+        });
         public Buttons GetValue(ref DataAnalyzer data)
         {
             return new Buttons(app.GetValue(ref data),
                 home.GetValue(ref data),
-                new Buttons.Volume(volume.up.GetValue(ref data), volume.down.GetValue(ref data)));
+                new Buttons.Volume(up.GetValue(ref data), down.GetValue(ref data)));
         }
     }
 

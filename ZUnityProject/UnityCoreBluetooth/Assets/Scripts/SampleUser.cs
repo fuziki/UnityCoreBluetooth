@@ -69,15 +69,17 @@ public class SampleUser : MonoBehaviour {
         if (flag == false) return;
         text.text = BitConverter.ToString(value);
 
-        dataAnalyzer.UpdateBytes(value);
+        analyzer.UpdateBytes(this.value);
 
-//        Debug.Log("value: " + BitConverter.ToString(value) + ", " + pad.click.GetValue(ref dataAnalyzer));
-        Debug.Log("value: " + pad.click.GetValue(ref dataAnalyzer) + ", " + 
-            pad.x.GetValue(ref dataAnalyzer) + ", " + pad.y.GetValue(ref dataAnalyzer));
+        Vector3 m = analyzer.Magnet;
+        float angle = Mathf.Sqrt(m.x * m.x + m.y * m.y + m.z * m.z);
+        Quaternion q = new Quaternion(m.x / angle, m.y / angle, m.z / angle, angle);
+        Vector3 n = m.normalized;
+        this.transform.rotation = Quaternion.AngleAxis(angle * 180f / Mathf.PI, new Vector3(n.x * -1f, n.y * -1f, m.z));
+        Debug.Log("m: " + m + "\t, a:" + angle);
     }
 
-    private Hakumuchu.DayDreamController.DataAnalyzer dataAnalyzer = new Hakumuchu.DayDreamController.DataAnalyzer();
-    private Hakumuchu.DayDreamController.Components.TouchPadConfig pad = new Hakumuchu.DayDreamController.Components.TouchPadConfig();
+    private Hakumuchu.DayDreamController.DayDreamControllerAnalyzer analyzer = new Hakumuchu.DayDreamController.DayDreamControllerAnalyzer();
 
     void OnDestroy()
     {
