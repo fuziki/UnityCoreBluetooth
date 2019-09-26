@@ -68,8 +68,16 @@ public class SampleUser : MonoBehaviour {
 	void Update () {
         if (flag == false) return;
         text.text = BitConverter.ToString(value);
-        Debug.Log("value: " + BitConverter.ToString(value));
+
+        dataAnalyzer.UpdateBytes(value);
+
+//        Debug.Log("value: " + BitConverter.ToString(value) + ", " + pad.click.GetValue(ref dataAnalyzer));
+        Debug.Log("value: " + pad.click.GetValue(ref dataAnalyzer) + ", " + 
+            pad.x.GetValue(ref dataAnalyzer) + ", " + pad.y.GetValue(ref dataAnalyzer));
     }
+
+    private Hakumuchu.DayDreamController.DataAnalyzer dataAnalyzer = new Hakumuchu.DayDreamController.DataAnalyzer();
+    private Hakumuchu.DayDreamController.Components.TouchPadConfig pad = new Hakumuchu.DayDreamController.Components.TouchPadConfig();
 
     void OnDestroy()
     {
