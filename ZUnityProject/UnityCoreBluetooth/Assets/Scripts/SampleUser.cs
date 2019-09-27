@@ -71,12 +71,7 @@ public class SampleUser : MonoBehaviour {
 
         analyzer.UpdateBytes(this.value);
 
-        Vector3 m = analyzer.Magnet;
-        float angle = Mathf.Sqrt(m.x * m.x + m.y * m.y + m.z * m.z);
-        Quaternion q = new Quaternion(m.x / angle, m.y / angle, m.z / angle, angle);
-        Vector3 n = m.normalized;
-        this.transform.rotation = Quaternion.AngleAxis(angle * 180f / Mathf.PI, new Vector3(n.x * -1f, n.y * -1f, m.z));
-        Debug.Log("m: " + m + "\t, a:" + angle);
+        this.transform.rotation = analyzer.magnet.ValueAsQuaternion;
     }
 
     private Hakumuchu.DayDreamController.DayDreamControllerAnalyzer analyzer = new Hakumuchu.DayDreamController.DayDreamControllerAnalyzer();
