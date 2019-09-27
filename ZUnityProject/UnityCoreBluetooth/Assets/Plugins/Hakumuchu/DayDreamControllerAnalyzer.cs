@@ -23,7 +23,7 @@ namespace Hakumuchu.DayDreamController
             _accelerator = acceleratorAnalyzer.GetValue(ref dataAnalyzer);
         }
 
-        private Components.TouchPad _touchPad = new Components.TouchPad(false, 0, 0);
+        private Components.TouchPad _touchPad = new Components.TouchPad(false,  new Vector2(0, 0));
         public Components.TouchPad TouchPad
         { get { return _touchPad; } }
 

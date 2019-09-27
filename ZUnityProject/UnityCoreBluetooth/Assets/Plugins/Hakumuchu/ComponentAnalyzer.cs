@@ -20,9 +20,9 @@ namespace Hakumuchu.DayDreamController.Components
             data = data == 0 ? 0 : 127 - data;
             return (float)data / 127.0f;
         });
-        public TouchPad GetValue(ref DataAnalyzer data)
+        public TouchPad.State GetValue(ref DataAnalyzer data)
         {
-            return new TouchPad(click.GetValue(ref data), x.GetValue(ref data), y.GetValue(ref data));
+            return new TouchPad.State(click.GetValue(ref data), new Vector2(x.GetValue(ref data), y.GetValue(ref data)));
         }
     }
 
@@ -40,11 +40,10 @@ namespace Hakumuchu.DayDreamController.Components
         public ComponentValue<bool> down = new ComponentValue<bool>(new Range(148, 149), (int data) => {
             return data != 0;
         });
-        public Buttons GetValue(ref DataAnalyzer data)
+        public Buttons.State GetValue(ref DataAnalyzer data)
         {
-            return new Buttons(app.GetValue(ref data),
-                home.GetValue(ref data),
-                new Buttons.Volume(up.GetValue(ref data), down.GetValue(ref data)));
+            return new Buttons.State(app.GetValue(ref data),
+                home.GetValue(ref data), up.GetValue(ref data), down.GetValue(ref data));
         }
     }
 
