@@ -72,6 +72,14 @@ namespace Hakumuchu.DayDreamController.Components
         {
             base.UpdateValue(analyzer.GetValue(ref data));
         }
+        public Quaternion ValueAsQuaternion
+        {
+            get {
+                float angle = Mathf.Sqrt(Value.x * Value.x + Value.y * Value.y + Value.z * Value.z);
+                Vector3 n = Value.normalized;
+                return Quaternion.AngleAxis(angle * 180f / Mathf.PI, new Vector3(n.x * -1f, n.y * -1f, n.z)); 
+            }
+        }
     }
 
     public class Accelerator : ValueSystem<Vector3>
