@@ -59,7 +59,7 @@ public class SampleUser : MonoBehaviour {
         });
 
         analyzer.touchPad.OnUpdateValue((newValue) => {
-            Debug.Log("update value: " + newValue);
+//            Debug.Log("update value: " + newValue);
         });
 
         UnityCoreBluetooth.Shared.StartCoreBluetooth();
@@ -76,6 +76,9 @@ public class SampleUser : MonoBehaviour {
         analyzer.UpdateBytes(this.value);
 
         this.transform.rotation = analyzer.magnet.ValueAsQuaternion;
+
+        Debug.Log("c: " + analyzer.Value);
+
     }
 
     private Hakumuchu.DayDreamController.DayDreamControllerAnalyzer analyzer = new Hakumuchu.DayDreamController.DayDreamControllerAnalyzer();
