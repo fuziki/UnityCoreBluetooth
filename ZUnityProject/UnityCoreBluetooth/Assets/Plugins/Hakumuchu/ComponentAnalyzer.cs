@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-
+﻿
 namespace Hakumuchu.DayDreamController.Components
 {
     public class TouchPadAnalyzer
@@ -22,7 +18,8 @@ namespace Hakumuchu.DayDreamController.Components
         });
         public TouchPad.State GetValue(ref DataAnalyzer data)
         {
-            return new TouchPad.State(click.GetValue(ref data), new Vector2(x.GetValue(ref data), y.GetValue(ref data)));
+            return new TouchPad.State(click.GetValue(ref data), 
+                new UnityEngine.Vector2(x.GetValue(ref data), y.GetValue(ref data)));
         }
     }
 
@@ -52,7 +49,7 @@ namespace Hakumuchu.DayDreamController.Components
         public GyroAnalyzer()
         {
             this.SetUp(new Range(92, 105), new Range(105, 118), new Range(118, 131), (int data) => {
-                return (float)data / 4095.0f * Mathf.PI * 2048.0f / 180.0f;
+                return (float)data / 4095.0f * UnityEngine.Mathf.PI * 2048.0f / 180.0f;
             });
         }
     }
@@ -62,7 +59,7 @@ namespace Hakumuchu.DayDreamController.Components
         public MagnetAnalyzer()
         {
             this.SetUp(new Range(14, 27), new Range(27, 40), new Range(40, 53), (int data) => {
-                return (float)data / 4095.0f * 2.0f * Mathf.PI;
+                return (float)data / 4095.0f * 2.0f * UnityEngine.Mathf.PI;
              });
         }
     }
