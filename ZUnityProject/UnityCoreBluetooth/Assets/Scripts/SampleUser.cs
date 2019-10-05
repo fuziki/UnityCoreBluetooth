@@ -58,6 +58,10 @@ public class SampleUser : MonoBehaviour {
             this.flag = true;
         });
 
+        analyzer.touchPad.OnUpdateValue((newValue) => {
+            Debug.Log("update value: " + newValue);
+        });
+
         UnityCoreBluetooth.Shared.StartCoreBluetooth();
     }
 
