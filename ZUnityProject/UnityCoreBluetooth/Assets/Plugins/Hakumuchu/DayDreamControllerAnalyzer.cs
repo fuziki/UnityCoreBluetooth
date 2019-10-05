@@ -20,5 +20,10 @@ namespace Hakumuchu.DayDreamController
             magnet.Update(ref dataAnalyzer);
             accelerator.Update(ref dataAnalyzer);
         }
+
+        ~DayDreamControllerAnalyzer()
+        {
+            touchPad.OnUpdateValue(null);
+        }
     }
 }

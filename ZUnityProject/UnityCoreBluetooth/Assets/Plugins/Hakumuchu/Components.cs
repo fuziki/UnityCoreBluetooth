@@ -2,7 +2,28 @@
 
 namespace Hakumuchu.DayDreamController.Components
 {
-    public class TouchPad
+
+    public abstract class ValueSystem<T> where T: new()
+    {
+        public abstract void Update(ref DataAnalyzer data);
+        private T _value = new T();
+        public T Value { 
+            get { return _value; }
+        }
+        public void UpdateValue(T newValue)
+        {
+            if (_func != null) _func(newValue);
+            _value = newValue;
+        }
+        public virtual void OnUpdateValue(System.Action<T> func)
+        {
+            _func = func;
+        }
+        private System.Action<T> _func;
+    }
+
+
+    public class TouchPad: ValueSystem<TouchPad.State>
     {
         public struct State
         {
@@ -13,14 +34,9 @@ namespace Hakumuchu.DayDreamController.Components
         }
         private TouchPadAnalyzer analyzer = new TouchPadAnalyzer();
 
-        public void Update(ref DataAnalyzer data)
+        public override void Update(ref DataAnalyzer data)
         {
-            _value = analyzer.GetValue(ref data);
-        }
-        private State _value = new State(false,  new Vector2(0, 0));
-        public State Value
-        {
-            get { return _value; }
+            base.UpdateValue(analyzer.GetValue(ref data));
         }
     }
 
