@@ -40,7 +40,7 @@ namespace Hakumuchu.DayDreamController.Components
         }
     }
 
-    public class Buttons
+    public class Buttons: ValueSystem<Buttons.State>
     {
         public struct State
         {
@@ -50,64 +50,36 @@ namespace Hakumuchu.DayDreamController.Components
         }
         private ButtonsAnalyzer analyzer = new ButtonsAnalyzer();
 
-        public void Update(ref DataAnalyzer data)
+        public override void Update(ref DataAnalyzer data)
         {
-            _value = analyzer.GetValue(ref data);
-        }
-        private State _value = new State(false, false, false, false);
-        public State Value
-        {
-            get { return _value; }
+            base.UpdateValue(analyzer.GetValue(ref data));
         }
     }
 
-    public class Gyro
+    public class Gyro: ValueSystem<Vector3>
     {
         private GyroAnalyzer analyzer = new GyroAnalyzer();
-        public void Update(ref DataAnalyzer data)
+        public override void Update(ref DataAnalyzer data)
         {
-            _value = analyzer.GetValue(ref data);
-        }
-        private Vector3 _value = new Vector3(0, 0, 0);
-        public Vector3 Value
-        {
-            get { return _value; }
+            base.UpdateValue(analyzer.GetValue(ref data));
         }
     }
 
-    public class Magnet
+    public class Magnet : ValueSystem<Vector3>
     {
         private MagnetAnalyzer analyzer = new MagnetAnalyzer();
-        public void Update(ref DataAnalyzer data)
+        public override void Update(ref DataAnalyzer data)
         {
-            _value = analyzer.GetValue(ref data);
-        }
-        private Vector3 _value = new Vector3(0, 0, 0);
-        public Vector3 Value
-        {
-            get { return _value; }
-        }
-        public Quaternion ValueAsQuaternion
-        {
-            get {
-                float angle = Mathf.Sqrt(_value.x * _value.x + _value.y * _value.y + _value.z * _value.z);
-                Vector3 n = _value.normalized;
-                return Quaternion.AngleAxis(angle * 180f / Mathf.PI, new Vector3(n.x * -1f, n.y * -1f, n.z)); 
-            }
+            base.UpdateValue(analyzer.GetValue(ref data));
         }
     }
 
-    public class Accelerator
+    public class Accelerator : ValueSystem<Vector3>
     {
         private AcceleratorAnalyzer analyzer = new AcceleratorAnalyzer();
-        public void Update(ref DataAnalyzer data)
+        public override void Update(ref DataAnalyzer data)
         {
-            _value = analyzer.GetValue(ref data);
-        }
-        private Vector3 _value = new Vector3(0, 0, 0);
-        public Vector3 Value
-        {
-            get { return _value; }
+            base.UpdateValue(analyzer.GetValue(ref data));
         }
     }
 }
