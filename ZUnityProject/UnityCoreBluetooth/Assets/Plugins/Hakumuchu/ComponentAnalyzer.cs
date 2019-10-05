@@ -1,7 +1,13 @@
 ﻿
 namespace Hakumuchu.DayDreamController.Components
 {
-    public class TouchPadAnalyzer
+
+    public interface IValueAnalyzer<T> where T: new()
+    {
+        T GetValue(ref DataAnalyzer data);
+    }
+
+    public class TouchPadAnalyzer: IValueAnalyzer<TouchPad.State>
     {
         public ComponentValue<bool> click = new ComponentValue<bool>(new Range(151, 152), (int data) => {
             return data != 0;
@@ -23,7 +29,7 @@ namespace Hakumuchu.DayDreamController.Components
         }
     }
 
-    public class ButtonsAnalyzer
+    public class ButtonsAnalyzer: IValueAnalyzer<Buttons.State>
     {
         public ComponentValue<bool> app = new ComponentValue<bool>(new Range(149, 150), (int data) => {
             return data != 0;
