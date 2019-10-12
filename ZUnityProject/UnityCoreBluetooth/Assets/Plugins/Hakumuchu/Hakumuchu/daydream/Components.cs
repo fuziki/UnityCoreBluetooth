@@ -47,17 +47,31 @@ namespace Hakumuchu.DayDreamController.Components
 
     public class Magnet : ValueSystem<Vector3>
     {
+        public float offset_y = 0.0f;
         protected override IValueAnalyzer<Vector3> CreateAnalyzer()
         {
             return new MagnetAnalyzer();
         }
+        private Quaternion _quaternion
+        {
+            get
+            {
+                float angle = Mathf.Sqrt(Value.x * Value.x + Value.y * Value.y + Value.z * Value.z);
+                Vector3 n = Value.normalized;
+                Quaternion q = Quaternion.AngleAxis(angle * 180f / Mathf.PI, new Vector3(n.x * -1f, n.y * -1f, n.z));
+//                Quaternion q = Quaternion.AngleAxis(angle * 180f / Mathf.PI, new Vector3(n.x * -1f, n.y, n.z * -1f)); //mirror
+                return q;
+            }
+        }
         public Quaternion ValueAsQuaternion
         {
             get {
-                float angle = Mathf.Sqrt(Value.x * Value.x + Value.y * Value.y + Value.z * Value.z);
-                Vector3 n = Value.normalized;
-                return Quaternion.AngleAxis(angle * 180f / Mathf.PI, new Vector3(n.x * -1f, n.y * -1f, n.z)); 
+                return Quaternion.Euler(new Vector3(0.0f, offset_y, 0.0f)) * this._quaternion;
             }
+        }
+        public void ReCenter()
+        {
+            offset_y = this._quaternion.eulerAngles.y * -1.0f;
         }
     }
 
