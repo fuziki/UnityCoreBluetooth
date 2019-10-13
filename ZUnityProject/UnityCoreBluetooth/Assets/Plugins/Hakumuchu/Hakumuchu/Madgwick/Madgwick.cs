@@ -8,7 +8,7 @@ namespace Hakumuchu
     public class Madgwick
     {
 
-        float q0 = 0.0f, q1 = 1.0f, q2 = 0.0f, q3 = 0.0f;
+        float q0 = 1.0f, q1 = 0.0f, q2 = 0.0f, q3 = 0.0f;
         bool initalised = false;
 
         float beta = 0.4f;
@@ -20,17 +20,31 @@ namespace Hakumuchu
 
         public Quaternion Update(UnityEngine.Vector3 mag, UnityEngine.Vector3 gyr, UnityEngine.Vector3 acc)
         {
+
             return this.Update(gyr.x, gyr.y, gyr.z, acc.x, acc.y, acc.z, mag.x, mag.y, mag.z, 1f / 60f);
+        }
+
+        void doBruteForceInitialisation(float ax, float ay, float az, float mx, float my, float mz)
+        {
+            initalised = true;
+            float betaOrig = beta;
+            beta = 0.4f;
+            for (int i = 0; i < 10; i += 1)
+            {
+                Update(0.0f, 0.0f, 0.0f, ax, ay, az, mx, my, mz, 1.0f);
+            }
+            beta = betaOrig;
         }
 
         public Quaternion Update(float gx, float gy, float gz, float ax, float ay, float az, float mx, float my, float mz, float deltaTimeSec)
         {
-            float recipSampleFreq = deltaTimeSec;
-
             if (!initalised)
             {
-//                doBruteForceInitialisation(ax, ay, az, mx, my, mz);
+                doBruteForceInitialisation(ax, ay, az, mx, my, mz);
             }
+
+
+            float recipSampleFreq = deltaTimeSec;
 
             float recipNorm;
             float s0, s1, s2, s3;
@@ -53,89 +67,89 @@ namespace Hakumuchu
             qDot4 = 0.5f * (q0 * gz + q1 * gy - q2 * gx);
 
             // Compute feedback only if accelerometer measurement valid (avoids NaN in accelerometer normalisation)
-            if (!(Mathf.Abs(ax) < 0.01f && Mathf.Abs(ay) < 0.01f && Mathf.Abs(az) < 0.01f))
-            {
-                // Normalise accelerometer measurement
-                recipNorm = 1.0f / Mathf.Sqrt(ax * ax + ay * ay + az * az);// * *-0.5f;
-                ax *= recipNorm;
-                ay *= recipNorm;
-                az *= recipNorm;
+            //if (!(Mathf.Abs(ax) < 0.01f && Mathf.Abs(ay) < 0.01f && Mathf.Abs(az) < 0.01f))
+            //{
+            // Normalise accelerometer measurement
+            recipNorm = 1.0f / Mathf.Sqrt(ax * ax + ay * ay + az * az);// * *-0.5f;
+            ax *= recipNorm;
+            ay *= recipNorm;
+            az *= recipNorm;
 
-                // Normalise magnetometer measurement
-                recipNorm = 1.0f / Mathf.Sqrt(mx * mx + my * my + mz * mz);// * *-0.5f;
-                mx *= recipNorm;
-                my *= recipNorm;
-                mz *= recipNorm;
+            // Normalise magnetometer measurement
+            recipNorm = 1.0f / Mathf.Sqrt(mx * mx + my * my + mz * mz);// * *-0.5f;
+            mx *= recipNorm;
+            my *= recipNorm;
+            mz *= recipNorm;
 
-                // Auxiliary variables to avoid repeated arithmetic
-                v2q0mx = 2.0f * q0 * mx;
-                v2q0my = 2.0f * q0 * my;
-                v2q0mz = 2.0f * q0 * mz;
-                v2q1mx = 2.0f * q1 * mx;
-                v2q0 = 2.0f * q0;
-                v2q1 = 2.0f * q1;
-                v2q2 = 2.0f * q2;
-                v2q3 = 2.0f * q3;
-                v2q0q2 = 2.0f * q0 * q2;
-                v2q2q3 = 2.0f * q2 * q3;
-                q0q0 = q0 * q0;
-                q0q1 = q0 * q1;
-                q0q2 = q0 * q2;
-                q0q3 = q0 * q3;
-                q1q1 = q1 * q1;
-                q1q2 = q1 * q2;
-                q1q3 = q1 * q3;
-                q2q2 = q2 * q2;
-                q2q3 = q2 * q3;
-                q3q3 = q3 * q3;
+            // Auxiliary variables to avoid repeated arithmetic
+            v2q0mx = 2.0f * q0 * mx;
+            v2q0my = 2.0f * q0 * my;
+            v2q0mz = 2.0f * q0 * mz;
+            v2q1mx = 2.0f * q1 * mx;
+            v2q0 = 2.0f * q0;
+            v2q1 = 2.0f * q1;
+            v2q2 = 2.0f * q2;
+            v2q3 = 2.0f * q3;
+            v2q0q2 = 2.0f * q0 * q2;
+            v2q2q3 = 2.0f * q2 * q3;
+            q0q0 = q0 * q0;
+            q0q1 = q0 * q1;
+            q0q2 = q0 * q2;
+            q0q3 = q0 * q3;
+            q1q1 = q1 * q1;
+            q1q2 = q1 * q2;
+            q1q3 = q1 * q3;
+            q2q2 = q2 * q2;
+            q2q3 = q2 * q3;
+            q3q3 = q3 * q3;
 
-                // Reference direction of Earth's magnetic field
-                hx = mx * q0q0 - v2q0my * q3 + v2q0mz * q2 + mx * q1q1 + v2q1 * my * q2 + v2q1 * mz * q3 - mx * q2q2 - mx * q3q3;
-                hy = v2q0mx * q3 + my * q0q0 - v2q0mz * q1 + v2q1mx * q2 - my * q1q1 + my * q2q2 + v2q2 * mz * q3 - my * q3q3;
-                v2bx = 1.0f / Mathf.Sqrt(hx * hx + hy * hy);
-                v2bz = -v2q0mx * q2 + v2q0my * q1 + mz * q0q0 + v2q1mx * q3 - mz * q1q1 + v2q2 * my * q3 - mz * q2q2 + mz * q3q3;
-                v4bx = 2.0f * v2bx;
-                v4bz = 2.0f * v2bz;
+            // Reference direction of Earth's magnetic field
+            hx = mx * q0q0 - v2q0my * q3 + v2q0mz * q2 + mx * q1q1 + v2q1 * my * q2 + v2q1 * mz * q3 - mx * q2q2 - mx * q3q3;
+            hy = v2q0mx * q3 + my * q0q0 - v2q0mz * q1 + v2q1mx * q2 - my * q1q1 + my * q2q2 + v2q2 * mz * q3 - my * q3q3;
+            v2bx = 1.0f / Mathf.Sqrt(hx * hx + hy * hy);
+            v2bz = -v2q0mx * q2 + v2q0my * q1 + mz * q0q0 + v2q1mx * q3 - mz * q1q1 + v2q2 * my * q3 - mz * q2q2 + mz * q3q3;
+            v4bx = 2.0f * v2bx;
+            v4bz = 2.0f * v2bz;
 
-                // Gradient decent algorithm corrective step
-                s0 =
-                  -v2q2 * (2.0f * q1q3 - v2q0q2 - ax) +
-                  v2q1 * (2.0f * q0q1 + v2q2q3 - ay) -
-                  v2bz * q2 * (v2bx * (0.5f - q2q2 - q3q3) + v2bz * (q1q3 - q0q2) - mx) +
-                  (-v2bx * q3 + v2bz * q1) * (v2bx * (q1q2 - q0q3) + v2bz * (q0q1 + q2q3) - my) +
-                  v2bx * q2 * (v2bx * (q0q2 + q1q3) + v2bz * (0.5f - q1q1 - q2q2) - mz);
-                s1 =
-                  v2q3 * (2.0f * q1q3 - v2q0q2 - ax) +
-                  v2q0 * (2.0f * q0q1 + v2q2q3 - ay) -
-                  4.0f * q1 * (1f - 2.0f * q1q1 - 2.0f * q2q2 - az) +
-                  v2bz * q3 * (v2bx * (0.5f - q2q2 - q3q3) + v2bz * (q1q3 - q0q2) - mx) +
-                  (v2bx * q2 + v2bz * q0) * (v2bx * (q1q2 - q0q3) + v2bz * (q0q1 + q2q3) - my) +
-                  (v2bx * q3 - v4bz * q1) * (v2bx * (q0q2 + q1q3) + v2bz * (0.5f - q1q1 - q2q2) - mz);
-                s2 =
-                  -v2q0 * (2.0f * q1q3 - v2q0q2 - ax) +
-                  v2q3 * (2.0f * q0q1 + v2q2q3 - ay) -
-                  4.0f * q2 * (1f - 2.0f * q1q1 - 2.0f * q2q2 - az) +
-                  (-v4bx * q2 - v2bz * q0) * (v2bx * (0.5f - q2q2 - q3q3) + v2bz * (q1q3 - q0q2) - mx) +
-                  (v2bx * q1 + v2bz * q3) * (v2bx * (q1q2 - q0q3) + v2bz * (q0q1 + q2q3) - my) +
-                  (v2bx * q0 - v4bz * q2) * (v2bx * (q0q2 + q1q3) + v2bz * (0.5f - q1q1 - q2q2) - mz);
-                s3 =
-                  v2q1 * (2.0f * q1q3 - v2q0q2 - ax) +
-                  v2q2 * (2.0f * q0q1 + v2q2q3 - ay) +
-                  (-v4bx * q3 + v2bz * q1) * (v2bx * (0.5f - q2q2 - q3q3) + v2bz * (q1q3 - q0q2) - mx) +
-                  (-v2bx * q0 + v2bz * q2) * (v2bx * (q1q2 - q0q3) + v2bz * (q0q1 + q2q3) - my) +
-                  v2bx * q1 * (v2bx * (q0q2 + q1q3) + v2bz * (0.5f - q1q1 - q2q2) - mz);
-                recipNorm = 1.0f / Mathf.Sqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3);// * *-0.5f; // normalise step magnitude
-                s0 *= recipNorm;
-                s1 *= recipNorm;
-                s2 *= recipNorm;
-                s3 *= recipNorm;
+            // Gradient decent algorithm corrective step
+            s0 =
+              -v2q2 * (2.0f * q1q3 - v2q0q2 - ax) +
+              v2q1 * (2.0f * q0q1 + v2q2q3 - ay) -
+              v2bz * q2 * (v2bx * (0.5f - q2q2 - q3q3) + v2bz * (q1q3 - q0q2) - mx) +
+              (-v2bx * q3 + v2bz * q1) * (v2bx * (q1q2 - q0q3) + v2bz * (q0q1 + q2q3) - my) +
+              v2bx * q2 * (v2bx * (q0q2 + q1q3) + v2bz * (0.5f - q1q1 - q2q2) - mz);
+            s1 =
+              v2q3 * (2.0f * q1q3 - v2q0q2 - ax) +
+              v2q0 * (2.0f * q0q1 + v2q2q3 - ay) -
+              4.0f * q1 * (1f - 2.0f * q1q1 - 2.0f * q2q2 - az) +
+              v2bz * q3 * (v2bx * (0.5f - q2q2 - q3q3) + v2bz * (q1q3 - q0q2) - mx) +
+              (v2bx * q2 + v2bz * q0) * (v2bx * (q1q2 - q0q3) + v2bz * (q0q1 + q2q3) - my) +
+              (v2bx * q3 - v4bz * q1) * (v2bx * (q0q2 + q1q3) + v2bz * (0.5f - q1q1 - q2q2) - mz);
+            s2 =
+              -v2q0 * (2.0f * q1q3 - v2q0q2 - ax) +
+              v2q3 * (2.0f * q0q1 + v2q2q3 - ay) -
+              4.0f * q2 * (1f - 2.0f * q1q1 - 2.0f * q2q2 - az) +
+              (-v4bx * q2 - v2bz * q0) * (v2bx * (0.5f - q2q2 - q3q3) + v2bz * (q1q3 - q0q2) - mx) +
+              (v2bx * q1 + v2bz * q3) * (v2bx * (q1q2 - q0q3) + v2bz * (q0q1 + q2q3) - my) +
+              (v2bx * q0 - v4bz * q2) * (v2bx * (q0q2 + q1q3) + v2bz * (0.5f - q1q1 - q2q2) - mz);
+            s3 =
+              v2q1 * (2.0f * q1q3 - v2q0q2 - ax) +
+              v2q2 * (2.0f * q0q1 + v2q2q3 - ay) +
+              (-v4bx * q3 + v2bz * q1) * (v2bx * (0.5f - q2q2 - q3q3) + v2bz * (q1q3 - q0q2) - mx) +
+              (-v2bx * q0 + v2bz * q2) * (v2bx * (q1q2 - q0q3) + v2bz * (q0q1 + q2q3) - my) +
+              v2bx * q1 * (v2bx * (q0q2 + q1q3) + v2bz * (0.5f - q1q1 - q2q2) - mz);
+            recipNorm = 1.0f / Mathf.Sqrt(s0 * s0 + s1 * s1 + s2 * s2 + s3 * s3);// * *-0.5f; // normalise step magnitude
+            s0 *= recipNorm;
+            s1 *= recipNorm;
+            s2 *= recipNorm;
+            s3 *= recipNorm;
 
-                // Apply feedback step
-                qDot1 -= beta * s0;
-                qDot2 -= beta * s1;
-                qDot3 -= beta * s2;
-                qDot4 -= beta * s3;
-            }
+            // Apply feedback step
+            qDot1 -= beta * s0;
+            qDot2 -= beta * s1;
+            qDot3 -= beta * s2;
+            qDot4 -= beta * s3;
+//            }
 
             // Integrate rate of change of quaternion to yield quaternion
             q0 += qDot1 * recipSampleFreq;
