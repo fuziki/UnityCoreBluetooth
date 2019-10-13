@@ -20,8 +20,11 @@ public class body : MonoBehaviour {
 
         neck.transform.position = armModel.NeckPosition;
         shoulder.transform.position = armModel.ShoulderPosition;
+        shoulder.transform.rotation = armModel.ShoulderRotation;
         elbow.transform.position = armModel.ElbowPosition;
+        elbow.transform.rotation = armModel.ElbowRotation;
         wrist.transform.position = armModel.WristPosition;
+        wrist.transform.rotation = armModel.WristRotation;
 
 
     }
