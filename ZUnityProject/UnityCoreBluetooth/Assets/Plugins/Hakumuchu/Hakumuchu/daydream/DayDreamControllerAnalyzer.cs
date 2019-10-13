@@ -25,6 +25,8 @@ namespace Hakumuchu.DayDreamController
         public Components.Magnet magnet = new Components.Magnet();
         public Components.Accelerator accelerator = new Components.Accelerator();
 
+        private Madgwick madgwick = new Madgwick(0.1f, 1.0f / 60f);
+
         public void UpdateBytes(byte[] bytes)
         {
             dataAnalyzer.UpdateBytes(bytes);
@@ -33,7 +35,11 @@ namespace Hakumuchu.DayDreamController
             gyro.Update(ref dataAnalyzer);
             magnet.Update(ref dataAnalyzer);
             accelerator.Update(ref dataAnalyzer);
+
+            Orientation = madgwick.Update(magnet.Value, gyro.Value, accelerator.Value);
         }
+
+        public UnityEngine.Quaternion Orientation = new UnityEngine.Quaternion();
 
         ~DayDreamControllerAnalyzer()
         {
