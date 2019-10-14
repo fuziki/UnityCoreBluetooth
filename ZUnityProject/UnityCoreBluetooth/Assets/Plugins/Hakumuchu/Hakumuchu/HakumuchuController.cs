@@ -9,6 +9,8 @@ public class HakumuchuController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        Application.targetFrameRate = 60;
+
         UnityCoreBluetooth.CreateSharedInstance();
 
         UnityCoreBluetooth.Shared.OnUpdateState((string state) =>
@@ -53,6 +55,7 @@ public class HakumuchuController : MonoBehaviour {
 
         UnityCoreBluetooth.Shared.OnUpdateValue((UnityCBCharacteristic characteristic, byte[] data) =>
         {
+            //value = data;
             analyzer.UpdateBytes(data);
         });
 
@@ -65,10 +68,17 @@ public class HakumuchuController : MonoBehaviour {
         UnityCoreBluetooth.Shared.StartCoreBluetooth();
     }
 
+//    byte[] value = new byte[20];
+
     // Update is called once per frame
     void Update()
     {
-        this.transform.rotation = analyzer.magnet.ValueAsQuaternion;
+//        this.transform.rotation = analyzer.magnet.ValueAsQuaternion;
+//        analyzer.UpdateBytes(value);
+        this.transform.rotation = analyzer.Orientation;
+
+
+
     }
 
     private Hakumuchu.DayDreamController.DayDreamControllerAnalyzer analyzer = new Hakumuchu.DayDreamController.DayDreamControllerAnalyzer();

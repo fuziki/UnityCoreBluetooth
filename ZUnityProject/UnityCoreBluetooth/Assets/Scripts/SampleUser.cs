@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using UnityCoreBluetoothFramework;
 using UnityEngine.UI;
+using UnityCoreBluetoothFramework;
 
 public class SampleUser : MonoBehaviour {
 
