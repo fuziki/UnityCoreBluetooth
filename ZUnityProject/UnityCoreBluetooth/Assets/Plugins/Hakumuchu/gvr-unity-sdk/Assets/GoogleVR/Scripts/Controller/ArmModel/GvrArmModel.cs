@@ -190,6 +190,10 @@ public class GvrArmModel : GvrBaseArmModel//, IGvrControllerInputDeviceReceiver
 
     /// <summary>Orientation of the user's torso.</summary>
     protected Quaternion torsoRotation;
+    public Quaternion TorsoRotation
+    {
+        get { return torsoRotation; }
+    }
 
     /// <inheritdoc/>
     public override Vector3 ControllerPositionFromHead

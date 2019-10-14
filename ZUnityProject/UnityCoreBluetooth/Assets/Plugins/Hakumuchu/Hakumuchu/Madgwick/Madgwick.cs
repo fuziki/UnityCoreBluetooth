@@ -20,8 +20,28 @@ namespace Hakumuchu
 
         public Quaternion Update(UnityEngine.Vector3 mag, UnityEngine.Vector3 gyr, UnityEngine.Vector3 acc)
         {
+            //            return this.Update(gyr.x, gyr.y, -1f * gyr.z, acc.x, acc.y, -1f * acc.z, -1f * mag.x, -1f * mag.y, -1f * mag.z, 1f / 60f);
+            //return this.Update(gyr.x, gyr.y, gyr.z, acc.x, acc.y, acc.z, mag.x, mag.y, mag.z, 1f / 60f);
 
-            return this.Update(gyr.x, gyr.y, gyr.z, acc.x, acc.y, acc.z, mag.x, mag.y, mag.z, 1f / 60f);
+            for (int i = 0; i < 3; i++)
+            {
+                while (mag[i] >  Mathf.PI / 2.0f) mag[i] -= Mathf.PI * 2.0f;
+                while (mag[i] < -Mathf.PI / 2.0f) mag[i] += Mathf.PI * 2.0f;
+                while (mag[i] >  Mathf.PI / 2.0f) mag[i] -= Mathf.PI * 2.0f;
+            }
+
+            return this.Update(
+                gyr.x, gyr.y, gyr.z,
+                acc.x, acc.y, acc.z,
+                mag.x, mag.y, mag.z,
+                1f / 60f);
+            //return this.Update(
+                //gyr.x, -1f * gyr.z, gyr.y,
+                //acc.x, -1f * acc.z, acc.y,
+                //mag.x, -1f * mag.z, mag.y,
+                //1f / 60f);
+            //            return this.Update(gyr.x, -1f * gyr.y, gyr.z, acc.x, -1f* acc.y, acc.z, -1f * mag.x, mag.y, -1f * mag.z, 1f / 60f);
+            //            return this.Update(-1f * gyr.z, gyr.x, gyr.y, -1f * acc.z, acc.x, acc.y, -1f * mag.z, mag.x, mag.y, 1f / 60f);
         }
 
         void doBruteForceInitialisation(float ax, float ay, float az, float mx, float my, float mz)
@@ -164,8 +184,10 @@ namespace Hakumuchu
             q2 *= recipNorm;
             q3 *= recipNorm;
 
-            return new Quaternion(q1, q2, q3, q0);
-
+//            return new Quaternion(q1, q2, q3, q0);
+            return new Quaternion(q1, -1f * q3, -1f * q2, q0);
+            //            return new Quaternion(-1f * q2, q3, q1, q0);
+            //0:w 1:z 2:x 3:-y 
         }
 
     }

@@ -6,6 +6,7 @@ public class body : MonoBehaviour {
 
     public GvrArmModel armModel;
     public GameObject neck;
+    public GameObject torso;
     public GameObject shoulder;
     public GameObject elbow;
     public GameObject wrist;
@@ -19,10 +20,15 @@ public class body : MonoBehaviour {
 	void Update () {
 
         neck.transform.position = armModel.NeckPosition;
+
+        torso.transform.rotation = armModel.TorsoRotation;
+
         shoulder.transform.position = armModel.ShoulderPosition;
         shoulder.transform.rotation = armModel.ShoulderRotation;
+
         elbow.transform.position = armModel.ElbowPosition;
         elbow.transform.rotation = armModel.ElbowRotation;
+
         wrist.transform.position = armModel.WristPosition;
         wrist.transform.rotation = armModel.WristRotation;
 
