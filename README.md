@@ -19,6 +19,6 @@ are licensed as follows:
 
 ===============================================================================
 
-other files:
-MIT License
-Copyright (c) 2019 fuziki
+other files:  
+MIT License  
+Copyright (c) 2019 fuziki  
