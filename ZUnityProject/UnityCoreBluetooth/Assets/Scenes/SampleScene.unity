@@ -764,8 +764,8 @@ MonoBehaviour:
   tooltipMaxAngleFromCamera: 80
   isLockedToNeck: 1
   ControllerInputDevice: {fileID: 1664449185}
-  shoulderRotationRatio: 0.18
-  elbowRotationRatio: 0.5
+  shoulderRotationRatio: 0.5
+  elbowRotationRatio: 0.3
   wristRotationRatio: 0.1
   minJointShiftAngle: 160
   maxJointShiftAngle: 180
