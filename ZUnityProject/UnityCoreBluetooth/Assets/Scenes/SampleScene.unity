@@ -1290,6 +1290,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1664449182}
+  - component: {fileID: 1664449183}
   - component: {fileID: 1664449184}
   m_Layer: 0
   m_Name: ArmModel
@@ -1311,6 +1312,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1664449183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1664449181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28642d0c93b3c46e893ac8f016430014, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetHumanoid: {fileID: 0}
+  configs:
+  - type: 2
+    targetBone: 7
+  - type: 3
+    targetBone: 14
+  - type: 4
+    targetBone: 16
+  - type: 5
+    targetBone: 18
+  d:
+    l:
+    - m_key: 0
+      m_value: 
 --- !u!114 &1664449184
 MonoBehaviour:
   m_ObjectHideFlags: 0
