@@ -16,21 +16,27 @@ namespace Hakumuchu.ArmModel
 
 namespace Hakumuchu
 {
-    public class HumanoidController : MonoBehaviour
+    public class HumanoidController : MonoBehaviour, IHeadPositionProvider
     {
+//        [SerializeField]
+        //        private GvrArmModel armModel;
         [SerializeField]
-        private GvrArmModel armModel;
+        private HmcArmModel armModel;
 
         [SerializeField]
         private Animator targetAnimator;
 
         [SerializeField]
+        private Transform HeadTransform;
+
+        [SerializeField]
         private PartsBonePair[] partsToBone = new PartsBonePair[]
         {
-            new PartsBonePair(){ key = ArmModel.BodyParts.Torso, value = HumanBodyBones.Spine },
+            new PartsBonePair(){ key = ArmModel.BodyParts.Torso, value = HumanBodyBones.RightShoulder },
             new PartsBonePair(){ key = ArmModel.BodyParts.Shoulder, value = HumanBodyBones.RightUpperArm },
             new PartsBonePair(){ key = ArmModel.BodyParts.Elbow, value = HumanBodyBones.RightLowerArm },
             new PartsBonePair(){ key = ArmModel.BodyParts.Wrist, value = HumanBodyBones.RightHand },
+//            new PartsBonePair(){ key = ArmModel.BodyParts.Head, value = HumanBodyBones.Head },
         };
 
         private Dictionary<HumanBodyBones, Quaternion> poseBackup = new Dictionary<HumanBodyBones, Quaternion>();
@@ -47,6 +53,7 @@ namespace Hakumuchu
         // Use this for initialization
         void Start()
         {
+            GvrVRHelpers.provider = this;
         }
 
         // Update is called once per frame
@@ -60,16 +67,35 @@ namespace Hakumuchu
             {
                 Quaternion rot = GetQuaternionFromArmModel(armModel, pair.key);
                 this.targetAnimator.GetBoneTransform(pair.value).rotation = rot * poseBackup[pair.value];
+                Debug.Log("rot " + pair.key + ": " + rot.eulerAngles);
             }
         }
 
-        private Quaternion GetQuaternionFromArmModel(GvrArmModel armModel, ArmModel.BodyParts parts)
+        public Vector3 HeadPosision
+        {
+            get
+            {
+                return Vector3.zero;
+            }
+        }
+
+        public Quaternion HeadRotation
+        {
+            get
+            {
+                return HeadTransform.rotation;
+//                return Quaternion.Euler(0, 45, 0);
+            }
+        }
+
+
+        private Quaternion GetQuaternionFromArmModel(IHMCArmModel armModel, ArmModel.BodyParts parts)
         {
             Quaternion rot;
             switch (parts)
             {
                 case ArmModel.BodyParts.Head:
-                    rot = Quaternion.identity;
+                    rot = HeadTransform.rotation;
                     break;
                 case ArmModel.BodyParts.Neck:
                     rot = Quaternion.identity;
