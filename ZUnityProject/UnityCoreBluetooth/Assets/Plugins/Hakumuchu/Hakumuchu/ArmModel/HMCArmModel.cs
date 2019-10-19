@@ -2,9 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface IHMCArmModel
+{
+    Quaternion TorsoRotation { get; }
+    Quaternion ShoulderRotation { get; }
+    Quaternion ElbowRotation { get; }
+    Quaternion WristRotation { get; }
+}
 
-
-public class HMCArmModel : MonoBehaviour {
+public class HmcArmModel : MonoBehaviour, IHMCArmModel {
 
     protected static readonly Vector3 NECK_OFFSET = new Vector3(0.0f, 0.075f, 0.08f);
     public static readonly Vector3 DEFAULT_ELBOW_REST_POSITION = new Vector3(0.195f, -0.5f, 0.005f);
@@ -61,7 +67,7 @@ public class HMCArmModel : MonoBehaviour {
     public class State
     {
         public Vector3 handedMultiplier = new Vector3();
-        public Vector3 torsoDirection = new Vector3();
+        public Vector3 torsoDirection = Vector3.forward;
         public Quaternion torsoRotation = new Quaternion();
         public Vector3 neckPosition = new Vector3();
         public Vector3 elbowPosition = new Vector3();
@@ -73,6 +79,12 @@ public class HMCArmModel : MonoBehaviour {
     }
     protected State state = new State();
 
+    public Quaternion TorsoRotation => this.state.torsoRotation;
+    public Quaternion ShoulderRotation => this.state.torsoRotation;
+    public Quaternion ElbowRotation => this.state.elbowRotation;
+    public Quaternion WristRotation => this.state.wristRotation;
+
+
 
     protected virtual void OnControllerInputUpdated()
     {
@@ -80,7 +92,7 @@ public class HMCArmModel : MonoBehaviour {
         UpdateTorsoDirection(false);
         UpdateNeckPosition();
         ApplyArmModel();
-        UpdateTransparency();
+        //UpdateTransparency();
     }
 
     protected virtual void UpdateHandedness()
@@ -239,57 +251,6 @@ public class HMCArmModel : MonoBehaviour {
         this.state.wristPosition = this.state.elbowPosition + (this.state.elbowRotation * this.state.wristPosition);
         this.state.controllerPosition = this.state.wristPosition + (this.state.wristRotation * this.state.controllerPosition);
     }
-
-
-    protected virtual void UpdateTransparency()
-    {
-        Vector3 controllerForward = controllerRotation * Vector3.forward;
-
-        Vector3 offsetControllerPosition =
-            controllerPosition + (controllerForward * fadeControllerOffset);
-
-        Vector3 controllerRelativeToHead = offsetControllerPosition - neckPosition;
-
-        Vector3 headForward = GvrVRHelpers.GetHeadForward();
-
-        float distanceToHeadForward =
-            Vector3.Scale(controllerRelativeToHead, headForward).magnitude;
-
-        Vector3 headRight = Vector3.Cross(headForward, Vector3.up);
-        float distanceToHeadSide = Vector3.Scale(controllerRelativeToHead, headRight).magnitude;
-        float distanceToHeadUp = Mathf.Abs(controllerRelativeToHead.y);
-
-        bool shouldFadeController = distanceToHeadForward < fadeDistanceFromHeadForward
-                                    && distanceToHeadUp < fadeDistanceFromHeadForward
-                                    && distanceToHeadSide < fadeDistanceFromHeadSide;
-
-        // Determine how vertical the controller is pointing.
-        float animationDelta = DELTA_ALPHA * Time.unscaledDeltaTime;
-        if (shouldFadeController)
-        {
-            preferredAlpha = Mathf.Max(0.0f, preferredAlpha - animationDelta);
-        }
-        else
-        {
-            preferredAlpha = Mathf.Min(1.0f, preferredAlpha + animationDelta);
-        }
-
-        float dot = Vector3.Dot(controllerRotation * Vector3.up,
-                                -controllerRelativeToHead.normalized);
-        float minDot = (tooltipMaxAngleFromCamera - 90.0f) / -90.0f;
-        float distToFace = Vector3.Distance(controllerRelativeToHead, Vector3.zero);
-        if (shouldFadeController
-              || distToFace > tooltipMinDistanceFromFace
-              || dot < minDot)
-        {
-            tooltipAlphaValue = Mathf.Max(0.0f, tooltipAlphaValue - animationDelta);
-        }
-        else
-        {
-            tooltipAlphaValue = Mathf.Min(1.0f, tooltipAlphaValue + animationDelta);
-        }
-    }
-
 
 
 }

@@ -816,20 +816,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28642d0c93b3c46e893ac8f016430014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armModel: {fileID: 1664449184}
+  armModel: {fileID: 1664449186}
   targetAnimator: {fileID: 971142442}
   HeadTransform: {fileID: 1137239944}
   partsToBone:
   - key: 2
-    value: 12
+    value: 8
   - key: 3
     value: 14
   - key: 4
     value: 16
   - key: 5
     value: 18
-  - key: 0
-    value: 10
 --- !u!114 &1664449184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -883,7 +881,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1664449181}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9738aafd58771497187141ff89801ecc, type: 3}
+  m_Script: {fileID: 11500000, guid: 5bbc8f6cd97d541d0aa443fcb066914e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ControllerInputDevice: {fileID: 1664449185}
@@ -894,6 +892,15 @@ MonoBehaviour:
     controllerRestPosition: {x: 0, y: 0, z: 0.05}
     armExtensionOffset: {x: -0.13, y: 0.14, z: 0.08}
     elbowBendRatio: 0.6
+  shoulderRotationRatio: 0.5
+  elbowRotationRatio: 0.3
+  wristRotationRatio: 0.1
+  minJointShiftAngle: 160
+  maxJointShiftAngle: 180
+  jointShiftExponent: 6
+  shiftedShoulderRotationRatio: 0.1
+  shiftedElbowRotationRatio: 0.4
+  shiftedWristRotationRatio: 0.5
 --- !u!1 &2142441784
 GameObject:
   m_ObjectHideFlags: 0

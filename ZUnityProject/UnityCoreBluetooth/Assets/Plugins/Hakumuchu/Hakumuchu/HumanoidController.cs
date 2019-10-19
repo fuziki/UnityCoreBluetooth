@@ -18,8 +18,10 @@ namespace Hakumuchu
 {
     public class HumanoidController : MonoBehaviour, IHeadPositionProvider
     {
+//        [SerializeField]
+        //        private GvrArmModel armModel;
         [SerializeField]
-        private GvrArmModel armModel;
+        private HmcArmModel armModel;
 
         [SerializeField]
         private Animator targetAnimator;
@@ -65,6 +67,7 @@ namespace Hakumuchu
             {
                 Quaternion rot = GetQuaternionFromArmModel(armModel, pair.key);
                 this.targetAnimator.GetBoneTransform(pair.value).rotation = rot * poseBackup[pair.value];
+                Debug.Log("rot " + pair.key + ": " + rot.eulerAngles);
             }
         }
 
@@ -86,7 +89,7 @@ namespace Hakumuchu
         }
 
 
-        private Quaternion GetQuaternionFromArmModel(GvrArmModel armModel, ArmModel.BodyParts parts)
+        private Quaternion GetQuaternionFromArmModel(IHMCArmModel armModel, ArmModel.BodyParts parts)
         {
             Quaternion rot;
             switch (parts)

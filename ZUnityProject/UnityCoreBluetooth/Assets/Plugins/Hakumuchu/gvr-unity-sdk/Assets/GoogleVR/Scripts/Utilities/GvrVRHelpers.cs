@@ -67,8 +67,8 @@ public static class GvrVRHelpers
     /// <returns>The headset's rotation.</returns>
     public static Quaternion GetHeadRotation()
     {
-        if (provider != null) return provider.HeadRotation;
-        return Camera.main.transform.localRotation;
+        //        if (provider != null) return provider.HeadRotation;
+        return Quaternion.Euler(0, 0, 0);
 //#if UNITY_EDITOR
 //        if (InstantPreview.IsActive)
 //        {
