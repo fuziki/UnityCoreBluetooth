@@ -28,9 +28,19 @@ using UnityEngine;
 //using XRSettings = UnityEngine.VR.VRSettings;
 //#endif  // UNITY_2017_2_OR_NEWER
 
+
+public interface IHeadPositionProvider
+{
+    Vector3 HeadPosision { get; }
+    Quaternion HeadRotation { get; }
+}
+
 /// <summary>Helper functions common to GVR VR applications.</summary>
 public static class GvrVRHelpers
 {
+
+    public static IHeadPositionProvider provider = null;
+
     /// <summary>Gets the center of the screen or eye texture, in pixels.</summary>
     /// <returns>The center of the screen, in pixels.</returns>
     //public static Vector2 GetViewportCenter()
@@ -57,6 +67,7 @@ public static class GvrVRHelpers
     /// <returns>The headset's rotation.</returns>
     public static Quaternion GetHeadRotation()
     {
+        if (provider != null) return provider.HeadRotation;
         return Camera.main.transform.localRotation;
 //#if UNITY_EDITOR
 //        if (InstantPreview.IsActive)
@@ -86,6 +97,7 @@ public static class GvrVRHelpers
     /// <returns>The head's position.</returns>
     public static Vector3 GetHeadPosition()
     {
+        if (provider != null) return provider.HeadPosision;
         return Vector3.zero;
 //#if UNITY_EDITOR
 //        if (GvrEditorEmulator.Instance == null)
