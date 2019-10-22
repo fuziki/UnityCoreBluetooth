@@ -88,7 +88,7 @@ public class HakumuchuController : MonoBehaviour {
         UnityCoreBluetooth.ReleaseSharedInstance();
     }
 
-    public bool IsRightHand = false;
+    public bool IsRightHand = true;
 
     public bool Recentered = false;
 

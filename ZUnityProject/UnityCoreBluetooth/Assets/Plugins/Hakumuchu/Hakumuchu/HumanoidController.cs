@@ -21,22 +21,28 @@ namespace Hakumuchu
 //        [SerializeField]
         //        private GvrArmModel armModel;
         [SerializeField]
-        private HmcArmModel armModel;
+        private SwingArmEstimator armModel;
+//        private HmcArmModel armModel;
 
         [SerializeField]
         private Animator targetAnimator;
 
         [SerializeField]
-        private Transform HeadTransform;
+        private Transform torsoTransform;
+
+        [SerializeField]
+        private HakumuchuController ControllerInputDevice;
+
+        //[SerializeField]
+        //private Transform HeadTransform;
 
         [SerializeField]
         private PartsBonePair[] partsToBone = new PartsBonePair[]
         {
-            new PartsBonePair(){ key = ArmModel.BodyParts.Torso, value = HumanBodyBones.RightShoulder },
+            new PartsBonePair(){ key = ArmModel.BodyParts.Torso, value = HumanBodyBones.Spine },
             new PartsBonePair(){ key = ArmModel.BodyParts.Shoulder, value = HumanBodyBones.RightUpperArm },
             new PartsBonePair(){ key = ArmModel.BodyParts.Elbow, value = HumanBodyBones.RightLowerArm },
             new PartsBonePair(){ key = ArmModel.BodyParts.Wrist, value = HumanBodyBones.RightHand },
-//            new PartsBonePair(){ key = ArmModel.BodyParts.Head, value = HumanBodyBones.Head },
         };
 
         private Dictionary<HumanBodyBones, Quaternion> poseBackup = new Dictionary<HumanBodyBones, Quaternion>();
@@ -53,7 +59,6 @@ namespace Hakumuchu
         // Use this for initialization
         void Start()
         {
-            GvrVRHelpers.provider = this;
         }
 
         // Update is called once per frame
@@ -63,11 +68,35 @@ namespace Hakumuchu
 
         void LateUpdate()
         {
-            foreach(PartsBonePair pair in this.partsToBone)
+            ArmEstimator.Input armIn = new ArmEstimator.Input()
             {
-                Quaternion rot = GetQuaternionFromArmModel(armModel, pair.key);
+                IsRightHand = true,
+                NeckPosition = Vector3.zero,
+                TorsoRotation = torsoTransform.rotation,
+                ControllerRotation = ControllerInputDevice.Orientation
+            };
+            ArmEstimator.Output armOut = armModel.Estimate(armIn);
+
+            foreach (PartsBonePair pair in this.partsToBone)
+            {
+                Quaternion rot;
+                switch (pair.key)
+                {
+                    case ArmModel.BodyParts.Torso:
+                        rot = torsoTransform.rotation;
+                        break;
+                    case ArmModel.BodyParts.Shoulder:
+                        rot = armOut.ShoulderRotation;
+                        break;
+                    case ArmModel.BodyParts.Elbow:
+                        rot = armOut.ElbowRotation;
+                        break;
+                    case ArmModel.BodyParts.Wrist:
+                        rot = armOut.WristRotation;
+                        break;
+                    default: continue;
+                }
                 this.targetAnimator.GetBoneTransform(pair.value).rotation = rot * poseBackup[pair.value];
-                Debug.Log("rot " + pair.key + ": " + rot.eulerAngles);
             }
         }
 
@@ -83,41 +112,41 @@ namespace Hakumuchu
         {
             get
             {
-                return HeadTransform.rotation;
-//                return Quaternion.Euler(0, 45, 0);
+                //return HeadTransform.rotation;
+                return Quaternion.Euler(0, 0, 0);
             }
         }
 
 
-        private Quaternion GetQuaternionFromArmModel(IHMCArmModel armModel, ArmModel.BodyParts parts)
-        {
-            Quaternion rot;
-            switch (parts)
-            {
-                case ArmModel.BodyParts.Head:
-                    rot = HeadTransform.rotation;
-                    break;
-                case ArmModel.BodyParts.Neck:
-                    rot = Quaternion.identity;
-                    break;
-                case ArmModel.BodyParts.Torso:
-                    rot = Quaternion.Euler(0, armModel.TorsoRotation.eulerAngles.y, 0);
-                    break;
-                case ArmModel.BodyParts.Shoulder:
-                    rot = armModel.ShoulderRotation;
-                    break;
-                case ArmModel.BodyParts.Elbow:
-                    rot = armModel.ElbowRotation;
-                    break;
-                case ArmModel.BodyParts.Wrist:
-                    rot = armModel.WristRotation;
-                    break;
-                default:
-                    rot = Quaternion.identity;
-                    break;
-            }
-            return rot;
-        }
+        //private Quaternion GetQuaternionFromArmModel(ArmEstimator armModel, ArmModel.BodyParts parts)
+        //{
+        //    Quaternion rot;
+        //    switch (parts)
+        //    {
+        //        case ArmModel.BodyParts.Head:
+        //            rot = Quaternion.identity;
+        //            break;
+        //        case ArmModel.BodyParts.Neck:
+        //            rot = Quaternion.identity;
+        //            break;
+        //        case ArmModel.BodyParts.Torso:
+        //            rot = Quaternion.Euler(0, armModel.TorsoRotation.eulerAngles.y, 0);
+        //            break;
+        //        case ArmModel.BodyParts.Shoulder:
+        //            rot = armModel.ShoulderRotation;
+        //            break;
+        //        case ArmModel.BodyParts.Elbow:
+        //            rot = armModel.ElbowRotation;
+        //            break;
+        //        case ArmModel.BodyParts.Wrist:
+        //            rot = armModel.WristRotation;
+        //            break;
+        //        default:
+        //            rot = Quaternion.identity;
+        //            break;
+        //    }
+        //    return rot;
+        //}
 
     }
 

@@ -783,8 +783,6 @@ GameObject:
   - component: {fileID: 1664449182}
   - component: {fileID: 1664449183}
   - component: {fileID: 1664449185}
-  - component: {fileID: 1664449186}
-  - component: {fileID: 1664449184}
   m_Layer: 0
   m_Name: ArmModel
   m_TagString: Untagged
@@ -816,50 +814,99 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28642d0c93b3c46e893ac8f016430014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armModel: {fileID: 1664449186}
+  armModel:
+    elbowRestPosition: {x: 0.195, y: -0.5, z: 0.005}
+    wristRestPosition: {x: 0, y: 0, z: 0.25}
+    controllerRestPosition: {x: 0, y: 0, z: 0.05}
+    armExtensionOffset: {x: -0.13, y: 0.14, z: 0.08}
+    elbowBendRatio: 0.6
+    shoulderRotationRatio: 0.5
+    elbowRotationRatio: 0.3
+    wristRotationRatio: 0.2
+    minJointShiftAngle: 160
+    maxJointShiftAngle: 180
+    jointShiftExponent: 6
+    shiftedShoulderRotationRatio: 0.1
+    shiftedElbowRotationRatio: 0.4
+    shiftedWristRotationRatio: 0.5
+    shoulderRotationRatioCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -90
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.001
+        outWeight: 0.001
+      - serializedVersion: 3
+        time: 0
+        value: 0.4
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.001
+        outWeight: 0.001
+      - serializedVersion: 3
+        time: 90
+        value: 0.6
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.001
+        outWeight: 0.001
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    elbowRotationRatioCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -90
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.001
+        outWeight: 0.001
+      - serializedVersion: 3
+        time: 0
+        value: 0.3
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.001
+        outWeight: 0.001
+      - serializedVersion: 3
+        time: 90
+        value: 0.3
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.001
+        outWeight: 0.001
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   targetAnimator: {fileID: 971142442}
-  HeadTransform: {fileID: 1137239944}
+  torsoTransform: {fileID: 1137239944}
+  ControllerInputDevice: {fileID: 1664449185}
   partsToBone:
   - key: 2
-    value: 8
+    value: 7
   - key: 3
     value: 14
   - key: 4
     value: 16
   - key: 5
     value: 18
---- !u!114 &1664449184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1664449181}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c89b6c5ba0a74b1dac3ce674780afc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  elbowRestPosition: {x: 0.195, y: -0.5, z: 0.005}
-  wristRestPosition: {x: 0, y: 0, z: 0.25}
-  controllerRestPosition: {x: 0, y: 0, z: 0.05}
-  armExtensionOffset: {x: -0.13, y: 0.14, z: 0.08}
-  elbowBendRatio: 0.6
-  fadeControllerOffset: 0
-  fadeDistanceFromHeadForward: 0.25
-  fadeDistanceFromHeadSide: 0.15
-  tooltipMinDistanceFromFace: 0.45
-  tooltipMaxAngleFromCamera: 80
-  isLockedToNeck: 1
-  ControllerInputDevice: {fileID: 0}
-  shoulderRotationRatio: 0.5
-  elbowRotationRatio: 0.3
-  wristRotationRatio: 0.1
-  minJointShiftAngle: 160
-  maxJointShiftAngle: 180
-  jointShiftExponent: 6
-  shiftedShoulderRotationRatio: 0.1
-  shiftedElbowRotationRatio: 0.4
-  shiftedWristRotationRatio: 0.5
 --- !u!114 &1664449185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -873,34 +920,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsRightHand: 1
   Recentered: 0
---- !u!114 &1664449186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1664449181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbc8f6cd97d541d0aa443fcb066914e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ControllerInputDevice: {fileID: 1664449185}
-  config:
-    isLockedToNeck: 1
-    elbowRestPosition: {x: 0.195, y: -0.5, z: 0.005}
-    wristRestPosition: {x: 0, y: 0, z: 0.25}
-    controllerRestPosition: {x: 0, y: 0, z: 0.05}
-    armExtensionOffset: {x: -0.13, y: 0.14, z: 0.08}
-    elbowBendRatio: 0.6
-  shoulderRotationRatio: 0.5
-  elbowRotationRatio: 0.3
-  wristRotationRatio: 0.1
-  minJointShiftAngle: 160
-  maxJointShiftAngle: 180
-  jointShiftExponent: 6
-  shiftedShoulderRotationRatio: 0.1
-  shiftedElbowRotationRatio: 0.4
-  shiftedWristRotationRatio: 0.5
 --- !u!1 &2142441784
 GameObject:
   m_ObjectHideFlags: 0
