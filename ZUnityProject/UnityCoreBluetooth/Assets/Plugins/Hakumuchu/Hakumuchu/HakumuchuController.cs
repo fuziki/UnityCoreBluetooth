@@ -6,11 +6,20 @@ using UnityCoreBluetoothFramework;
 
 public class HakumuchuController : MonoBehaviour {
 
+    [SerializeField]
+    private bool IsRightHand = true;
+
+    [SerializeField]
+    private bool Recentered = false;
+
+    private Hakumuchu.DayDreamController.DayDreamControllerAnalyzer analyzer = new Hakumuchu.DayDreamController.DayDreamControllerAnalyzer();
+
+    public Quaternion Orientation => analyzer.magnet.ValueAsQuaternion;
+    public Vector3 Gyro => analyzer.gyro.Value;
+
     // Use this for initialization
     void Start()
     {
-        Application.targetFrameRate = 60;
-
         UnityCoreBluetooth.CreateSharedInstance();
 
         UnityCoreBluetooth.Shared.OnUpdateState((string state) =>
@@ -55,12 +64,10 @@ public class HakumuchuController : MonoBehaviour {
 
         UnityCoreBluetooth.Shared.OnUpdateValue((UnityCBCharacteristic characteristic, byte[] data) =>
         {
-            //value = data;
             analyzer.UpdateBytes(data);
         });
 
         analyzer.buttons.OnUpdateValue((newValue) => {
-//            Debug.Log("update value: " + newValue);
             this.Recentered = newValue.app;
             if (this.Recentered) analyzer.magnet.ReCenter();
         });
@@ -68,44 +75,8 @@ public class HakumuchuController : MonoBehaviour {
         UnityCoreBluetooth.Shared.StartCoreBluetooth();
     }
 
-//    byte[] value = new byte[20];
-
-    // Update is called once per frame
-    void Update()
-    {
-//        this.transform.rotation = analyzer.magnet.ValueAsQuaternion;
-//        analyzer.UpdateBytes(value);
-        this.transform.rotation = analyzer.Orientation;
-
-
-
-    }
-
-    private Hakumuchu.DayDreamController.DayDreamControllerAnalyzer analyzer = new Hakumuchu.DayDreamController.DayDreamControllerAnalyzer();
-
     void OnDestroy()
     {
         UnityCoreBluetooth.ReleaseSharedInstance();
     }
-
-    public bool IsRightHand = true;
-
-    public bool Recentered = false;
-
-    public Quaternion Orientation
-    {
-        get
-        {
-            return analyzer.magnet.ValueAsQuaternion;
-        }
-    }
-
-    public Vector3 Gyro
-    {
-        get
-        {
-            return analyzer.gyro.Value;
-        }
-    }
-
 }
