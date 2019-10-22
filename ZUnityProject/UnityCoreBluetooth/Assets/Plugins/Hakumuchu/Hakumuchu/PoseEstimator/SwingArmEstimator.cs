@@ -5,6 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class SwingArmEstimator: ArmEstimator
 {
+    [SerializeField]
+    public bool relativeToTorso = false;
+
     [Tooltip("Portion of controller rotation applied to the shoulder joint.")]
     [Range(0.0f, 1.0f)]
     public float shoulderRotationRatio = 0.5f;
@@ -64,6 +67,7 @@ public class SwingArmEstimator: ArmEstimator
                                                         ControllerRotation controllerRotation,
                                                         Quaternion lerpRotation)
     {
+
         // As the controller angle increases the ratio of the rotation applied to each joint shifts.
         float totalAngle = Quaternion.Angle(controllerRotation.XYRotation, Quaternion.identity);
         float joingShiftAngleRange = maxJointShiftAngle - minJointShiftAngle;
@@ -84,8 +88,8 @@ public class SwingArmEstimator: ArmEstimator
 
         // Calculate final rotations.
         //        state.shoulderRotation = state.torsoRotation * swingShoulderRot;
-        output.ShoulderRotation = swingShoulderRot;
-        output.ElbowRotation = output.ShoulderRotation * swingElbowRot;
+        output.ShoulderRotation = this.relativeToTorso ? input.TorsoRotation * swingShoulderRot : swingShoulderRot;
+        output.ElbowRotation = output.ShoulderRotation * swingElbowRot;// * Quaternion.Euler(-90, 0, 0);
         output.WristRotation = output.ElbowRotation * swingWristRot;
         output.ControllerRotation = input.TorsoRotation * controllerRotation.Orientation;
         //        state.torsoRotation = shoulderRotation;

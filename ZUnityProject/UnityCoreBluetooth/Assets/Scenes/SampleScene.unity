@@ -462,6 +462,86 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.048
       objectReference: {fileID: 0}
+    - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.017731566
+      objectReference: {fileID: 0}
+    - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.002032971
+      objectReference: {fileID: 0}
+    - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.0000360535
+      objectReference: {fileID: 0}
+    - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.9998408
+      objectReference: {fileID: 0}
+    - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.23379216
+      objectReference: {fileID: 0}
+    - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.000023020353
+      objectReference: {fileID: 0}
+    - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.000013530256
+      objectReference: {fileID: 0}
+    - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -2.032
+      objectReference: {fileID: 0}
+    - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0.23300001
+      objectReference: {fileID: 0}
+    - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.315394
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.026251873
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.016569506
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.94845295
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.16249683
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.00000947714
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.0000075190337
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 36.684002
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -4.309
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -3.4310002
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
   m_IsPrefabAsset: 0
@@ -820,6 +900,7 @@ MonoBehaviour:
     controllerRestPosition: {x: 0, y: 0, z: 0.05}
     armExtensionOffset: {x: -0.13, y: 0.14, z: 0.08}
     elbowBendRatio: 0.6
+    relativeToTorso: 0
     shoulderRotationRatio: 0.5
     elbowRotationRatio: 0.3
     wristRotationRatio: 0.2
@@ -902,11 +983,11 @@ MonoBehaviour:
   - key: 2
     value: 7
   - key: 3
-    value: 14
+    value: 13
   - key: 4
-    value: 16
+    value: 15
   - key: 5
-    value: 18
+    value: 17
 --- !u!114 &1664449185
 MonoBehaviour:
   m_ObjectHideFlags: 0

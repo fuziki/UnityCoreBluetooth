@@ -647,7 +647,7 @@ PlayerSettings:
   cloudServicesEnabled:
     UNet: 1
   facebookSdkVersion: 7.9.4
-  apiCompatibilityLevel: 2
+  apiCompatibilityLevel: 3
   cloudProjectId: 6de8fb87-3233-4f5f-81ef-29e2be907833
   projectName: UnityCoreBluetooth
   organizationId: unity_yvrifow9m0l_ma

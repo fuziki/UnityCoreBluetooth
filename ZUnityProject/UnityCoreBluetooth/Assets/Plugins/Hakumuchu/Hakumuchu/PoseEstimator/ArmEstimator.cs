@@ -14,16 +14,16 @@ public class ArmEstimator {
     protected const float EXTENSION_WEIGHT = 0.4f;
 
     [SerializeField]
-    public Vector3 elbowRestPosition = DEFAULT_ELBOW_REST_POSITION;
+    private Vector3 elbowRestPosition = DEFAULT_ELBOW_REST_POSITION;
     [SerializeField]
-    public Vector3 wristRestPosition = DEFAULT_WRIST_REST_POSITION;
+    private Vector3 wristRestPosition = DEFAULT_WRIST_REST_POSITION;
     [SerializeField]
-    public Vector3 controllerRestPosition = DEFAULT_CONTROLLER_REST_POSITION;
+    private Vector3 controllerRestPosition = DEFAULT_CONTROLLER_REST_POSITION;
     [SerializeField]
-    public Vector3 armExtensionOffset = DEFAULT_ARM_EXTENSION_OFFSET;
+    private Vector3 armExtensionOffset = DEFAULT_ARM_EXTENSION_OFFSET;
     [SerializeField]
     [Range(0.0f, 1.0f)]
-    public float elbowBendRatio = DEFAULT_ELBOW_BEND_RATIO;
+    private float elbowBendRatio = DEFAULT_ELBOW_BEND_RATIO;
 
     public struct Input
     {
@@ -52,6 +52,7 @@ public class ArmEstimator {
         public ControllerRotation(Quaternion controllerRotation, Quaternion torsoRotation)
         {
             this.Orientation = Quaternion.Inverse(torsoRotation) * controllerRotation;
+            this.Orientation = controllerRotation;
             Vector3 controllerForward = this.Orientation * Vector3.forward;
             this.XAngle = XAngle = 90.0f - Vector3.Angle(controllerForward, Vector3.up);
             this.XYRotation = Quaternion.FromToRotation(Vector3.forward, controllerForward);

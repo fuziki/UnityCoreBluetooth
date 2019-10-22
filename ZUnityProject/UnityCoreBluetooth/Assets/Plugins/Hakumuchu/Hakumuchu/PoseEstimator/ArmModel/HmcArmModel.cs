@@ -101,33 +101,33 @@ public class HmcArmModel : MonoBehaviour, IHMCArmModel {
 
     protected virtual void UpdateHandedness()
     {
-        if (ControllerInputDevice.IsRightHand)
-            this.state.handedMultiplier.Set(1, 1, 1);
-        else
-            this.state.handedMultiplier.Set(-1, 1, 1);
+        //if (ControllerInputDevice.IsRightHand)
+        //    this.state.handedMultiplier.Set(1, 1, 1);
+        //else
+            //this.state.handedMultiplier.Set(-1, 1, 1);
     }
 
     protected virtual void UpdateTorsoDirection(bool forceImmediate)
     {
         // Determine the gaze direction horizontally.
-        Vector3 gazeDirection = GvrVRHelpers.GetHeadForward();
-        gazeDirection.y = 0.0f;
-        gazeDirection.Normalize();
+        //Vector3 gazeDirection = GvrVRHelpers.GetHeadForward();
+        //gazeDirection.y = 0.0f;
+        //gazeDirection.Normalize();
 
-        // Use the gaze direction to update the forward direction.
-        if (forceImmediate ||
-              (ControllerInputDevice != null && ControllerInputDevice.Recentered))
-        {
-            this.state.torsoDirection = gazeDirection;
-        }
-        else
-        {
-            float angularVelocity =
-                ControllerInputDevice != null ? ControllerInputDevice.Gyro.magnitude : 0;
+        //// Use the gaze direction to update the forward direction.
+        //if (forceImmediate ||
+        //      (ControllerInputDevice != null && ControllerInputDevice.Recentered))
+        //{
+        //    this.state.torsoDirection = gazeDirection;
+        //}
+        //else
+        //{
+        //    float angularVelocity =
+        //        ControllerInputDevice != null ? ControllerInputDevice.Gyro.magnitude : 0;
 
-            float gazeFilterStrength = Mathf.Clamp((angularVelocity - 0.2f) / 45.0f, 0.0f, 0.1f);
-            this.state.torsoDirection = Vector3.Slerp(this.state.torsoDirection, gazeDirection, gazeFilterStrength);
-        }
+        //    float gazeFilterStrength = Mathf.Clamp((angularVelocity - 0.2f) / 45.0f, 0.0f, 0.1f);
+        //    this.state.torsoDirection = Vector3.Slerp(this.state.torsoDirection, gazeDirection, gazeFilterStrength);
+        //}
 
         // Calculate the torso rotation.
 //        this.state.torsoRotation = Quaternion.FromToRotation(Vector3.forward, this.state.torsoDirection);

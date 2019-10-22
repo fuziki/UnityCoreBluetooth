@@ -16,13 +16,10 @@ namespace Hakumuchu.ArmModel
 
 namespace Hakumuchu
 {
-    public class HumanoidController : MonoBehaviour, IHeadPositionProvider
+    public class HumanoidController: MonoBehaviour
     {
-//        [SerializeField]
-        //        private GvrArmModel armModel;
         [SerializeField]
         private SwingArmEstimator armModel;
-//        private HmcArmModel armModel;
 
         [SerializeField]
         private Animator targetAnimator;
@@ -32,9 +29,6 @@ namespace Hakumuchu
 
         [SerializeField]
         private HakumuchuController ControllerInputDevice;
-
-        //[SerializeField]
-        //private Transform HeadTransform;
 
         [SerializeField]
         private PartsBonePair[] partsToBone = new PartsBonePair[]
@@ -54,6 +48,7 @@ namespace Hakumuchu
                 if (HumanBodyBones.LastBone <= bone || this.targetAnimator.GetBoneTransform(bone) == null) continue;
                 poseBackup.Add(bone, this.targetAnimator.GetBoneTransform(bone).rotation);
             }
+            Debug.Log("rot: " + poseBackup[HumanBodyBones.LeftLowerArm].eulerAngles);
         }
 
         // Use this for initialization
@@ -100,97 +95,6 @@ namespace Hakumuchu
             }
         }
 
-        public Vector3 HeadPosision
-        {
-            get
-            {
-                return Vector3.zero;
-            }
-        }
-
-        public Quaternion HeadRotation
-        {
-            get
-            {
-                //return HeadTransform.rotation;
-                return Quaternion.Euler(0, 0, 0);
-            }
-        }
-
-
-        //private Quaternion GetQuaternionFromArmModel(ArmEstimator armModel, ArmModel.BodyParts parts)
-        //{
-        //    Quaternion rot;
-        //    switch (parts)
-        //    {
-        //        case ArmModel.BodyParts.Head:
-        //            rot = Quaternion.identity;
-        //            break;
-        //        case ArmModel.BodyParts.Neck:
-        //            rot = Quaternion.identity;
-        //            break;
-        //        case ArmModel.BodyParts.Torso:
-        //            rot = Quaternion.Euler(0, armModel.TorsoRotation.eulerAngles.y, 0);
-        //            break;
-        //        case ArmModel.BodyParts.Shoulder:
-        //            rot = armModel.ShoulderRotation;
-        //            break;
-        //        case ArmModel.BodyParts.Elbow:
-        //            rot = armModel.ElbowRotation;
-        //            break;
-        //        case ArmModel.BodyParts.Wrist:
-        //            rot = armModel.WristRotation;
-        //            break;
-        //        default:
-        //            rot = Quaternion.identity;
-        //            break;
-        //    }
-        //    return rot;
-        //}
-
     }
-
-
-    [System.Serializable]
-    public class DrawableKeyValuePair<TKeyType, TValueType>
-    {
-        public TKeyType key;
-        public TValueType value;
-    }
-
-    [System.Serializable]
-    public class PartsBonePair : DrawableKeyValuePair<ArmModel.BodyParts, HumanBodyBones> { }
-
-#if UNITY_EDITOR
-    [CustomPropertyDrawer(typeof(PartsBonePair), true)]
-    public class ExtensionDrawableKeyValuePair : PropertyDrawer
-    {
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-        {
-            EditorGUI.BeginProperty(position, label, property);
-            var defaultIndentLevel = EditorGUI.indentLevel;
-            EditorGUI.indentLevel = 0;
-
-            drawProperty(position, 0.0f, 0.35f, property.FindPropertyRelative("key"));
-            drawProperty(position, 0.35f, 1.0f, property.FindPropertyRelative("value"), " ->  ");
-
-
-            EditorGUI.indentLevel = defaultIndentLevel;
-            EditorGUI.EndProperty();
-        }
-
-        private void drawProperty(Rect beginRect, float startRate, float toRate, SerializedProperty serializedProperty, string label = "")
-        {
-            var width = beginRect.width * (toRate - startRate);
-            var rect = new Rect(beginRect.x + beginRect.width * startRate, beginRect.y, width, beginRect.height);
-
-            EditorGUIUtility.labelWidth = label.Length * 5f;
-            EditorGUI.PropertyField(rect, serializedProperty, new GUIContent(label));
-        }
-    }
-#endif
-
-
-
 }
 
