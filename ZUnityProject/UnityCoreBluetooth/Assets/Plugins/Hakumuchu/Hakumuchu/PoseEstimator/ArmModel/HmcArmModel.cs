@@ -12,6 +12,10 @@ public interface IHMCArmModel
 
 public class HmcArmModel : MonoBehaviour, IHMCArmModel {
 
+
+    [SerializeField]
+    private Transform TorsoTransdorm;
+
     protected static readonly Vector3 NECK_OFFSET = new Vector3(0.0f, 0.075f, 0.08f);
     public static readonly Vector3 DEFAULT_ELBOW_REST_POSITION = new Vector3(0.195f, -0.5f, 0.005f);
     public static readonly Vector3 DEFAULT_WRIST_REST_POSITION = new Vector3(0.0f, 0.0f, 0.25f);
@@ -69,6 +73,7 @@ public class HmcArmModel : MonoBehaviour, IHMCArmModel {
         public Vector3 handedMultiplier = new Vector3();
         public Vector3 torsoDirection = Vector3.forward;
         public Quaternion torsoRotation = new Quaternion();
+        public Quaternion shoulderRotation = new Quaternion();
         public Vector3 neckPosition = new Vector3();
         public Vector3 elbowPosition = new Vector3();
         public Vector3 wristPosition = new Vector3();
@@ -80,7 +85,7 @@ public class HmcArmModel : MonoBehaviour, IHMCArmModel {
     protected State state = new State();
 
     public Quaternion TorsoRotation => this.state.torsoRotation;
-    public Quaternion ShoulderRotation => this.state.torsoRotation;
+    public Quaternion ShoulderRotation => this.state.shoulderRotation;
     public Quaternion ElbowRotation => this.state.elbowRotation;
     public Quaternion WristRotation => this.state.wristRotation;
 
@@ -92,41 +97,41 @@ public class HmcArmModel : MonoBehaviour, IHMCArmModel {
         UpdateTorsoDirection(false);
         UpdateNeckPosition();
         ApplyArmModel();
-        //UpdateTransparency();
     }
 
     protected virtual void UpdateHandedness()
     {
-        if (ControllerInputDevice.IsRightHand)
-            this.state.handedMultiplier.Set(1, 1, 1);
-        else
-            this.state.handedMultiplier.Set(-1, 1, 1);
+        //if (ControllerInputDevice.IsRightHand)
+        //    this.state.handedMultiplier.Set(1, 1, 1);
+        //else
+            //this.state.handedMultiplier.Set(-1, 1, 1);
     }
 
     protected virtual void UpdateTorsoDirection(bool forceImmediate)
     {
         // Determine the gaze direction horizontally.
-        Vector3 gazeDirection = GvrVRHelpers.GetHeadForward();
-        gazeDirection.y = 0.0f;
-        gazeDirection.Normalize();
+        //Vector3 gazeDirection = GvrVRHelpers.GetHeadForward();
+        //gazeDirection.y = 0.0f;
+        //gazeDirection.Normalize();
 
-        // Use the gaze direction to update the forward direction.
-        if (forceImmediate ||
-              (ControllerInputDevice != null && ControllerInputDevice.Recentered))
-        {
-            this.state.torsoDirection = gazeDirection;
-        }
-        else
-        {
-            float angularVelocity =
-                ControllerInputDevice != null ? ControllerInputDevice.Gyro.magnitude : 0;
+        //// Use the gaze direction to update the forward direction.
+        //if (forceImmediate ||
+        //      (ControllerInputDevice != null && ControllerInputDevice.Recentered))
+        //{
+        //    this.state.torsoDirection = gazeDirection;
+        //}
+        //else
+        //{
+        //    float angularVelocity =
+        //        ControllerInputDevice != null ? ControllerInputDevice.Gyro.magnitude : 0;
 
-            float gazeFilterStrength = Mathf.Clamp((angularVelocity - 0.2f) / 45.0f, 0.0f, 0.1f);
-            this.state.torsoDirection = Vector3.Slerp(this.state.torsoDirection, gazeDirection, gazeFilterStrength);
-        }
+        //    float gazeFilterStrength = Mathf.Clamp((angularVelocity - 0.2f) / 45.0f, 0.0f, 0.1f);
+        //    this.state.torsoDirection = Vector3.Slerp(this.state.torsoDirection, gazeDirection, gazeFilterStrength);
+        //}
 
         // Calculate the torso rotation.
-        this.state.torsoRotation = Quaternion.FromToRotation(Vector3.forward, this.state.torsoDirection);
+//        this.state.torsoRotation = Quaternion.FromToRotation(Vector3.forward, this.state.torsoDirection);
+        this.state.torsoRotation = this.TorsoTransdorm.rotation;
     }
 
 
@@ -195,9 +200,11 @@ public class HmcArmModel : MonoBehaviour, IHMCArmModel {
     {
         // Find the controller's orientation relative to the player.
         rotation = ControllerInputDevice != null ?
-            ControllerInputDevice.Orientation : Quaternion.identity;
+            ControllerInputDevice.Orientation : Quaternion.Euler(0, 0, 0);
 
         rotation = Quaternion.Inverse(this.state.torsoRotation) * rotation;
+
+        Debug.Log("torsoRotation: " + state.torsoRotation.eulerAngles + ", rotation: " + rotation.eulerAngles);
 
         // Extract just the x rotation angle.
         Vector3 controllerForward = rotation * Vector3.forward;

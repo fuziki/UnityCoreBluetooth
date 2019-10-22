@@ -58,8 +58,8 @@ namespace Hakumuchu.DayDreamController.Components
             {
                 float angle = Mathf.Sqrt(Value.x * Value.x + Value.y * Value.y + Value.z * Value.z);
                 Vector3 n = Value.normalized;
-                Quaternion q = Quaternion.AngleAxis(angle * 180f / Mathf.PI, new Vector3(n.x * -1f, n.y * -1f, n.z));
-//                Quaternion q = Quaternion.AngleAxis(angle * 180f / Mathf.PI, new Vector3(n.x * -1f, n.y, n.z * -1f)); //mirror
+//                Quaternion q = Quaternion.AngleAxis(angle * 180f / Mathf.PI, new Vector3(n.x * -1f, n.y * -1f, n.z));
+                Quaternion q = Quaternion.AngleAxis(angle * 180f / Mathf.PI, new Vector3(n.x * -1f, n.y, n.z * -1f)); //mirror
                 return q;
             }
         }

@@ -342,15 +342,15 @@ public class GvrArmModel : GvrBaseArmModel//, IGvrControllerInputDeviceReceiver
         }
 
         // Determine handedness multiplier.
-        handedMultiplier.Set(0, 1, 1);
-        if (ControllerInputDevice.IsRightHand)
-        {
-            handedMultiplier.x = 1.0f;
-        }
-        else
-        {
-            handedMultiplier.x = -1.0f;
-        }
+        //handedMultiplier.Set(0, 1, 1);
+        //if (ControllerInputDevice.IsRightHand)
+        //{
+        //    handedMultiplier.x = 1.0f;
+        //}
+        //else
+        //{
+        //    handedMultiplier.x = -1.0f;
+        //}
     }
 
     /// <summary>Updates the arm model torso direction.</summary>
@@ -365,19 +365,19 @@ public class GvrArmModel : GvrBaseArmModel//, IGvrControllerInputDeviceReceiver
         gazeDirection.Normalize();
 
         // Use the gaze direction to update the forward direction.
-        if (forceImmediate ||
-              (ControllerInputDevice != null && ControllerInputDevice.Recentered))
-        {
-            torsoDirection = gazeDirection;
-        }
-        else
-        {
-            float angularVelocity =
-                ControllerInputDevice != null ? ControllerInputDevice.Gyro.magnitude : 0;
+        //if (forceImmediate ||
+        //      (ControllerInputDevice != null && ControllerInputDevice.Recentered))
+        //{
+        //    torsoDirection = gazeDirection;
+        //}
+        //else
+        //{
+        //    float angularVelocity =
+        //        ControllerInputDevice != null ? ControllerInputDevice.Gyro.magnitude : 0;
 
-            float gazeFilterStrength = Mathf.Clamp((angularVelocity - 0.2f) / 45.0f, 0.0f, 0.1f);
-            torsoDirection = Vector3.Slerp(torsoDirection, gazeDirection, gazeFilterStrength);
-        }
+        //    float gazeFilterStrength = Mathf.Clamp((angularVelocity - 0.2f) / 45.0f, 0.0f, 0.1f);
+        //    torsoDirection = Vector3.Slerp(torsoDirection, gazeDirection, gazeFilterStrength);
+        //}
 
         // Calculate the torso rotation.
         torsoRotation = Quaternion.FromToRotation(Vector3.forward, torsoDirection);

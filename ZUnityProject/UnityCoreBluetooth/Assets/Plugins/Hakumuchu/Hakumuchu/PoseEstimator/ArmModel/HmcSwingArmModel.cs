@@ -40,8 +40,34 @@ public class HmcSwingArmModel : HmcArmModel
     [Range(0.0f, 1.0f)]
     public float shiftedWristRotationRatio = 0.5f;
 
+    [SerializeField]
+    private AnimationCurve shoulderRotationRatioCurve = new AnimationCurve(new Keyframe[]
+    {
+        //Keyframe(float time, float value, float inTangent, float outTangent, float inWeight, float outWeight)
+        new Keyframe(90f, 0.6f, 0f, 0f, 0.001f, 0.001f),
+        new Keyframe(0.0f, 0.4f, 0f, 0f, 0.001f, 0.001f),
+        new Keyframe(-90f, 0.0f, 0f, 0f, 0.001f, 0.001f),
+    });
+
+    [SerializeField]
+    private AnimationCurve elbowRotationRatioCurve = new AnimationCurve(new Keyframe[]
+    {
+        //Keyframe(float time, float value, float inTangent, float outTangent, float inWeight, float outWeight)
+        new Keyframe(90f, 0.3f, 0f, 0f, 0.001f, 0.001f),
+        new Keyframe(0.0f, 0.3f, 0f, 0f, 0.001f, 0.001f),
+        new Keyframe(-90f, 1.0f, 0f, 0f, 0.001f, 0.001f),
+    });
+
     protected override void CalculateFinalJointRotations(Quaternion controllerOrientation, Quaternion xyRotation, Quaternion lerpRotation)
     {
+
+        Vector3 controllerForward = controllerOrientation * Vector3.forward;
+        float xAngle = 90.0f - Vector3.Angle(controllerForward, Vector3.up);
+
+
+        //Debug.Log("xyRotation: " + xyRotation.eulerAngles);
+
+
         // As the controller angle increases the ratio of the rotation applied to each joint shifts.
         float totalAngle = Quaternion.Angle(xyRotation, Quaternion.identity);
         float joingShiftAngleRange = maxJointShiftAngle - minJointShiftAngle;
@@ -49,8 +75,10 @@ public class HmcSwingArmModel : HmcArmModel
         float jointShiftRatio = Mathf.Pow(angleRatio, jointShiftExponent);
 
         // Calculate what portion of the rotation is applied to each joint.
-        float finalShoulderRatio = Mathf.Lerp(shoulderRotationRatio, shiftedShoulderRotationRatio, jointShiftRatio);
-        float finalElbowRatio = Mathf.Lerp(elbowRotationRatio, shiftedElbowRotationRatio, jointShiftRatio);
+        //float finalShoulderRatio = Mathf.Lerp(shoulderRotationRatio + offset_s, shiftedShoulderRotationRatio, jointShiftRatio);
+        //float finalElbowRatio = Mathf.Lerp(elbowRotationRatio + offset_e, shiftedElbowRotationRatio, jointShiftRatio);
+        float finalShoulderRatio = Mathf.Lerp(shoulderRotationRatioCurve.Evaluate(xAngle), shiftedShoulderRotationRatio, jointShiftRatio);
+        float finalElbowRatio = Mathf.Lerp(elbowRotationRatioCurve.Evaluate(xAngle), shiftedElbowRotationRatio, jointShiftRatio);
         float finalWristRatio = Mathf.Lerp(wristRotationRatio, shiftedWristRotationRatio, jointShiftRatio);
 
         // Calculate relative rotations for each joint.
@@ -59,10 +87,12 @@ public class HmcSwingArmModel : HmcArmModel
         Quaternion swingWristRot = Quaternion.Lerp(Quaternion.identity, xyRotation, finalWristRatio);
 
         // Calculate final rotations.
-        Quaternion shoulderRotation = state.torsoRotation * swingShoulderRot;
-        state.elbowRotation = shoulderRotation * swingElbowRot;
+//        state.shoulderRotation = state.torsoRotation * swingShoulderRot;
+        state.shoulderRotation = swingShoulderRot;
+        state.elbowRotation = state.shoulderRotation * swingElbowRot;
         state.wristRotation = state.elbowRotation * swingWristRot;
         state.controllerRotation = state.torsoRotation * controllerOrientation;
-        state.torsoRotation = shoulderRotation;
+        //        state.torsoRotation = shoulderRotation;
+        Debug.Log("xy: " + xyRotation.eulerAngles + ", state: " + state.torsoRotation.eulerAngles + state.shoulderRotation.eulerAngles + state.elbowRotation.eulerAngles + state.wristRotation.eulerAngles);
     }
 }
