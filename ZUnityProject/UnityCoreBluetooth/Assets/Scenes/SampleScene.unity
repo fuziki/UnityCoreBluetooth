@@ -464,19 +464,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.017731566
+      value: -0.013975639
       objectReference: {fileID: 0}
     - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.002032971
+      value: -0.011100584
       objectReference: {fileID: 0}
     - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.0000360535
+      value: -0.7069687
       objectReference: {fileID: 0}
     - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.9998408
+      value: 0.70701975
       objectReference: {fileID: 0}
     - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
       propertyPath: m_LocalPosition.x
@@ -500,7 +500,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400224, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 412b92d4feeb9c548bfa98f62c4d1022, type: 2}
       propertyPath: m_LocalRotation.x
@@ -894,22 +894,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28642d0c93b3c46e893ac8f016430014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetAnimator: {fileID: 971142442}
+  ControllerInputDevice: {fileID: 1664449185}
+  MirrorController: 1
+  partsToBone:
+  - key: 2
+    value: 7
+  - key: 3
+    value: 13
+  - key: 4
+    value: 15
+  - key: 5
+    value: 17
   armModel:
     elbowRestPosition: {x: 0.195, y: -0.5, z: 0.005}
     wristRestPosition: {x: 0, y: 0, z: 0.25}
     controllerRestPosition: {x: 0, y: 0, z: 0.05}
     armExtensionOffset: {x: -0.13, y: 0.14, z: 0.08}
     elbowBendRatio: 0.6
-    relativeToTorso: 0
-    shoulderRotationRatio: 0.5
-    elbowRotationRatio: 0.3
-    wristRotationRatio: 0.2
-    minJointShiftAngle: 160
-    maxJointShiftAngle: 180
-    jointShiftExponent: 6
-    shiftedShoulderRotationRatio: 0.1
-    shiftedElbowRotationRatio: 0.4
-    shiftedWristRotationRatio: 0.5
+    RelativeToTorso: 0
     shoulderRotationRatioCurve:
       serializedVersion: 2
       m_Curve:
@@ -976,18 +979,13 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  targetAnimator: {fileID: 971142442}
-  torsoTransform: {fileID: 1137239944}
-  ControllerInputDevice: {fileID: 1664449185}
-  partsToBone:
-  - key: 2
-    value: 7
-  - key: 3
-    value: 13
-  - key: 4
-    value: 15
-  - key: 5
-    value: 17
+    wristRotationRatio: 0.2
+    minJointShiftAngle: 160
+    maxJointShiftAngle: 180
+    jointShiftExponent: 6
+    shiftedShoulderRotationRatio: 0.1
+    shiftedElbowRotationRatio: 0.4
+    shiftedWristRotationRatio: 0.5
 --- !u!114 &1664449185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -999,7 +997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad45bc6f57ee48d98b13865930f8c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsRightHand: 1
+  IsRightHand: 0
   Recentered: 0
 --- !u!1 &2142441784
 GameObject:
