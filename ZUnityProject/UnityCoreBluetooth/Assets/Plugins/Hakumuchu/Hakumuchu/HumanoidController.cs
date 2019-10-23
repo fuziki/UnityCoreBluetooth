@@ -19,16 +19,13 @@ namespace Hakumuchu
     public class HumanoidController: MonoBehaviour
     {
         [SerializeField]
-        private SwingArmEstimator armModel;
-
-        [SerializeField]
         private Animator targetAnimator;
-
-        //[SerializeField]
-        //private Transform torsoTransform;
 
         [SerializeField]
         private HakumuchuController ControllerInputDevice;
+
+        [SerializeField]
+        private bool MirrorController = true;
 
         [SerializeField]
         private PartsBonePair[] partsToBone = new PartsBonePair[]
@@ -38,6 +35,9 @@ namespace Hakumuchu
             new PartsBonePair(){ key = ArmModel.BodyParts.Elbow, value = HumanBodyBones.RightLowerArm },
             new PartsBonePair(){ key = ArmModel.BodyParts.Wrist, value = HumanBodyBones.RightHand },
         };
+
+        [SerializeField]
+        private SwingArmEstimator armModel;
 
         private Dictionary<HumanBodyBones, Quaternion> poseBackup = new Dictionary<HumanBodyBones, Quaternion>();
 
@@ -68,7 +68,7 @@ namespace Hakumuchu
                 IsRightHand = false,
                 NeckPosition = Vector3.zero,
                 TorsoRotation = this.transform.rotation,
-                ControllerRotation = ControllerInputDevice.Orientation
+                ControllerRotation = MirrorController? ControllerInputDevice.MirrorOrientation: ControllerInputDevice.Orientation
             };
             ArmEstimator.Output armOut = armModel.Estimate(armIn);
 
