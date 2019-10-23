@@ -19,16 +19,13 @@ namespace Hakumuchu
     public class HumanoidController: MonoBehaviour
     {
         [SerializeField]
-        private SwingArmEstimator armModel;
-
-        [SerializeField]
         private Animator targetAnimator;
 
         [SerializeField]
-        private Transform torsoTransform;
+        private HakumuchuController ControllerInputDevice;
 
         [SerializeField]
-        private HakumuchuController ControllerInputDevice;
+        private bool MirrorController = true;
 
         [SerializeField]
         private PartsBonePair[] partsToBone = new PartsBonePair[]
@@ -38,6 +35,9 @@ namespace Hakumuchu
             new PartsBonePair(){ key = ArmModel.BodyParts.Elbow, value = HumanBodyBones.RightLowerArm },
             new PartsBonePair(){ key = ArmModel.BodyParts.Wrist, value = HumanBodyBones.RightHand },
         };
+
+        [SerializeField]
+        private SwingArmEstimator armModel;
 
         private Dictionary<HumanBodyBones, Quaternion> poseBackup = new Dictionary<HumanBodyBones, Quaternion>();
 
@@ -65,10 +65,10 @@ namespace Hakumuchu
         {
             ArmEstimator.Input armIn = new ArmEstimator.Input()
             {
-                IsRightHand = true,
+                IsRightHand = false,
                 NeckPosition = Vector3.zero,
-                TorsoRotation = torsoTransform.rotation,
-                ControllerRotation = ControllerInputDevice.Orientation
+                TorsoRotation = this.transform.rotation,
+                ControllerRotation = MirrorController? ControllerInputDevice.MirrorOrientation: ControllerInputDevice.Orientation
             };
             ArmEstimator.Output armOut = armModel.Estimate(armIn);
 
@@ -78,7 +78,7 @@ namespace Hakumuchu
                 switch (pair.key)
                 {
                     case ArmModel.BodyParts.Torso:
-                        rot = torsoTransform.rotation;
+                        rot = this.transform.rotation;
                         break;
                     case ArmModel.BodyParts.Shoulder:
                         rot = armOut.ShoulderRotation;

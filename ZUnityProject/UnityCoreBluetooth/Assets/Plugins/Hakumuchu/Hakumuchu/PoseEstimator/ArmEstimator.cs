@@ -25,6 +25,9 @@ public class ArmEstimator {
     [Range(0.0f, 1.0f)]
     private float elbowBendRatio = DEFAULT_ELBOW_BEND_RATIO;
 
+    [SerializeField]
+    public bool RelativeToTorso = false;
+
     public struct Input
     {
         public bool IsRightHand;
@@ -49,10 +52,11 @@ public class ArmEstimator {
         public Quaternion Orientation;
         public Quaternion XYRotation;
         public float XAngle;
-        public ControllerRotation(Quaternion controllerRotation, Quaternion torsoRotation)
+        public ControllerRotation(Quaternion controllerRotation, Quaternion torsoRotation, bool relativeToTorso)
         {
-            this.Orientation = Quaternion.Inverse(torsoRotation) * controllerRotation;
-            this.Orientation = controllerRotation;
+            this.Orientation = relativeToTorso? controllerRotation: Quaternion.Inverse(torsoRotation) * controllerRotation;
+            //limit
+
             Vector3 controllerForward = this.Orientation * Vector3.forward;
             this.XAngle = XAngle = 90.0f - Vector3.Angle(controllerForward, Vector3.up);
             this.XYRotation = Quaternion.FromToRotation(Vector3.forward, controllerForward);
@@ -62,7 +66,7 @@ public class ArmEstimator {
     private Vector3 handedMultiplier = new Vector3();
     public Output Estimate(Input input)
     {
-        ControllerRotation controllerRotation = new ControllerRotation(input.ControllerRotation, input.TorsoRotation);
+        ControllerRotation controllerRotation = new ControllerRotation(input.ControllerRotation, input.TorsoRotation, RelativeToTorso);
 
         if (input.IsRightHand)
             this.handedMultiplier.Set(1, 1, 1);

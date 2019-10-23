@@ -6,15 +6,22 @@ using UnityEngine;
 public class SwingArmEstimator: ArmEstimator
 {
     [SerializeField]
-    public bool relativeToTorso = false;
+    private AnimationCurve shoulderRotationRatioCurve = new AnimationCurve(new Keyframe[]
+    {
+        //Keyframe(float time, float value, float inTangent, float outTangent, float inWeight, float outWeight)
+        new Keyframe(90f, 0.6f, 0f, 0f, 0.001f, 0.001f),
+        new Keyframe(0.0f, 0.4f, 0f, 0f, 0.001f, 0.001f),
+        new Keyframe(-90f, 0.0f, 0f, 0f, 0.001f, 0.001f),
+    });
 
-    [Tooltip("Portion of controller rotation applied to the shoulder joint.")]
-    [Range(0.0f, 1.0f)]
-    public float shoulderRotationRatio = 0.5f;
-
-    [Tooltip("Portion of controller rotation applied to the elbow joint.")]
-    [Range(0.0f, 1.0f)]
-    public float elbowRotationRatio = 0.3f;
+    [SerializeField]
+    private AnimationCurve elbowRotationRatioCurve = new AnimationCurve(new Keyframe[]
+    {
+        //Keyframe(float time, float value, float inTangent, float outTangent, float inWeight, float outWeight)
+        new Keyframe(90f, 0.3f, 0f, 0f, 0.001f, 0.001f),
+        new Keyframe(0.0f, 0.3f, 0f, 0f, 0.001f, 0.001f),
+        new Keyframe(-90f, 1.0f, 0f, 0f, 0.001f, 0.001f),
+    });
 
     [Tooltip("Portion of controller rotation applied to the wrist joint.")]
     [Range(0.0f, 1.0f)]
@@ -44,23 +51,6 @@ public class SwingArmEstimator: ArmEstimator
     [Range(0.0f, 1.0f)]
     public float shiftedWristRotationRatio = 0.5f;
 
-    [SerializeField]
-    private AnimationCurve shoulderRotationRatioCurve = new AnimationCurve(new Keyframe[]
-    {
-        //Keyframe(float time, float value, float inTangent, float outTangent, float inWeight, float outWeight)
-        new Keyframe(90f, 0.6f, 0f, 0f, 0.001f, 0.001f),
-        new Keyframe(0.0f, 0.4f, 0f, 0f, 0.001f, 0.001f),
-        new Keyframe(-90f, 0.0f, 0f, 0f, 0.001f, 0.001f),
-    });
-
-    [SerializeField]
-    private AnimationCurve elbowRotationRatioCurve = new AnimationCurve(new Keyframe[]
-    {
-        //Keyframe(float time, float value, float inTangent, float outTangent, float inWeight, float outWeight)
-        new Keyframe(90f, 0.3f, 0f, 0f, 0.001f, 0.001f),
-        new Keyframe(0.0f, 0.3f, 0f, 0f, 0.001f, 0.001f),
-        new Keyframe(-90f, 1.0f, 0f, 0f, 0.001f, 0.001f),
-    });
 
     protected override void CalculateFinalJointRotations(Input input,
                                                         ref Output output,
@@ -75,8 +65,6 @@ public class SwingArmEstimator: ArmEstimator
         float jointShiftRatio = Mathf.Pow(angleRatio, jointShiftExponent);
 
         // Calculate what portion of the rotation is applied to each joint.
-        //float finalShoulderRatio = Mathf.Lerp(shoulderRotationRatio + offset_s, shiftedShoulderRotationRatio, jointShiftRatio);
-        //float finalElbowRatio = Mathf.Lerp(elbowRotationRatio + offset_e, shiftedElbowRotationRatio, jointShiftRatio);
         float finalShoulderRatio = Mathf.Lerp(shoulderRotationRatioCurve.Evaluate(controllerRotation.XAngle), shiftedShoulderRotationRatio, jointShiftRatio);
         float finalElbowRatio = Mathf.Lerp(elbowRotationRatioCurve.Evaluate(controllerRotation.XAngle), shiftedElbowRotationRatio, jointShiftRatio);
         float finalWristRatio = Mathf.Lerp(wristRotationRatio, shiftedWristRotationRatio, jointShiftRatio);
@@ -87,12 +75,10 @@ public class SwingArmEstimator: ArmEstimator
         Quaternion swingWristRot = Quaternion.Lerp(Quaternion.identity, controllerRotation.XYRotation, finalWristRatio);
 
         // Calculate final rotations.
-        //        state.shoulderRotation = state.torsoRotation * swingShoulderRot;
-        output.ShoulderRotation = this.relativeToTorso ? input.TorsoRotation * swingShoulderRot : swingShoulderRot;
-        output.ElbowRotation = output.ShoulderRotation * swingElbowRot;// * Quaternion.Euler(-90, 0, 0);
+        output.ShoulderRotation = input.TorsoRotation * swingShoulderRot;
+        output.ElbowRotation = output.ShoulderRotation * swingElbowRot;
         output.WristRotation = output.ElbowRotation * swingWristRot;
         output.ControllerRotation = input.TorsoRotation * controllerRotation.Orientation;
-        //        state.torsoRotation = shoulderRotation;
 //        Debug.Log("xy: " + xyRotation.eulerAngles + ", state: " + state.torsoRotation.eulerAngles + state.shoulderRotation.eulerAngles + state.elbowRotation.eulerAngles + state.wristRotation.eulerAngles);
     }
 }
