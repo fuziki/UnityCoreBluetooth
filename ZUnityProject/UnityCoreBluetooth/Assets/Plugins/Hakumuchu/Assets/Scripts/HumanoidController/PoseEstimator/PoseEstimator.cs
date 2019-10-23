@@ -1,9 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Hakumuchu.PoseController
 {
+    public enum BodyParts
+    {
+        Torso, Shoulder, Elbow, Wrist
+    }
     public class PoseEstimator : MonoBehaviour
     {
         [SerializeField]
@@ -11,7 +13,6 @@ namespace Hakumuchu.PoseController
 
         [SerializeField]
         private SwingArmEstimator armEstimator;
-
 
         // Use this for initialization
         void Start()
@@ -23,7 +24,6 @@ namespace Hakumuchu.PoseController
         // Update is called once per frame
         void Update()
         {
-
         }
 
         public void Estimate(Quaternion controllerRotation)

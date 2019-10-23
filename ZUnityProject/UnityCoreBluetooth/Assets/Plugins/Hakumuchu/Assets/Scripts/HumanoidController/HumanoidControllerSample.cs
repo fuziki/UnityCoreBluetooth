@@ -1,22 +1,12 @@
-﻿using System.Collections;
-using System.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-namespace Hakumuchu.ArmModel
-{
-    public enum BodyParts
-    {
-        Head, Neck, Torso, Shoulder, Elbow, Wrist
-    }
-}
-
 namespace Hakumuchu
 {
-    public class HumanoidController: MonoBehaviour
+    public class HumanoidControllerSample: MonoBehaviour
     {
         [SerializeField]
         private Animator targetAnimator;
@@ -30,10 +20,10 @@ namespace Hakumuchu
         [SerializeField]
         private PartsBonePair[] partsToBone = new PartsBonePair[]
         {
-            new PartsBonePair(){ key = ArmModel.BodyParts.Torso, value = HumanBodyBones.Spine },
-            new PartsBonePair(){ key = ArmModel.BodyParts.Shoulder, value = HumanBodyBones.RightUpperArm },
-            new PartsBonePair(){ key = ArmModel.BodyParts.Elbow, value = HumanBodyBones.RightLowerArm },
-            new PartsBonePair(){ key = ArmModel.BodyParts.Wrist, value = HumanBodyBones.RightHand },
+            new PartsBonePair(){ key = Hakumuchu.PoseController.BodyParts.Torso, value = HumanBodyBones.Spine },
+            new PartsBonePair(){ key = Hakumuchu.PoseController.BodyParts.Shoulder, value = HumanBodyBones.RightUpperArm },
+            new PartsBonePair(){ key = Hakumuchu.PoseController.BodyParts.Elbow, value = HumanBodyBones.RightLowerArm },
+            new PartsBonePair(){ key = Hakumuchu.PoseController.BodyParts.Wrist, value = HumanBodyBones.RightHand },
         };
 
         [SerializeField]
@@ -77,16 +67,16 @@ namespace Hakumuchu
                 Quaternion rot;
                 switch (pair.key)
                 {
-                    case ArmModel.BodyParts.Torso:
+                    case Hakumuchu.PoseController.BodyParts.Torso:
                         rot = this.transform.rotation;
                         break;
-                    case ArmModel.BodyParts.Shoulder:
+                    case Hakumuchu.PoseController.BodyParts.Shoulder:
                         rot = armOut.ShoulderRotation;
                         break;
-                    case ArmModel.BodyParts.Elbow:
+                    case Hakumuchu.PoseController.BodyParts.Elbow:
                         rot = armOut.ElbowRotation;
                         break;
-                    case ArmModel.BodyParts.Wrist:
+                    case Hakumuchu.PoseController.BodyParts.Wrist:
                         rot = armOut.WristRotation;
                         break;
                     default: continue;
