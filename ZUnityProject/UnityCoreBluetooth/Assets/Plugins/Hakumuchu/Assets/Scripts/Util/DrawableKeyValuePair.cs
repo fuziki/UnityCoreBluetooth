@@ -13,7 +13,7 @@ namespace Hakumuchu
     }
 
     [System.Serializable]
-    public class PartsBonePair : DrawableKeyValuePair<ArmModel.BodyParts, HumanBodyBones> { }
+    public class PartsBonePair : DrawableKeyValuePair<Hakumuchu.PoseController.BodyParts, HumanBodyBones> { }
 
 #if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(PartsBonePair), true)]
