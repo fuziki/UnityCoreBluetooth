@@ -22,7 +22,7 @@ namespace Hakumuchu
         private Animator targetAnimator;
 
         [SerializeField]
-        private HakumuchuController ControllerInputDevice;
+        private Hakumuchu.HakumuchuController.Hakumuchu3DoFController ControllerInputDevice;
 
         [SerializeField]
         private bool MirrorController = true;
@@ -37,7 +37,7 @@ namespace Hakumuchu
         };
 
         [SerializeField]
-        private SwingArmEstimator armModel;
+        private Hakumuchu.PoseController.SwingArmEstimator armEstimator;
 
         private Dictionary<HumanBodyBones, Quaternion> poseBackup = new Dictionary<HumanBodyBones, Quaternion>();
 
@@ -63,14 +63,14 @@ namespace Hakumuchu
 
         void LateUpdate()
         {
-            ArmEstimator.Input armIn = new ArmEstimator.Input()
+            Hakumuchu.PoseController.ArmEstimator.Input armIn = new Hakumuchu.PoseController.ArmEstimator.Input()
             {
                 IsRightHand = false,
                 NeckPosition = Vector3.zero,
                 TorsoRotation = this.transform.rotation,
                 ControllerRotation = MirrorController? ControllerInputDevice.MirrorOrientation: ControllerInputDevice.Orientation
             };
-            ArmEstimator.Output armOut = armModel.Estimate(armIn);
+            Hakumuchu.PoseController.ArmEstimator.Output armOut = armEstimator.Estimate(armIn);
 
             foreach (PartsBonePair pair in this.partsToBone)
             {
