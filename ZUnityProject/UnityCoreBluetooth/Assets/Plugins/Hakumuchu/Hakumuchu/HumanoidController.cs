@@ -24,8 +24,8 @@ namespace Hakumuchu
         [SerializeField]
         private Animator targetAnimator;
 
-        [SerializeField]
-        private Transform torsoTransform;
+        //[SerializeField]
+        //private Transform torsoTransform;
 
         [SerializeField]
         private HakumuchuController ControllerInputDevice;
@@ -65,9 +65,9 @@ namespace Hakumuchu
         {
             ArmEstimator.Input armIn = new ArmEstimator.Input()
             {
-                IsRightHand = true,
+                IsRightHand = false,
                 NeckPosition = Vector3.zero,
-                TorsoRotation = torsoTransform.rotation,
+                TorsoRotation = this.transform.rotation,
                 ControllerRotation = ControllerInputDevice.Orientation
             };
             ArmEstimator.Output armOut = armModel.Estimate(armIn);
@@ -78,7 +78,7 @@ namespace Hakumuchu
                 switch (pair.key)
                 {
                     case ArmModel.BodyParts.Torso:
-                        rot = torsoTransform.rotation;
+                        rot = this.transform.rotation;
                         break;
                     case ArmModel.BodyParts.Shoulder:
                         rot = armOut.ShoulderRotation;
