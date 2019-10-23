@@ -12,7 +12,7 @@ are licensed as follows:
 The following files:
 - ZUnityProject/UnityCoreBluetooth/Assets/Plugins/Hakumuchu/PoseEstimator/**
 
-based on [gvr-unity-sdk](https://github.com/googlevr/gvr-unity-sdk)
+based on [gvr-unity-sdk](https://github.com/googlevr/gvr-unity-sdk) & [daydream-elements](https://github.com/googlevr/daydream-elements)
 
 are licensed as follows:
 [ZUnityProject/UnityCoreBluetooth/Assets/Plugins/Hakumuchu/gvr-unity-sdk/LICENSE](ZUnityProject/UnityCoreBluetooth/Assets/Plugins/Hakumuchu/gvr-unity-sdk/LICENSE)
