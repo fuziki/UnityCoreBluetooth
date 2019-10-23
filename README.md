@@ -10,7 +10,7 @@ are licensed as follows:
 ===============================================================================
 
 The following files:
-- ZUnityProject/UnityCoreBluetooth/Assets/Plugins/Hakumuchu/gvr-unity-sdk/**
+- ZUnityProject/UnityCoreBluetooth/Assets/Plugins/Hakumuchu/PoseEstimator/**
 
 based on [gvr-unity-sdk](https://github.com/googlevr/gvr-unity-sdk)
 
