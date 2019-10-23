@@ -15,6 +15,7 @@ public class HakumuchuController : MonoBehaviour {
     private Hakumuchu.DayDreamController.DayDreamControllerAnalyzer analyzer = new Hakumuchu.DayDreamController.DayDreamControllerAnalyzer();
 
     public Quaternion Orientation => analyzer.magnet.ValueAsQuaternion;
+    public Quaternion MirrorOrientation => analyzer.magnet.ValueAsMirrorQuaternion;
     public Vector3 Gyro => analyzer.gyro.Value;
 
     // Use this for initialization
