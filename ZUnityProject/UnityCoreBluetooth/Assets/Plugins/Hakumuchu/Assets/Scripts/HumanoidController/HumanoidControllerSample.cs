@@ -49,6 +49,12 @@ namespace Hakumuchu
         // Update is called once per frame
         void Update()
         {
+            float hori = Input.GetAxis("Horizontal");
+            float vert = Input.GetAxis("Vertical");
+            if ((hori != 0) || (vert != 0))
+            {
+                Debug.Log("stick:" + hori + "," + vert);
+            }
         }
 
         void LateUpdate()

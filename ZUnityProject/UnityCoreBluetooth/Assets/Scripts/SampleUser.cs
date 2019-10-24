@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+#if UNITY_EDITOR_OSX || UNITY_IOS
 using UnityCoreBluetoothFramework;
 
 public class SampleUser : MonoBehaviour {
@@ -88,3 +89,4 @@ public class SampleUser : MonoBehaviour {
         UnityCoreBluetooth.ReleaseSharedInstance();
     }
 }
+#endif
