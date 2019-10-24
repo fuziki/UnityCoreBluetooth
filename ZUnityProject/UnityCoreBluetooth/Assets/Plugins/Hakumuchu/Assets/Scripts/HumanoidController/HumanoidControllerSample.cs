@@ -49,11 +49,18 @@ namespace Hakumuchu
         // Update is called once per frame
         void Update()
         {
-            float hori = Input.GetAxis("Horizontal");
-            float vert = Input.GetAxis("Vertical");
-            if ((hori != 0) || (vert != 0))
+            float lsh = Input.GetAxis("L_Stick_H");
+            float lsv = Input.GetAxis("L_Stick_V");
+            if ((lsh != 0) || (lsv != 0))
             {
-                Debug.Log("stick:" + hori + "," + vert);
+                Debug.Log("L stick:" + lsh + "," + lsv);
+            }
+            //R Stick
+            float rsh = Input.GetAxis("R_Stick_H");
+            float rsv = Input.GetAxis("R_Stick_V");
+            if ((rsh != 0) || (rsv != 0))
+            {
+                Debug.Log("R stick:" + rsh + "," + rsv);
             }
         }
 
