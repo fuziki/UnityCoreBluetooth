@@ -8,11 +8,21 @@ namespace Hakumuchu
 {
     public class HumanoidControllerSample: MonoBehaviour
     {
+        public enum ArmPoseSource
+        {
+            H3DoFController, JoyStick
+        }
+        [SerializeField]
+        private ArmPoseSource armPoseSource = ArmPoseSource.H3DoFController;
+
         [SerializeField]
         private Animator targetAnimator;
 
         [SerializeField]
         private Hakumuchu.HakumuchuController.Hakumuchu3DoFController ControllerInputDevice;
+
+        [SerializeField]
+        private OrientationFromGamepad gamepad;
 
         [SerializeField]
         private bool MirrorController = true;
@@ -49,29 +59,26 @@ namespace Hakumuchu
         // Update is called once per frame
         void Update()
         {
-            float lsh = Input.GetAxis("L_Stick_H");
-            float lsv = Input.GetAxis("L_Stick_V");
-            if ((lsh != 0) || (lsv != 0))
-            {
-                Debug.Log("L stick:" + lsh + "," + lsv);
-            }
-            //R Stick
-            float rsh = Input.GetAxis("R_Stick_H");
-            float rsv = Input.GetAxis("R_Stick_V");
-            if ((rsh != 0) || (rsv != 0))
-            {
-                Debug.Log("R stick:" + rsh + "," + rsv);
-            }
         }
 
         void LateUpdate()
         {
+            Quaternion target;
+            if (this.armPoseSource == ArmPoseSource.H3DoFController)
+            {
+                target = MirrorController ? ControllerInputDevice.MirrorOrientation : ControllerInputDevice.Orientation;
+            }
+            else
+            {
+                target = gamepad.RStickAsOrientation;
+            }
+
             Hakumuchu.PoseController.ArmEstimator.Input armIn = new Hakumuchu.PoseController.ArmEstimator.Input()
             {
                 IsRightHand = false,
                 NeckPosition = Vector3.zero,
                 TorsoRotation = this.transform.rotation,
-                ControllerRotation = MirrorController? ControllerInputDevice.MirrorOrientation: ControllerInputDevice.Orientation
+                ControllerRotation = target
             };
             Hakumuchu.PoseController.ArmEstimator.Output armOut = armEstimator.Estimate(armIn);
 
