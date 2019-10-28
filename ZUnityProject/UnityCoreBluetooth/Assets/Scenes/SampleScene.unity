@@ -643,16 +643,17 @@ MonoBehaviour:
   targetAnimator: {fileID: 971142442}
   ControllerInputDevice: {fileID: 1664449185}
   MirrorController: 1
-  partsToBone:
-  - key: 2
-    value: 7
-  - key: 3
-    value: 13
-  - key: 4
-    value: 15
-  - key: 5
-    value: 17
-  armModel:
+  applyConfig:
+  - BodyParts: 1
+    TargetBonse: 13
+    DefaultRotation: {x: 0, y: 0, z: 0}
+  - BodyParts: 2
+    TargetBonse: 15
+    DefaultRotation: {x: 0, y: 0, z: 0}
+  - BodyParts: 3
+    TargetBonse: 17
+    DefaultRotation: {x: 0, y: 0, z: 0}
+  armEstimator:
     elbowRestPosition: {x: 0.195, y: -0.5, z: 0.005}
     wristRestPosition: {x: 0, y: 0, z: 0.25}
     controllerRestPosition: {x: 0, y: 0, z: 0.05}
@@ -744,7 +745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsRightHand: 0
-  Recentered: 0
+  Recentered: 1
 --- !u!1 &2142441784
 GameObject:
   m_ObjectHideFlags: 0
