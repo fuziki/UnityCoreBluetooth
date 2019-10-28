@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR_OSX || UNITY_IOS
 using UnityCoreBluetoothFramework;
+#endif
 
 namespace Hakumuchu.HakumuchuController
 {
     public class Hakumuchu3DoFController : MonoBehaviour
     {
-
+#if UNITY_EDITOR_OSX || UNITY_IOS
         [SerializeField]
         private bool IsRightHand = true;
 
@@ -83,5 +85,10 @@ namespace Hakumuchu.HakumuchuController
         {
             UnityCoreBluetooth.ReleaseSharedInstance();
         }
+#else
+        public Quaternion Orientation = Quaternion.identity;
+        public Quaternion MirrorOrientation = Quaternion.identity;
+        public Vector3 Gyro = Vector3.zero;
+#endif
     }
 }

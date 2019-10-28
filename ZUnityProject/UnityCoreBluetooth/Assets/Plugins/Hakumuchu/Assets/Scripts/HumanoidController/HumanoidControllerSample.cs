@@ -8,11 +8,21 @@ namespace Hakumuchu
 {
     public class HumanoidControllerSample: MonoBehaviour
     {
+        public enum ArmPoseSource
+        {
+            H3DoFController, JoyStick
+        }
+        [SerializeField]
+        private ArmPoseSource armPoseSource = ArmPoseSource.H3DoFController;
+
         [SerializeField]
         private Animator targetAnimator;
 
         [SerializeField]
         private Hakumuchu.HakumuchuController.Hakumuchu3DoFController ControllerInputDevice;
+
+        [SerializeField]
+        private OrientationFromGamepad gamepad;
 
         [SerializeField]
         private bool MirrorController = true;
@@ -76,14 +86,23 @@ namespace Hakumuchu
                 = this.transform.rotation * poseBackup[HumanBodyBones.Spine];
 
 
-            if (!ControllerInputDevice.IsConnected) return;
+            Quaternion target;
+            if (this.armPoseSource == ArmPoseSource.H3DoFController)
+            {
+                if (!ControllerInputDevice.IsConnected) return;
+                target = MirrorController ? ControllerInputDevice.MirrorOrientation : ControllerInputDevice.Orientation;
+            }
+            else
+            {
+                target = gamepad.RStickAsOrientation;
+            }
 
             Hakumuchu.PoseController.ArmEstimator.Input armIn = new Hakumuchu.PoseController.ArmEstimator.Input()
             {
                 IsRightHand = false,
                 NeckPosition = Vector3.zero,
                 TorsoRotation = this.transform.rotation,
-                ControllerRotation = MirrorController? ControllerInputDevice.MirrorOrientation: ControllerInputDevice.Orientation
+                ControllerRotation = target
             };
             Hakumuchu.PoseController.ArmEstimator.Output armOut = armEstimator.Estimate(armIn);
 
