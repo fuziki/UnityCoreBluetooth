@@ -25,20 +25,20 @@ namespace Hakumuchu
             public Vector3 DefaultRotation;
         }
         [SerializeField]
-        public ApplyConfig[] applyConfig = new ApplyConfig[]
+        public ApplyConfig[] applyConfigs = new ApplyConfig[]
         {
             new ApplyConfig() {
                 BodyParts = PoseController.BodyParts.Shoulder,
                 TargetBonse = HumanBodyBones.LeftUpperArm,
-                DefaultRotation = new Vector3() },
+                DefaultRotation = new Vector3(15.6f, 90.2f, 90.1f) },
             new ApplyConfig() {
                 BodyParts = PoseController.BodyParts.Elbow,
                 TargetBonse = HumanBodyBones.LeftLowerArm,
-                DefaultRotation = new Vector3() },
+                DefaultRotation = new Vector3(15.4f, 88.0f, 359.5f) },
             new ApplyConfig() {
                 BodyParts = PoseController.BodyParts.Wrist,
                 TargetBonse = HumanBodyBones.LeftHand,
-                DefaultRotation = new Vector3() },
+                DefaultRotation = new Vector3(52.0f, 82.0f, 354.0f) },
         };
 
 
@@ -55,7 +55,9 @@ namespace Hakumuchu
                 if (HumanBodyBones.LastBone <= bone || this.targetAnimator.GetBoneTransform(bone) == null) continue;
                 poseBackup.Add(bone, this.targetAnimator.GetBoneTransform(bone).rotation);
             }
+            Debug.Log("rot: " + poseBackup[HumanBodyBones.LeftUpperArm].eulerAngles);
             Debug.Log("rot: " + poseBackup[HumanBodyBones.LeftLowerArm].eulerAngles);
+            Debug.Log("rot: " + poseBackup[HumanBodyBones.LeftHand].eulerAngles);
         }
 
         // Use this for initialization
@@ -84,7 +86,7 @@ namespace Hakumuchu
 
             Dictionary<PoseController.BodyParts, Pose> poses = armOut.Poses;
 
-            foreach(ApplyConfig config in applyConfig)
+            foreach(ApplyConfig config in applyConfigs)
             {
                 Quaternion rot = poses[config.BodyParts].rotation;
                 Quaternion rst = Quaternion.Euler(config.DefaultRotation);
