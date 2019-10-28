@@ -17,14 +17,31 @@ namespace Hakumuchu
         [SerializeField]
         private bool MirrorController = true;
 
-        [SerializeField]
-        private PartsBonePair[] partsToBone = new PartsBonePair[]
+        [System.Serializable]
+        public struct ApplyConfig
         {
-            new PartsBonePair(){ key = Hakumuchu.PoseController.BodyParts.Torso, value = HumanBodyBones.Spine },
-            new PartsBonePair(){ key = Hakumuchu.PoseController.BodyParts.Shoulder, value = HumanBodyBones.RightUpperArm },
-            new PartsBonePair(){ key = Hakumuchu.PoseController.BodyParts.Elbow, value = HumanBodyBones.RightLowerArm },
-            new PartsBonePair(){ key = Hakumuchu.PoseController.BodyParts.Wrist, value = HumanBodyBones.RightHand },
+            public Hakumuchu.PoseController.BodyParts BodyParts;
+            public HumanBodyBones TargetBonse;
+            public Vector3 DefaultRotation;
+        }
+        [SerializeField]
+        public ApplyConfig[] applyConfig = new ApplyConfig[]
+        {
+            new ApplyConfig() {
+                BodyParts = PoseController.BodyParts.Shoulder,
+                TargetBonse = HumanBodyBones.LeftUpperArm,
+                DefaultRotation = new Vector3() },
+            new ApplyConfig() {
+                BodyParts = PoseController.BodyParts.Elbow,
+                TargetBonse = HumanBodyBones.LeftLowerArm,
+                DefaultRotation = new Vector3() },
+            new ApplyConfig() {
+                BodyParts = PoseController.BodyParts.Wrist,
+                TargetBonse = HumanBodyBones.LeftHand,
+                DefaultRotation = new Vector3() },
         };
+
+
 
         [SerializeField]
         private Hakumuchu.PoseController.SwingArmEstimator armEstimator;
@@ -53,6 +70,9 @@ namespace Hakumuchu
 
         void LateUpdate()
         {
+            this.targetAnimator.GetBoneTransform(HumanBodyBones.Spine).rotation
+                = this.transform.rotation * poseBackup[HumanBodyBones.Spine];
+
             Hakumuchu.PoseController.ArmEstimator.Input armIn = new Hakumuchu.PoseController.ArmEstimator.Input()
             {
                 IsRightHand = false,
@@ -62,28 +82,16 @@ namespace Hakumuchu
             };
             Hakumuchu.PoseController.ArmEstimator.Output armOut = armEstimator.Estimate(armIn);
 
-            foreach (PartsBonePair pair in this.partsToBone)
+            Dictionary<PoseController.BodyParts, Pose> poses = armOut.Poses;
+
+            foreach(ApplyConfig config in applyConfig)
             {
-                Quaternion rot;
-                switch (pair.key)
-                {
-                    case Hakumuchu.PoseController.BodyParts.Torso:
-                        rot = this.transform.rotation;
-                        break;
-                    case Hakumuchu.PoseController.BodyParts.Shoulder:
-                        rot = armOut.ShoulderRotation;
-                        break;
-                    case Hakumuchu.PoseController.BodyParts.Elbow:
-                        rot = armOut.ElbowRotation;
-                        break;
-                    case Hakumuchu.PoseController.BodyParts.Wrist:
-                        rot = armOut.WristRotation;
-                        break;
-                    default: continue;
-                }
-                this.targetAnimator.GetBoneTransform(pair.value).rotation = rot * poseBackup[pair.value];
+                Quaternion rot = poses[config.BodyParts].rotation;
+                Quaternion rst = Quaternion.Euler(config.DefaultRotation);
+                targetAnimator.GetBoneTransform(config.TargetBonse).rotation = rot * rst;
             }
         }
+
 
     }
 }
