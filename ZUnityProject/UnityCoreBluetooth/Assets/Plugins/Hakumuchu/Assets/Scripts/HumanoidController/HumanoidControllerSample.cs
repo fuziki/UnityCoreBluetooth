@@ -75,6 +75,9 @@ namespace Hakumuchu
             this.targetAnimator.GetBoneTransform(HumanBodyBones.Spine).rotation
                 = this.transform.rotation * poseBackup[HumanBodyBones.Spine];
 
+
+            if (!ControllerInputDevice.IsConnected) return;
+
             Hakumuchu.PoseController.ArmEstimator.Input armIn = new Hakumuchu.PoseController.ArmEstimator.Input()
             {
                 IsRightHand = false,
