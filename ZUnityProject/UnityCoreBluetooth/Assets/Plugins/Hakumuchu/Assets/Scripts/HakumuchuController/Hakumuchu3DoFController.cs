@@ -20,6 +20,8 @@ namespace Hakumuchu.HakumuchuController
         public Quaternion MirrorOrientation => analyzer.magnet.ValueAsMirrorQuaternion;
         public Vector3 Gyro => analyzer.gyro.Value;
 
+        public bool IsConnected = false;
+
         // Use this for initialization
         void Start()
         {
@@ -45,6 +47,7 @@ namespace Hakumuchu.HakumuchuController
             UnityCoreBluetooth.Shared.OnConnectPeripheral((UnityCBPeripheral peripheral) =>
             {
                 Debug.Log("connected peripheral name: " + peripheral.name);
+                IsConnected = true;
                 peripheral.discoverServices();
             });
 
@@ -82,9 +85,10 @@ namespace Hakumuchu.HakumuchuController
         {
             UnityCoreBluetooth.ReleaseSharedInstance();
         }
-#endif
+#else
         public Quaternion Orientation = Quaternion.identity;
         public Quaternion MirrorOrientation = Quaternion.identity;
         public Vector3 Gyro = Vector3.zero;
+#endif
     }
 }

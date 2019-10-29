@@ -4,7 +4,7 @@ namespace Hakumuchu.PoseController
 {
     public enum BodyParts
     {
-        Torso, Shoulder, Elbow, Wrist
+        Torso, Shoulder, Elbow, Wrist, Controller,
     }
     public class PoseEstimator : MonoBehaviour
     {

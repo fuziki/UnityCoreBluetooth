@@ -48,6 +48,17 @@ namespace Hakumuchu.PoseController
             public Vector3 ElbowPosition;
             public Vector3 WristPosition;
             public Vector3 ControllerPosition;
+            public Pose ShoulderPose => new Pose() { rotation = ShoulderRotation, position = Vector3.zero };
+            public Pose ElbowPose => new Pose() { rotation = ElbowRotation, position = ElbowPosition };
+            public Pose WristPose => new Pose() { rotation = WristRotation, position = WristPosition };
+            public Pose ControllerPose => new Pose() { rotation = ShoulderRotation, position = Vector3.zero };
+            public Dictionary<BodyParts, Pose> Poses => new Dictionary<BodyParts, Pose>()
+            {
+                { BodyParts.Shoulder, ShoulderPose },
+                { BodyParts.Elbow, ElbowPose },
+                { BodyParts.Wrist, WristPose },
+                { BodyParts.Controller, ControllerPose },
+            };
         }
 
         public struct ControllerRotation

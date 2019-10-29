@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45140922, g: 0.50054795, b: 0.57042605, a: 1}
+  m_IndirectSpecularColor: {r: 0.45140874, g: 0.5005473, b: 0.57042575, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -609,7 +609,6 @@ GameObject:
   - component: {fileID: 1664449182}
   - component: {fileID: 1664449183}
   - component: {fileID: 1664449185}
-  - component: {fileID: 1664449184}
   m_Layer: 0
   m_Name: UnityChanController
   m_TagString: Untagged
@@ -641,20 +640,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28642d0c93b3c46e893ac8f016430014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armPoseSource: 1
   targetAnimator: {fileID: 971142442}
   ControllerInputDevice: {fileID: 1664449185}
-  gamepad: {fileID: 1664449184}
   MirrorController: 1
-  partsToBone:
-  - key: 0
-    value: 7
-  - key: 1
-    value: 13
-  - key: 2
-    value: 15
-  - key: 3
-    value: 17
+  applyConfig:
+  - BodyParts: 1
+    TargetBonse: 13
+    DefaultRotation: {x: 0, y: 0, z: 0}
+  - BodyParts: 2
+    TargetBonse: 15
+    DefaultRotation: {x: 0, y: 0, z: 0}
+  - BodyParts: 3
+    TargetBonse: 17
+    DefaultRotation: {x: 0, y: 0, z: 0}
   armEstimator:
     elbowRestPosition: {x: 0.195, y: -0.5, z: 0.005}
     wristRestPosition: {x: 0, y: 0, z: 0.25}
@@ -735,17 +733,6 @@ MonoBehaviour:
     shiftedShoulderRotationRatio: 0.1
     shiftedElbowRotationRatio: 0.4
     shiftedWristRotationRatio: 0.5
---- !u!114 &1664449184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1664449181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dd4757e208c7774f8cf1f4001360fc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1664449185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,9 +744,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad45bc6f57ee48d98b13865930f8c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Orientation: {x: 0, y: 0, z: 0, w: 1}
-  MirrorOrientation: {x: 0, y: 0, z: 0, w: 1}
-  Gyro: {x: 0, y: 0, z: 0}
+  IsRightHand: 0
+  Recentered: 1
 --- !u!1 &2142441784
 GameObject:
   m_ObjectHideFlags: 0
