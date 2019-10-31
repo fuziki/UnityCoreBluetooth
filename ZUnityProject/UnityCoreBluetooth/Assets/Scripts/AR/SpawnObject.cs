@@ -12,6 +12,9 @@ public class SpawnObject : MonoBehaviour
     [SerializeField]
     private Transform controllerTransform;
 
+    [SerializeField]
+    private Hakumuchu.HakumuchuController.Hakumuchu3DoFController controller;
+
     [SerializeField] GameObject prefab;
 
     private void Awake()
@@ -19,9 +22,13 @@ public class SpawnObject : MonoBehaviour
         origin = GetComponent<ARSessionOrigin>();
     }
 
+    [SerializeField]
+    private LineRenderer line;
+    
     private GameObject targetGameObject = null;
     private Renderer targetRenderer = null;
     private Rigidbody targetRigidbody = null;
+    private float targetDistance = -1f;
 
     void Update()
     {
@@ -33,17 +40,44 @@ public class SpawnObject : MonoBehaviour
             }
         }
 
-        this.searchSpawnObject();
+        Vector3 controllerPosition = controllerTransform.position;
+        Vector3 controllerDirection = controllerTransform.rotation * Vector3.forward;
+        Ray ray = new Ray(controllerPosition, controllerDirection);
+
+        if (controller.touchPad.click)
+        {
+            this.moveTargetObject(ray);
+        }
+        else
+        {
+            this.searchSpawnObject(ray);
+        }
     }
 
-    private void searchSpawnObject()
+    private void moveTargetObject(Ray ray)
+    {
+        if (targetGameObject == null) return;
+
+        targetRenderer.material.color = new Color(1.0f, 0.0f, 0.0f);
+
+        Vector3 end = ray.GetPoint(targetDistance);
+        targetRigidbody.isKinematic = true;
+        targetRigidbody.position = end;
+
+        line.SetPosition(0, ray.origin);
+        line.SetPosition(1, end);
+    }
+
+    private void searchSpawnObject(Ray ray)
     {
         if (targetRenderer != null)
+        {
             targetRenderer.material.color = Color.white;
+            targetRigidbody.isKinematic = false;
+        }
 
-        Vector3 controllerPosition = controllerTransform.position;
-        Vector3 controllerDirection = controllerTransform.forward;
-        Ray ray = new Ray(controllerPosition, controllerDirection);
+        line.SetPosition(0, ray.origin);
+        line.SetPosition(1, ray.GetPoint(100f));
         string rayStr = "ray: " + ray.origin + ", " + ray.direction + ", ";
         RaycastHit raycastHit;
         bool hit = Physics.Raycast(ray, out raycastHit);
@@ -68,6 +102,8 @@ public class SpawnObject : MonoBehaviour
             this.resetTarget();
             return;
         }
+        line.SetPosition(1, ray.GetPoint(raycastHit.distance));
+        targetDistance = raycastHit.distance;
 
         targetRenderer = targetGameObject.GetComponent<Renderer>();
         if (targetRenderer == null)
@@ -77,15 +113,16 @@ public class SpawnObject : MonoBehaviour
             return;
         }
 
-        targetRigidbody = targetGameObject.GetComponent<Rigidbody>();
+        targetRigidbody = raycastHit.rigidbody;
         if (targetRigidbody == null)
         {
             Debug.Log(rayStr + "no rigidbody");
             this.resetTarget();
             return;
         }
+//        targetRigidbody.AddForce(new Vector3(0f, 20f, 0f), ForceMode.Acceleration);
 
-        targetRenderer.material.color = new Color(0.1f, 0f, 0f, 0.5f);
+        targetRenderer.material.color = new Color(1.0f, 0.5f, 0.5f);
     }
 
     private void resetTarget()
@@ -93,5 +130,6 @@ public class SpawnObject : MonoBehaviour
         targetGameObject = null;
         targetRenderer = null;
         targetRigidbody = null;
+        targetDistance = -1f;
     }
 }

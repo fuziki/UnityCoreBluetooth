@@ -20,6 +20,8 @@ namespace Hakumuchu.HakumuchuController
         public Quaternion MirrorOrientation => analyzer.magnet.ValueAsMirrorQuaternion;
         public Vector3 Gyro => analyzer.gyro.Value;
 
+        public Hakumuchu.DayDreamController.Components.TouchPad.State touchPad => analyzer.touchPad.Value;
+
         public bool IsConnected = false;
 
         // Use this for initialization
@@ -79,6 +81,11 @@ namespace Hakumuchu.HakumuchuController
             });
 
             UnityCoreBluetooth.Shared.StartCoreBluetooth();
+        }
+
+        void Update()
+        {
+            this.transform.rotation = analyzer.Value.MagnetAsQuaternion;
         }
 
         void OnDestroy()
