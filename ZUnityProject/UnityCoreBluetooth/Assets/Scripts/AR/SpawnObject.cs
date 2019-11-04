@@ -77,7 +77,7 @@ public class SpawnObject : MonoBehaviour
         }
 
         line.SetPosition(0, ray.origin);
-        line.SetPosition(1, ray.GetPoint(100f));
+        line.SetPosition(1, ray.GetPoint(1f));
         string rayStr = "ray: " + ray.origin + ", " + ray.direction + ", ";
         RaycastHit raycastHit;
         bool hit = Physics.Raycast(ray, out raycastHit);
