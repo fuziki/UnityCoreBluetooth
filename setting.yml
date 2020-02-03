@@ -1,0 +1,6 @@
+PROJECT_NAME: UnityCoreBluetooth
+FRAMEWORK_IOS: UnityCoreBluetooth
+FRAMEWORK_MACOS: UnityCoreBluetooth_macOS
+BUNDLE_MACOS: UnityCoreBluetooth_bundle
+EXAMPLE_IOS: Example_iOS
+EXAMPLE_MACOS: Example_macOS

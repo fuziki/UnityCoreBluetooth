@@ -1,0 +1,4 @@
+framework module UnityCoreBluetooth {
+  header "UnityCoreBluetooth-Swift.h"
+  requires objc
+}

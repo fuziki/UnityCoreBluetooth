@@ -1,9 +1,1 @@
 .DS_Store
-UserInterfaceState.xcuserstate
-ZUnityProject/build/**
-ZUnityProject/tmp/**
-
-Carthage/Checkouts
-!Carthage/Build
-
-_sh/**

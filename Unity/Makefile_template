@@ -1,0 +1,9 @@
+# {{DESCRIPTION}}
+
+UNITY=/Applications/Unity/Unity.app/Contents/MacOS/Unity
+TARGET_FILES= Assets/Plugins/{{PROJECT_NAME}}
+OUT_PACKAGE=../{{PROJECT_NAME}}.unitypackage
+PROJ_PATH= ./LibraryUser
+
+pkg:
+	$(UNITY) -exportPackage $(TARGET_FILES) $(OUT_PACKAGE) -projectPath $(PROJ_PATH) -batchmode -nographics -quit

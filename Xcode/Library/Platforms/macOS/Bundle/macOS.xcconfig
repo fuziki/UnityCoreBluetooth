@@ -1,0 +1,17 @@
+//
+//  macOS.xcconfig
+//  PROJECT_NAME
+//
+//  Created by AUTHOR on YYYY/MM/DD.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// Don't edit this file!!
+
+//OUTPUT_UNIQUE_NAME = $(TARGET_NAME)_GoWOvPosGZ
+OUTPUT_UNIQUE_NAME = $(TARGET_NAME)
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) TARGET_MACOS IMPORT_SWIFT_HEADER=<${OUTPUT_UNIQUE_NAME}-Swift.h>
+OUTPUT_PATH = ${OUTPUT_ASSET_PATH}/${PROJECT_NAME}/Plugins/macOS
+SCRIPTS_OUTPUT_PATH = ${OUTPUT_ASSET_PATH}/${PROJECT_NAME}/Scripts

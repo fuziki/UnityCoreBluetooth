@@ -1,0 +1,182 @@
+#-------------------------------------------------------------------------------------------------------
+# {{DESCRIPTION}}
+#-------------------------------------------------------------------------------------------------------
+
+name: {{PROJECT_NAME}}
+
+configFiles:
+  Debug: Library/project.xcconfig
+  Release: Library/project.xcconfig
+
+targets:
+#-------------------------------------------------------------------------------------------------------
+# iOS framework for iOS example & unity asset for ios deveice
+# {{DESCRIPTION}}
+#-------------------------------------------------------------------------------------------------------
+  {{FRAMEWORK_IOS}}:
+    type: framework
+    platform: iOS
+    deploymentTarget: 12.0
+
+    configFiles:
+      Debug: Library/Platforms/iOS/iOS.xcconfig
+      Release: Library/Platforms/iOS/iOS.xcconfig
+
+    settings:
+      INFOPLIST_FILE: Library/Platforms/iOS/info.plist
+      SUPPORTS_MACCATALYST: NO
+      SUPPORTED_PLATFORMS: iphoneos
+      PRODUCT_BUNDLE_IDENTIFIER: factory.fuziki.framework.ios
+
+    sources:
+      - path: Library/Sources
+        name: Sources
+        group: Library
+        createIntermediateGroups: true
+
+      - path: Library/Platforms/iOS
+        name: iOS
+        group: Library/Platforms
+        createIntermediateGroups: true
+        excludes:
+          - "*.meta"
+
+      - path: Library/Sources/NativePlugin.h
+        buildPhase: headers
+        headerVisibility: public
+
+    postBuildScripts:
+      - path: Library/Scripts/CopyFramework.sh
+        name: CopyFramework
+
+#-------------------------------------------------------------------------------------------------------
+# macOS framework for macOS example
+# {{DESCRIPTION}}
+#-------------------------------------------------------------------------------------------------------
+  {{FRAMEWORK_MACOS}}:
+    type: framework
+    platform: macOS
+    deploymentTarget: 10.14
+
+    configFiles:
+      Debug: Library/Platforms/macOS/Framework/macOS.xcconfig
+      Release: Library/Platforms/macOS/Framework/macOS.xcconfig
+
+    settings:
+      INFOPLIST_FILE: Library/Platforms/macOS/Framework/info.plist
+
+    sources:
+      - path: Library/Sources
+        name: Sources
+        group: Library
+        createIntermediateGroups: true
+
+      - path: Library/Platforms/macOS/Framework
+        name: Framework
+        group: Library/Platforms/macOS
+        createIntermediateGroups: true
+
+      - path: Library/Sources/NativePlugin.h
+        buildPhase: headers
+        headerVisibility: public
+
+#-------------------------------------------------------------------------------------------------------
+# bundle for unity macOS editor
+# {{DESCRIPTION}}
+#-------------------------------------------------------------------------------------------------------
+  {{BUNDLE_MACOS}}:
+    type: bundle
+    platform: macOS
+    deploymentTarget: 10.14
+
+    configFiles:
+      Debug: Library/Platforms/macOS/Bundle/macOS.xcconfig
+      Release: Library/Platforms/macOS/Bundle/macOS.xcconfig
+
+    settings:
+      PRODUCT_NAME: $(OUTPUT_UNIQUE_NAME)
+      INFOPLIST_FILE: Library/Platforms/macOS/Bundle/info.plist
+
+    sources:
+      - path: Library/Sources
+        name: Sources
+        group: Library
+        createIntermediateGroups: true
+
+      - path: Library/Platforms/macOS/Bundle
+        name: Bundle
+        group: Library/Platforms/macOS
+        createIntermediateGroups: true
+        excludes:
+          - "*.cs"
+          - "cs_maker/**"
+          - "rs/**"
+
+      - path: Library/Sources/NativePlugin.h
+        buildPhase: headers
+        headerVisibility: public
+
+    postBuildScripts:
+      - path: Library/Scripts/CopyBundle.sh
+        name: CopyBundle
+
+#-------------------------------------------------------------------------------------------------------
+# example iOS
+# {{DESCRIPTION}}
+#-------------------------------------------------------------------------------------------------------
+  {{EXAMPLE_IOS}}:
+    type: application
+    platform: iOS
+    deploymentTarget: 13.0
+
+    settings:
+      INFOPLIST_FILE: Example/iOS/info.plist
+      PRODUCT_BUNDLE_IDENTIFIER: factory.fuziki.example
+      SWIFT_OBJC_BRIDGING_HEADER: ${PROJECT_DIR}/Example/iOS/Example_iOS-Bridging-Header.h
+      GCC_PREPROCESSOR_DEFINITIONS: $(inherited) FRAMEWORK_HEADER=<{{FRAMEWORK_IOS}}/NativePlugin.h>
+
+    sources:
+      - path: Example/iOS
+        name: iOS
+        group: Example
+        createIntermediateGroups: true
+
+    dependencies:
+      - target: {{FRAMEWORK_IOS}}
+
+#-------------------------------------------------------------------------------------------------------
+# example macOS
+# {{DESCRIPTION}}
+#-------------------------------------------------------------------------------------------------------
+  {{EXAMPLE_MACOS}}:
+    type: application
+    platform: macOS
+    deploymentTarget: 10.14
+
+    settings:
+      INFOPLIST_FILE: Example/macOS/info.plist
+      CODE_SIGN_IDENTITY: "-"
+      SWIFT_OBJC_BRIDGING_HEADER: ${PROJECT_DIR}/Example/macOS/Example_macOS-Bridging-Header.h
+      GCC_PREPROCESSOR_DEFINITIONS: $(inherited) FRAMEWORK_HEADER=<{{FRAMEWORK_MACOS}}/NativePlugin.h>
+
+    sources:
+      - path: Example/macOS
+        name: macOS
+        group: Example
+        createIntermediateGroups: true
+
+    dependencies:
+      - target: {{FRAMEWORK_MACOS}}
+
+#-------------------------------------------------------------------------------------------------------
+# scheme setteing
+# {{DESCRIPTION}}
+#-------------------------------------------------------------------------------------------------------
+schemes:
+  {{BUNDLE_MACOS}}:
+    build:
+      targets:
+        {{BUNDLE_MACOS}}: macOS
+      preActions:
+        - script: sh ${PROJECT_DIR}/Library/Scripts/PreAction.sh
+          settingsTarget: {{BUNDLE_MACOS}}

@@ -1,0 +1,11 @@
+//
+//  macOS.xcconfig
+//  PROJECT_NAME
+//
+//  Created by AUTHOR on YYYY/MM/DD.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) TARGET_MACOS_FRAMEWORK IMPORT_SWIFT_HEADER=<${TARGET_NAME}/${TARGET_NAME}-Swift.h>
