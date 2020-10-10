@@ -23,7 +23,7 @@ typedef void (*OnDiscoverPeripheralHandler) (CBPeripheral* peripheral);
 typedef void (*OnConnectPeripheralHandler) (CBPeripheral* peripheral);
 typedef void (*OnDiscoverServiceHandler) (CBService* service);
 typedef void (*OnDiscoverCharacteristicHandler) (CBCharacteristic* characteristic);
-typedef void (*OnUpdateValueHandler) (CBCharacteristic* characteristic, unsigned char* data, long length);
+typedef void (*OnUpdateValueHandler) (CBPeripheral* peripheral, CBCharacteristic* characteristic, unsigned char* data, long length);
 
 #ifdef __cplusplus
 extern "C" {

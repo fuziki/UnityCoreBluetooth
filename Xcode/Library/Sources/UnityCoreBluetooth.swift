@@ -131,8 +131,8 @@ public class UnityCoreBluetooth: NSObject {
         }
     }
     
-    private var onUpdateValueHandler: ((_ characteristic: CBCharacteristic, _ value: Data) -> Void)? = nil
-    public func onUpdateValue(handler: @escaping (_ characteristic: CBCharacteristic, _ value: Data) -> Void) {
+    private var onUpdateValueHandler: ((_ peripheral: CBPeripheral, _ characteristic: CBCharacteristic, _ value: Data) -> Void)? = nil
+    public func onUpdateValue(handler: @escaping (_ peripheral: CBPeripheral, _ characteristic: CBCharacteristic, _ value: Data) -> Void) {
         DispatchQueue.main.async { [weak self] in
             self?.onUpdateValueHandler = handler
         }
@@ -206,6 +206,6 @@ extension UnityCoreBluetooth: CBPeripheralDelegate {
     }
     
     public func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        self.onUpdateValueHandler?(characteristic, characteristic.value ?? Data())
+        self.onUpdateValueHandler?(peripheral, characteristic, characteristic.value ?? Data())
     }
 }

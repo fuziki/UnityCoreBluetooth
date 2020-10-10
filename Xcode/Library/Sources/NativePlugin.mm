@@ -62,11 +62,11 @@ void unityCoreBluetooth_onDiscoverCharacteristic(UnityCoreBluetooth* unityCoreBl
 void unityCoreBluetooth_onUpdateValue(UnityCoreBluetooth* unityCoreBluetooth, OnUpdateValueHandler handler) {
     @autoreleasepool {
         if (unityCoreBluetooth == nil) return;
-        [unityCoreBluetooth onUpdateValueWithHandler: ^(CBCharacteristic* characteristic, NSData* data) {
+        [unityCoreBluetooth onUpdateValueWithHandler: ^(CBPeripheral* peripheral, CBCharacteristic* characteristic, NSData* data) {
             NSUInteger length = [data length];
             unsigned char* ptrDest = (unsigned char*)malloc(length);
             memcpy(ptrDest, [data bytes], length);
-            handler(characteristic, ptrDest, length);
+            handler(peripheral, characteristic, ptrDest, length);
             free(ptrDest);
         }];
     }
