@@ -8,7 +8,6 @@
 import CoreBluetooth
 
 extension CBCharacteristic {
-    @objc
     public var propertyString: String {
         var ret: [UCBCharacteristicProperties] = []
         for property in UCBCharacteristicProperties.allCases {

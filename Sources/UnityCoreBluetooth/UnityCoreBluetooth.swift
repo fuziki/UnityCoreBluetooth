@@ -1,3 +1,3 @@
-struct UnityCoreBluetooth2 {
+struct UnityCoreBluetooth {
     var text = "Hello, World!"
 }

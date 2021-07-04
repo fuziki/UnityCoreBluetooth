@@ -9,56 +9,16 @@
 import CoreBluetooth
 import Foundation
 
-@objcMembers
-public class UnityCoreBluetooth: NSObject {
-    private var onErrorMessageHandler: ((_ message: String) -> Void)? = nil
-    public func onErrorMessage(handler: @escaping (_ message: String) -> Void) {
-        DispatchQueue.main.async { [weak self] in
-            self?.onErrorMessageHandler = handler
-        }
-    }
+internal class UnityCoreBluetoothManager: NSObject {
+    public static let shared: UnityCoreBluetoothManager = UnityCoreBluetoothManager()
     
-    private var onUpdateStateHandler: ((_ state: String) -> Void)? = nil
-    public func onUpdateState(handler: @escaping (_ state: String) -> Void) {
-        DispatchQueue.main.async { [weak self] in
-            self?.onUpdateStateHandler = handler
-        }
-    }
-    
-    private var onDiscoverPeripheralHandler: ((_ peripheral: CBPeripheral) -> Void)? = nil
-    public func onDiscoverPeripheral(handler: @escaping (_ peripheral: CBPeripheral) -> Void) {
-        DispatchQueue.main.async { [weak self] in
-            self?.onDiscoverPeripheralHandler = handler
-        }
-    }
-    
-    private var onConnectPeripheralHandler: ((_ peripheral: CBPeripheral) -> Void)? = nil
-    public func onConnectPeripheral(handler: @escaping (_ peripheral: CBPeripheral) -> Void) {
-        DispatchQueue.main.async { [weak self] in
-            self?.onConnectPeripheralHandler = handler
-        }
-    }
-    
-    private var onDiscoverServicelHandler: ((_ service: CBService) -> Void)? = nil
-    public func onDiscoverService(handler: @escaping (_ services: CBService) -> Void) {
-        DispatchQueue.main.async { [weak self] in
-            self?.onDiscoverServicelHandler = handler
-        }
-    }
-    
-    private var onDiscoverCharacteristiclHandler: ((_ characteristic: CBCharacteristic) -> Void)? = nil
-    public func onDiscoverCharacteristic(handler: @escaping (_ characteristic: CBCharacteristic) -> Void) {
-        DispatchQueue.main.async { [weak self] in
-            self?.onDiscoverCharacteristiclHandler = handler
-        }
-    }
-    
-    private var onUpdateValueHandler: ((_ characteristic: CBCharacteristic, _ value: Data) -> Void)? = nil
-    public func onUpdateValue(handler: @escaping (_ characteristic: CBCharacteristic, _ value: Data) -> Void) {
-        DispatchQueue.main.async { [weak self] in
-            self?.onUpdateValueHandler = handler
-        }
-    }
+    public var onErrorMessageHandler: ((_ message: String) -> Void)? = nil
+    public var onUpdateStateHandler: ((_ state: String) -> Void)? = nil
+    public var onDiscoverPeripheralHandler: ((_ peripheral: CBPeripheral) -> Void)? = nil
+    public var onConnectPeripheralHandler: ((_ peripheral: CBPeripheral) -> Void)? = nil
+    public var onDiscoverServicelHandler: ((_ service: CBService) -> Void)? = nil
+    public var onDiscoverCharacteristiclHandler: ((_ characteristic: CBCharacteristic) -> Void)? = nil
+    public var onUpdateValueHandler: ((_ characteristic: CBCharacteristic, _ value: Data) -> Void)? = nil
     
     private var manager: CBCentralManager?
     private var peripherals: [String: CBPeripheral] = [:]
@@ -71,6 +31,11 @@ public class UnityCoreBluetooth: NSObject {
         manager = CBCentralManager(delegate: self, queue: nil)
     }
     
+    public func stopCoreBluetooth() {
+        peripherals.removeAll()
+        manager = nil
+    }
+    
     public func startScan() {
         if let manager = self.manager, manager.isScanning == false {
             manager.scanForPeripherals(withServices: nil, options: nil)
@@ -79,7 +44,6 @@ public class UnityCoreBluetooth: NSObject {
     
     public func stopScan() {
         manager?.stopScan()
-//        manager.
     }
     
     public func connect(peripheral: CBPeripheral) {
@@ -93,7 +57,7 @@ public class UnityCoreBluetooth: NSObject {
     }
 }
 
-extension UnityCoreBluetooth: CBCentralManagerDelegate {
+extension UnityCoreBluetoothManager: CBCentralManagerDelegate {
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if let state = UCBManagerState(state: central.state) {
             self.onUpdateStateHandler?(state.rawValue)
@@ -121,7 +85,7 @@ extension UnityCoreBluetooth: CBCentralManagerDelegate {
     }
 }
 
-extension UnityCoreBluetooth: CBPeripheralDelegate {
+extension UnityCoreBluetoothManager: CBPeripheralDelegate {
     public func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         for c in service.characteristics ?? [] {
             self.onDiscoverCharacteristiclHandler?(c)
