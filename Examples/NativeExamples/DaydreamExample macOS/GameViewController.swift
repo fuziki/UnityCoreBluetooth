@@ -10,11 +10,11 @@ import SceneKit
 
 class GameViewController: NSViewController {
     
-    var gameView: SCNView {
-        return self.view as! SCNView
-    }
+    @IBOutlet weak var gameView: SCNView!
+    @IBOutlet weak var label: NSTextField!
     
     var gameController: GameController!
+    let bluetoothService = BluetoothService.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +35,13 @@ class GameViewController: NSViewController {
         var gestureRecognizers = gameView.gestureRecognizers
         gestureRecognizers.insert(clickGesture, at: 0)
         self.gameView.gestureRecognizers = gestureRecognizers
+        
+        bluetoothService.onUpdateValue = { [weak self] (value: String) in
+            DispatchQueue.main.async { [weak self] in
+                self?.label.stringValue = value
+            }
+        }
+        bluetoothService.start()
     }
     
     @objc

@@ -12,11 +12,13 @@ import Foundation
 //MARK:- service
 @_cdecl("ucb_service_getUuid")
 public func ucb_service_getUuid(_ service: UnsafePointer<CBService>) -> UnsafePointer<CChar>? {
-    let nsStr = service.pointee.uuid.uuidString as NSString
+    let service = Unmanaged<CBService>.fromOpaque(service).takeUnretainedValue()
+    let nsStr = service.uuid.uuidString as NSString
     return nsStr.utf8String
 }
 
 @_cdecl("ucb_service_discoverCharacteristic")
 public func ucb_service_discoverCharacteristic(_ service: UnsafePointer<CBService>) {
-    service.pointee.peripheral.discoverCharacteristics(nil, for: service.pointee)
+    let service = Unmanaged<CBService>.fromOpaque(service).takeUnretainedValue()
+    service.peripheral.discoverCharacteristics(nil, for: service)
 }

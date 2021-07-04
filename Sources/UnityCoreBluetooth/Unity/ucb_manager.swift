@@ -32,7 +32,8 @@ public func ucb_manager_shared_stopScan() {
 
 @_cdecl("ucb_manager_shared_connectWithPeripheral")
 public func ucb_manager_shared_connectWithPeripheral(_ peripheral: UnsafePointer<CBPeripheral>) {
-    UnityCoreBluetoothManager.shared.connect(peripheral: peripheral.pointee)
+    let peripheral = Unmanaged<CBPeripheral>.fromOpaque(peripheral).takeUnretainedValue()
+    UnityCoreBluetoothManager.shared.connect(peripheral: peripheral)
 }
 
 //MARK:- register callback
@@ -46,32 +47,32 @@ public func ucb_manager_shared_register_onUpdateState(_ handler: @escaping @conv
 @_cdecl("ucb_manager_shared_register_onDiscoverPeripheral")
 public func ucb_manager_shared_register_onDiscoverPeripheral(_ handler: @escaping @convention(c) (UnsafePointer<CBPeripheral>) -> Void) {
     UnityCoreBluetoothManager.shared.onDiscoverPeripheralHandler = { (peripheral: CBPeripheral) in
-        let ptr = Unmanaged.passUnretained(peripheral).toOpaque()
-        handler(ptr.bindMemory(to: CBPeripheral.self, capacity: 1))
+        let ptr = Unmanaged.passUnretained(peripheral).toOpaque().assumingMemoryBound(to: CBPeripheral.self)
+        handler(ptr)
     }
 }
 
 @_cdecl("ucb_manager_shared_register_onConnectPeripheral")
 public func ucb_manager_shared_register_onConnectPeripheral(_ handler: @escaping @convention(c) (UnsafePointer<CBPeripheral>) -> Void) {
     UnityCoreBluetoothManager.shared.onConnectPeripheralHandler = { (peripheral: CBPeripheral) in
-        let ptr = Unmanaged.passUnretained(peripheral).toOpaque()
-        handler(ptr.bindMemory(to: CBPeripheral.self, capacity: 1))
+        let ptr = Unmanaged.passUnretained(peripheral).toOpaque().assumingMemoryBound(to: CBPeripheral.self)
+        handler(ptr)
     }
 }
 
 @_cdecl("ucb_manager_shared_register_onDiscoverService")
 public func ucb_manager_shared_register_onDiscoverService(_ handler: @escaping @convention(c) (UnsafePointer<CBService>) -> Void) {
     UnityCoreBluetoothManager.shared.onDiscoverServicelHandler = { (service: CBService) in
-        let ptr = Unmanaged.passUnretained(service).toOpaque()
-        handler(ptr.bindMemory(to: CBService.self, capacity: 1))
+        let ptr = Unmanaged.passUnretained(service).toOpaque().assumingMemoryBound(to: CBService.self)
+        handler(ptr)
     }
 }
 
 @_cdecl("ucb_manager_shared_register_onDiscoverCharacteristic")
 public func ucb_manager_shared_register_onDiscoverCharacteristic(_ handler: @escaping @convention(c) (UnsafePointer<CBCharacteristic>) -> Void) {
     UnityCoreBluetoothManager.shared.onDiscoverCharacteristiclHandler = { (characteristic: CBCharacteristic) in
-        let ptr = Unmanaged.passUnretained(characteristic).toOpaque()
-        handler(ptr.bindMemory(to: CBCharacteristic.self, capacity: 1))
+        let ptr = Unmanaged.passUnretained(characteristic).toOpaque().assumingMemoryBound(to: CBCharacteristic.self)
+        handler(ptr)
     }
 }
 
@@ -80,8 +81,8 @@ public func ucb_manager_shared_register_onUpdateValue(_ handler: @escaping @conv
     UnityCoreBluetoothManager.shared.onUpdateValueHandler = { (characteristic: CBCharacteristic, data: Data) in
         data.withUnsafeBytes { (unsafeBytes) in
             let bytes = unsafeBytes.bindMemory(to: UInt8.self).baseAddress!
-            let ptr = Unmanaged.passUnretained(characteristic).toOpaque()
-            handler(ptr.bindMemory(to: CBCharacteristic.self, capacity: 1), bytes, data.count)
+            let ptr = Unmanaged.passUnretained(characteristic).toOpaque().assumingMemoryBound(to: CBCharacteristic.self)
+            handler(ptr, bytes, data.count)
         }
     }
 }

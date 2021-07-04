@@ -5,17 +5,18 @@
 //  Created by fuziki on 2021/06/26.
 //
 
+import Foundation
 import UIKit
 import SceneKit
 
 class GameViewController: UIViewController {
-
-    var gameView: SCNView {
-        return self.view as! SCNView
-    }
+    
+    @IBOutlet weak var gameView: SCNView!
+    @IBOutlet weak var label: UILabel!
     
     var gameController: GameController!
-    
+    let bluetoothService = BluetoothService.shared
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,6 +36,14 @@ class GameViewController: UIViewController {
         var gestureRecognizers = gameView.gestureRecognizers ?? []
         gestureRecognizers.insert(tapGesture, at: 0)
         self.gameView.gestureRecognizers = gestureRecognizers
+        
+        bluetoothService.onUpdateValue = { [weak self] (value: String) in
+            DispatchQueue.main.async { [weak self] in
+                self?.label.text = value
+            }
+        }
+        
+        bluetoothService.start()
     }
     
     @objc

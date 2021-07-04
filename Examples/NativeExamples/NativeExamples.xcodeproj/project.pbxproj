@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,10 @@
 		527971332687678900A1C60B /* Art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 5279710D2687678600A1C60B /* Art.scnassets */; };
 		527971342687678900A1C60B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5279710E2687678900A1C60B /* Assets.xcassets */; };
 		527971352687678900A1C60B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5279710E2687678900A1C60B /* Assets.xcassets */; };
+		5279713E2691D28100A1C60B /* UnityCoreBluetooth in Frameworks */ = {isa = PBXBuildFile; productRef = 5279713D2691D28100A1C60B /* UnityCoreBluetooth */; };
+		527971402691D28700A1C60B /* UnityCoreBluetooth in Frameworks */ = {isa = PBXBuildFile; productRef = 5279713F2691D28700A1C60B /* UnityCoreBluetooth */; };
+		527971422691D33000A1C60B /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527971412691D33000A1C60B /* BluetoothService.swift */; };
+		527971432691D33000A1C60B /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527971412691D33000A1C60B /* BluetoothService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +42,7 @@
 		5279712C2687678900A1C60B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5279712E2687678900A1C60B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5279712F2687678900A1C60B /* DaydreamExample_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DaydreamExample_macOS.entitlements; sourceTree = "<group>"; };
+		527971412691D33000A1C60B /* BluetoothService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				527971402691D28700A1C60B /* UnityCoreBluetooth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5279713E2691D28100A1C60B /* UnityCoreBluetooth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,12 +72,14 @@
 				527971152687678900A1C60B /* DaydreamExample iOS */,
 				527971262687678900A1C60B /* DaydreamExample macOS */,
 				527971142687678900A1C60B /* Products */,
+				5279713C2691D28100A1C60B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		5279710B2687678600A1C60B /* DaydreamExample Shared */ = {
 			isa = PBXGroup;
 			children = (
+				527971412691D33000A1C60B /* BluetoothService.swift */,
 				5279710C2687678600A1C60B /* GameController.swift */,
 				5279710D2687678600A1C60B /* Art.scnassets */,
 				5279710E2687678900A1C60B /* Assets.xcassets */,
@@ -111,6 +120,13 @@
 			path = "DaydreamExample macOS";
 			sourceTree = "<group>";
 		};
+		5279713C2691D28100A1C60B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -127,6 +143,9 @@
 			dependencies = (
 			);
 			name = "DaydreamExample iOS";
+			packageProductDependencies = (
+				5279713F2691D28700A1C60B /* UnityCoreBluetooth */,
+			);
 			productName = "DaydreamExample iOS";
 			productReference = 527971132687678900A1C60B /* DaydreamExample.app */;
 			productType = "com.apple.product-type.application";
@@ -144,6 +163,9 @@
 			dependencies = (
 			);
 			name = "DaydreamExample macOS";
+			packageProductDependencies = (
+				5279713D2691D28100A1C60B /* UnityCoreBluetooth */,
+			);
 			productName = "DaydreamExample macOS";
 			productReference = 527971252687678900A1C60B /* DaydreamExample.app */;
 			productType = "com.apple.product-type.application";
@@ -213,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				527971422691D33000A1C60B /* BluetoothService.swift in Sources */,
 				527971192687678900A1C60B /* GameViewController.swift in Sources */,
 				527971302687678900A1C60B /* GameController.swift in Sources */,
 				527971172687678900A1C60B /* AppDelegate.swift in Sources */,
@@ -223,6 +246,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				527971432691D33000A1C60B /* BluetoothService.swift in Sources */,
 				5279712A2687678900A1C60B /* GameViewController.swift in Sources */,
 				527971312687678900A1C60B /* GameController.swift in Sources */,
 				527971282687678900A1C60B /* AppDelegate.swift in Sources */,
@@ -309,6 +333,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = N8B2B6D2KS;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -326,7 +351,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "DaydreamExample iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,7 +359,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = hogehogehoge.DaydreamExample;
+				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example2;
 				PRODUCT_NAME = DaydreamExample;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -382,6 +407,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = N8B2B6D2KS;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -393,14 +419,14 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "DaydreamExample iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = hogehogehoge.DaydreamExample;
+				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example2;
 				PRODUCT_NAME = DaydreamExample;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -583,6 +609,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5279713D2691D28100A1C60B /* UnityCoreBluetooth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UnityCoreBluetooth;
+		};
+		5279713F2691D28700A1C60B /* UnityCoreBluetooth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UnityCoreBluetooth;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 527971052687661B00A1C60B /* Project object */;
 }
