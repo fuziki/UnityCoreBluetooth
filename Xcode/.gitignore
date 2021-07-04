@@ -1,9 +1,0 @@
-.DS_Store
-UserInterfaceState.xcuserstate
-
-Configs.swift
-
-Carthage/Checkouts
-!Carthage/Build
-
-Out/*
