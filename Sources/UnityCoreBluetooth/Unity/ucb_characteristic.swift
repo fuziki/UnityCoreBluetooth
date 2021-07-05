@@ -13,14 +13,22 @@ import Foundation
 public func ucb_characteristic_getUuid(_ characteristic: UnsafePointer<CBCharacteristic>) -> UnsafePointer<CChar>? {
     let characteristic = Unmanaged<CBCharacteristic>.fromOpaque(characteristic).takeUnretainedValue()
     let nsStr = characteristic.uuid.uuidString as NSString
-    return nsStr.utf8String
+    let str = nsStr.utf8String!
+    let len = strlen(str) + 1
+    let ptr = UnsafeMutablePointer<CChar>.allocate(capacity: len)
+    ptr.initialize(from: str, count: len)
+    return UnsafePointer(ptr)
 }
 
 @_cdecl("ucb_characteristic_getPropertis")
 public func ucb_characteristic_getPropertis(_ characteristic: UnsafePointer<CBCharacteristic>) -> UnsafePointer<CChar>? {
     let characteristic = Unmanaged<CBCharacteristic>.fromOpaque(characteristic).takeUnretainedValue()
     let nsStr = characteristic.propertyString as NSString
-    return nsStr.utf8String
+    let str = nsStr.utf8String!
+    let len = strlen(str) + 1
+    let ptr = UnsafeMutablePointer<CChar>.allocate(capacity: len)
+    ptr.initialize(from: str, count: len)
+    return UnsafePointer(ptr)
 }
 
 @_cdecl("ucb_characteristic_setNotify")

@@ -14,7 +14,11 @@ import Foundation
 public func ucb_service_getUuid(_ service: UnsafePointer<CBService>) -> UnsafePointer<CChar>? {
     let service = Unmanaged<CBService>.fromOpaque(service).takeUnretainedValue()
     let nsStr = service.uuid.uuidString as NSString
-    return nsStr.utf8String
+    let str = nsStr.utf8String!
+    let len = strlen(str) + 1
+    let ptr = UnsafeMutablePointer<CChar>.allocate(capacity: len)
+    ptr.initialize(from: str, count: len)
+    return UnsafePointer(ptr)
 }
 
 @_cdecl("ucb_service_discoverCharacteristic")
