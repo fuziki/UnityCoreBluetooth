@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Game View Controller-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="DaydreamExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qFt-R5-eYB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gXM-VG-gpB">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </sceneKitView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zeT-cb-cYJ">
+                                <rect key="frame" x="0.0" y="436" width="414" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="B1L-wA-Cmf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zeT-cb-cYJ" firstAttribute="leading" secondItem="B1L-wA-Cmf" secondAttribute="leading" id="8jf-bL-Sfi"/>
+                            <constraint firstItem="B1L-wA-Cmf" firstAttribute="trailing" secondItem="zeT-cb-cYJ" secondAttribute="trailing" id="CHQ-RQ-yZV"/>
+                            <constraint firstItem="gXM-VG-gpB" firstAttribute="top" secondItem="qFt-R5-eYB" secondAttribute="top" id="Gpv-UA-9fJ"/>
+                            <constraint firstItem="gXM-VG-gpB" firstAttribute="leading" secondItem="qFt-R5-eYB" secondAttribute="leading" id="e4Q-10-Fx8"/>
+                            <constraint firstItem="gXM-VG-gpB" firstAttribute="bottom" secondItem="qFt-R5-eYB" secondAttribute="bottom" id="fjf-Gd-BoE"/>
+                            <constraint firstItem="zeT-cb-cYJ" firstAttribute="centerY" secondItem="qFt-R5-eYB" secondAttribute="centerY" id="mq5-L4-cPd"/>
+                            <constraint firstItem="gXM-VG-gpB" firstAttribute="trailing" secondItem="qFt-R5-eYB" secondAttribute="trailing" id="nGI-sn-gZ5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gameView" destination="gXM-VG-gpB" id="an9-Yh-MOJ"/>
+                        <outlet property="label" destination="zeT-cb-cYJ" id="Nxx-yK-eBm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="117.59999999999999" y="79.610194902548727"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

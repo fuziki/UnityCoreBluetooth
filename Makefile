@@ -1,3 +1,5 @@
-setup:
-	cd Xcode && make proj
-	./Rust/replace_template_bin setting.yml Unity/Makefile_template Unity/Makefile
+EXPORT_DIRECTORY = .
+
+framework:
+	swift package generate-xcodeproj --skip-extra-files
+	xcodebuild -project UnityCoreBluetooth.xcodeproj -scheme UnityCoreBluetooth-Package -configuration Release -sdk iphoneos CONFIGURATION_BUILD_DIR=Build
