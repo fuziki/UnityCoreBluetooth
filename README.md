@@ -11,7 +11,7 @@
 ![daydream](docs/videos/daydream.gif)  
 
 # Installation
-* Copy `Examples/UnityExample/Assets/Plugin/UnityCoreBluetooth` to your project
+* Copy [`Examples/UnityExample/Assets/Plugin/UnityCoreBluetooth`](Examples/UnityExample/Assets/Plugin/UnityCoreBluetooth) to your project
 
 # Features
 - Peripheral
