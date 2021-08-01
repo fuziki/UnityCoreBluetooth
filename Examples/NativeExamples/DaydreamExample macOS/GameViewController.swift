@@ -13,8 +13,10 @@ class GameViewController: NSViewController {
     @IBOutlet weak var gameView: SCNView!
     @IBOutlet weak var label: NSTextField!
     
-    var gameController: GameController!
-    let bluetoothService = BluetoothService.shared
+    private var gameController: GameController!
+    private let bluetoothService = BluetoothService.shared
+    
+    private var count: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,4 +53,9 @@ class GameViewController: NSViewController {
         gameController.highlightNodes(atPoint: p)
     }
     
+    @IBAction func onPressButtonAction(_ sender: Any) {
+        print("write: \(count)")
+        bluetoothService.write(data: "c\(count)".data(using: .utf8)!)
+        count += 1
+    }
 }

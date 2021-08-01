@@ -11,7 +11,8 @@ import UnityCoreBluetooth
 class BluetoothService {
     static let shared = BluetoothService()
     
-    var onUpdateValue: ((String) -> Void)? = nil
+    private var characteristic: UnsafePointer<CBCharacteristic>?
+    public var onUpdateValue: ((String) -> Void)? = nil
     
     init() {
         ucb_manager_shared_register_onUpdateState { (state: UnsafePointer<CChar>?) in
@@ -23,7 +24,7 @@ class BluetoothService {
         ucb_manager_shared_register_onDiscoverPeripheral { (peripheral: UnsafePointer<CBPeripheral>) in
             let name = ucb_peripheral_getName(peripheral).flatMap { String(cString: $0) }!
             print("discovered peripheral: \(name)")
-            if name != "Daydream controller" { return }
+            if (name != "Daydream controller") && (name != "M5StickC") { return }
             ucb_manager_shared_stopScan()
             ucb_manager_shared_connectWithPeripheral(peripheral)
         }
@@ -41,7 +42,8 @@ class BluetoothService {
             let uuid = ucb_characteristic_getUuid(characteristic).flatMap { String(cString: $0) }!
             let usage = ucb_characteristic_getPropertis(characteristic).flatMap { String(cString: $0) }!
             print("discovered characteristic: \(uuid), usage: \(usage)")
-            if usage != "notify" { return }
+            if !usage.contains("notify") { return }
+            BluetoothService.shared.characteristic = characteristic
             ucb_characteristic_setNotify(characteristic, true)
         }
         ucb_manager_shared_register_onUpdateValue { (_: UnsafePointer<CBCharacteristic>, ptr: UnsafePointer<UInt8>, l: CLong) in
@@ -58,7 +60,15 @@ class BluetoothService {
         ucb_manager_shared_instantiate()
     }
     
-    func start() {
+    public func start() {
         ucb_manager_shared_instantiate()
+    }
+    
+    public func write(data: Data) {
+        data.withUnsafeBytes { (unsafeBytes: UnsafeRawBufferPointer) in
+            let bytes: UnsafePointer<UInt8> = unsafeBytes.bindMemory(to: UInt8.self).baseAddress!
+            let len = unsafeBytes.count
+            ucb_characteristic_write(characteristic!, bytes, len)
+        }
     }
 }
