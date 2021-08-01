@@ -23,6 +23,8 @@
 - Characteristic
   - [x] Get uuid
   - [x] Get properties
+  - [x] Write value
+  - [ ] Read value
   - [x] Receive notify
   
 # Usage
@@ -113,7 +115,14 @@ manager.OnUpdateValue((CoreBluetoothCharacteristic characteristic, byte[] data) 
 });
 ```
 
-### 7.  Start CoreBluetoothManager
+### 7.  Write Value
+
+```c#
+byte[] value = { 0x64, 0x68 };
+characteristic.Write(value);
+```
+
+### 8.  Start CoreBluetoothManager
 
 ```c#
 manager.Start();
@@ -124,7 +133,11 @@ manager.Start();
 * Example for Unity
 * Unity Version: 2020.3.5
 * Work on Unity Editor And iOS device
-* Show raw value from Daydream controller
+* Show raw value from Daydream controller or M5StickC
+
+## [M5Peripheral](Examples/M5Peripheral)
+* Peripheral Example for M5StickC (Plus)
+* Support write and notify
 
 ## NativeExamples
 ### [DaydreamExample iOS](Examples/NativeExamples/DaydreamExample%20iOS)
