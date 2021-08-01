@@ -209,6 +209,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 char const * _Nullable ucb_characteristic_getPropertis(CBCharacteristic * _Nonnull const * _Nonnull characteristic) SWIFT_WARN_UNUSED_RESULT;
 char const * _Nullable ucb_characteristic_getUuid(CBCharacteristic * _Nonnull const * _Nonnull characteristic) SWIFT_WARN_UNUSED_RESULT;
 void ucb_characteristic_setNotify(CBCharacteristic * _Nonnull const * _Nonnull characteristic, BOOL enable);
+void ucb_characteristic_write(CBCharacteristic * _Nonnull const * _Nonnull characteristic, uint8_t const * _Nullable value, long len);
 void ucb_manager_shared_connectWithPeripheral(CBPeripheral * _Nonnull const * _Nonnull peripheral);
 void ucb_manager_shared_instantiate(void);
 void ucb_manager_shared_register_onConnectPeripheral(void (* _Nonnull handler)(CBPeripheral * _Nonnull const * _Nonnull));

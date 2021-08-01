@@ -5,14 +5,14 @@ namespace UnityCoreBluetooth
 {
     public class CoreBluetoothCharacteristic
     {
-        private IntPtr nativePtr;
+        private readonly IntPtr nativePtr;
         public CoreBluetoothCharacteristic(IntPtr ptr)
         {
             this.nativePtr = ptr;
         }
 
         private string _uuid = null;
-        public string uuid
+        public string Uuid
         {
             get
             {
@@ -22,16 +22,21 @@ namespace UnityCoreBluetooth
         }
 
         private string[] _propertis = null;
-        public string[] propertis
+        public string[] Propertis
         {
             get
             {
-                if (_propertis == null) _propertis = new string[] { NativeInterface.UcbCharacteristic.ucb_characteristic_getPropertis(nativePtr) };
+                if (_propertis == null) _propertis = NativeInterface.UcbCharacteristic.ucb_characteristic_getPropertis(nativePtr).Split(',');
                 return _propertis;
             }
         }
 
-        public void setNotifyValue(bool enable)
+        public void Write(byte[] value)
+        {
+            NativeInterface.UcbCharacteristic.ucb_characteristic_write(nativePtr, value, value.Length);
+        }
+
+        public void SetNotifyValue(bool enable)
         {
             NativeInterface.UcbCharacteristic.ucb_characteristic_setNotify(nativePtr, enable);
         }
