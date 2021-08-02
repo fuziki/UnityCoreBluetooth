@@ -115,20 +115,22 @@ manager.OnUpdateValue((CoreBluetoothCharacteristic characteristic, byte[] data) 
 });
 ```
 
-### 7.  Write Value
+### 7.  Start CoreBluetoothManager
+
+```c#
+manager.Start();
+```
+
+### 8.  Write Value
 
 ```c#
 byte[] value = { 0x64, 0x68 };
 characteristic.Write(value);
 ```
 
-### 8.  Start CoreBluetoothManager
-
-```c#
-manager.Start();
-```
-
 # Examples
+* [Show Detail](Examples/)
+
 ## [UnityExample](Examples/UnityExample)
 * Example for Unity
 * Unity Version: 2020.3.5
