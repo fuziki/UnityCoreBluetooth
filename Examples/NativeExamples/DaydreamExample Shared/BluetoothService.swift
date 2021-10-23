@@ -10,10 +10,10 @@ import UnityCoreBluetooth
 
 class BluetoothService {
     static let shared = BluetoothService()
-    
+
     private var characteristic: UnsafePointer<CBCharacteristic>?
-    public var onUpdateValue: ((String) -> Void)? = nil
-    
+    public var onUpdateValue: ((String) -> Void)?
+
     init() {
         ucb_manager_shared_register_onUpdateState { (state: UnsafePointer<CChar>?) in
             let state = String(cString: state!)
@@ -55,15 +55,15 @@ class BluetoothService {
             print("update value: \(res)")
         }
     }
-    
+
     deinit {
         ucb_manager_shared_instantiate()
     }
-    
+
     public func start() {
         ucb_manager_shared_instantiate()
     }
-    
+
     public func write(data: Data) {
         data.withUnsafeBytes { (unsafeBytes: UnsafeRawBufferPointer) in
             let bytes: UnsafePointer<UInt8> = unsafeBytes.bindMemory(to: UInt8.self).baseAddress!
