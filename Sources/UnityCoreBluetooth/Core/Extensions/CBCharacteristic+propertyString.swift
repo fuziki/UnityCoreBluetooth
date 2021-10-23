@@ -1,6 +1,6 @@
 //
 //  CBCharacteristic+propertyString.swift
-//  
+//
 //
 //  Created by fuziki on 2021/06/27.
 //

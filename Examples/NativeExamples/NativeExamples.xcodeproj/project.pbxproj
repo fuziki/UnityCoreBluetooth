@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		522D111A2723AF780035B824 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 522D11192723AF780035B824 /* .swiftlint.yml */; };
 		527971172687678900A1C60B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527971162687678900A1C60B /* AppDelegate.swift */; };
 		527971192687678900A1C60B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527971182687678900A1C60B /* GameViewController.swift */; };
 		5279711C2687678900A1C60B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5279711A2687678900A1C60B /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		522D11192723AF780035B824 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		5279710C2687678600A1C60B /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		5279710D2687678600A1C60B /* Art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Art.scnassets; sourceTree = "<group>"; };
 		5279710E2687678900A1C60B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 		527971042687661B00A1C60B = {
 			isa = PBXGroup;
 			children = (
+				522D11192723AF780035B824 /* .swiftlint.yml */,
 				5279710B2687678600A1C60B /* DaydreamExample Shared */,
 				527971152687678900A1C60B /* DaydreamExample iOS */,
 				527971262687678900A1C60B /* DaydreamExample macOS */,
@@ -213,6 +216,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				522D111A2723AF780035B824 /* .swiftlint.yml in Resources */,
 				5279711C2687678900A1C60B /* Main.storyboard in Resources */,
 				5279711F2687678900A1C60B /* LaunchScreen.storyboard in Resources */,
 				527971342687678900A1C60B /* Assets.xcassets in Resources */,

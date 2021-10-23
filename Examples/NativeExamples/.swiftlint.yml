@@ -4,3 +4,7 @@ identifier_name:
 
 line_length:
     warning: 256
+
+included:
+    - ./
+    - ../../Sources
