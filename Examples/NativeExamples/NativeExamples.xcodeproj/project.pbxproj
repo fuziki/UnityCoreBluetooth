@@ -134,6 +134,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 527971362687678900A1C60B /* Build configuration list for PBXNativeTarget "DaydreamExample iOS" */;
 			buildPhases = (
+				522D11172723A7B90035B824 /* ShellScript */,
 				5279710F2687678900A1C60B /* Sources */,
 				527971102687678900A1C60B /* Frameworks */,
 				527971112687678900A1C60B /* Resources */,
@@ -154,6 +155,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 527971392687678900A1C60B /* Build configuration list for PBXNativeTarget "DaydreamExample macOS" */;
 			buildPhases = (
+				522D11182723A7C90035B824 /* ShellScript */,
 				527971212687678900A1C60B /* Sources */,
 				527971222687678900A1C60B /* Frameworks */,
 				527971232687678900A1C60B /* Resources */,
@@ -229,6 +231,43 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		522D11172723A7B90035B824 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nmake lint\n";
+		};
+		522D11182723A7C90035B824 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nmake lint\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5279710F2687678900A1C60B /* Sources */ = {
@@ -359,7 +398,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example2;
+				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example4;
 				PRODUCT_NAME = DaydreamExample;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -426,7 +465,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example2;
+				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example4;
 				PRODUCT_NAME = DaydreamExample;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
