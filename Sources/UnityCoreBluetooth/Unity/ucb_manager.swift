@@ -1,6 +1,6 @@
 //
 //  ucb_manager.swift
-//  
+//
 //
 //  Created by fuziki on 2021/07/04.
 //
@@ -8,8 +8,7 @@
 import CoreBluetooth
 import Foundation
 
-
-//MARK:- manager
+// MARK: - manager
 @_cdecl("ucb_manager_shared_instantiate")
 public func ucb_manager_shared_instantiate() {
     UnityCoreBluetoothManager.shared.startCoreBluetooth()
@@ -36,7 +35,7 @@ public func ucb_manager_shared_connectWithPeripheral(_ peripheral: UnsafePointer
     UnityCoreBluetoothManager.shared.connect(peripheral: peripheral)
 }
 
-//MARK:- register callback
+// MARK: - register callback
 @_cdecl("ucb_manager_shared_register_onUpdateState")
 public func ucb_manager_shared_register_onUpdateState(_ handler: @escaping @convention(c) (UnsafePointer<CChar>?) -> Void) {
     UnityCoreBluetoothManager.shared.onUpdateStateHandler = { (state: String) in
