@@ -1,6 +1,6 @@
 # UnityCoreBluetooth
 ![Platform](https://img.shields.io/badge/platform-%20iOS%20%7C%20macOS%20-lightgrey.svg)
-![Unity](https://img.shields.io/badge/unity-2020-green.svg)
+![Unity](https://img.shields.io/badge/unity-2021-green.svg)
 ![Xode](https://img.shields.io/badge/xcode-xcode13-green.svg)
 
 * iOS & macOS Unity Bluetooth Native Plugin
@@ -132,7 +132,8 @@ characteristic.Write(value);
 
 ## [UnityExample](Examples/UnityExample)
 * Example for Unity
-* Unity Version: 2020.3.5
+* Unity Version
+  * check [Examples/UnityExample/ProjectSettings/ProjectVersion.txt](Examples/UnityExample/ProjectSettings/ProjectVersion.txt)
 * Work on Unity Editor And iOS device
 * Show raw value from Daydream controller or M5StickC
 
