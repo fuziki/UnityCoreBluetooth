@@ -1,0 +1,50 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.6.1 (swiftlang-5.6.0.323.66 clang-1316.0.20.12)
+// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name UnityCoreBluetooth
+import CoreBluetooth
+import Foundation
+import Swift
+import _Concurrency
+extension CoreBluetooth.CBCharacteristic {
+  public var propertyString: Swift.String {
+    get
+  }
+}
+@_cdecl("ucb_characteristic_getUuid")
+public func ucb_characteristic_getUuid(_ characteristic: Swift.UnsafePointer<CoreBluetooth.CBCharacteristic>) -> Swift.UnsafePointer<Swift.CChar>?
+@_cdecl("ucb_characteristic_getPropertis")
+public func ucb_characteristic_getPropertis(_ characteristic: Swift.UnsafePointer<CoreBluetooth.CBCharacteristic>) -> Swift.UnsafePointer<Swift.CChar>?
+@_cdecl("ucb_characteristic_write")
+public func ucb_characteristic_write(_ characteristic: Swift.UnsafePointer<CoreBluetooth.CBCharacteristic>, _ value: Swift.UnsafePointer<Swift.UInt8>?, _ len: Swift.CLong)
+@_cdecl("ucb_characteristic_setNotify")
+public func ucb_characteristic_setNotify(_ characteristic: Swift.UnsafePointer<CoreBluetooth.CBCharacteristic>, _ enable: Swift.Bool)
+@_cdecl("ucb_manager_shared_instantiate")
+public func ucb_manager_shared_instantiate()
+@_cdecl("ucb_manager_shared_release")
+public func ucb_manager_shared_release()
+@_cdecl("ucb_manager_shared_startScan")
+public func ucb_manager_shared_startScan()
+@_cdecl("ucb_manager_shared_stopScan")
+public func ucb_manager_shared_stopScan()
+@_cdecl("ucb_manager_shared_connectWithPeripheral")
+public func ucb_manager_shared_connectWithPeripheral(_ peripheral: Swift.UnsafePointer<CoreBluetooth.CBPeripheral>)
+@_cdecl("ucb_manager_shared_register_onUpdateState")
+public func ucb_manager_shared_register_onUpdateState(_ handler: @convention(c) (Swift.UnsafePointer<Swift.CChar>?) -> Swift.Void)
+@_cdecl("ucb_manager_shared_register_onDiscoverPeripheral")
+public func ucb_manager_shared_register_onDiscoverPeripheral(_ handler: @convention(c) (Swift.UnsafePointer<CoreBluetooth.CBPeripheral>) -> Swift.Void)
+@_cdecl("ucb_manager_shared_register_onConnectPeripheral")
+public func ucb_manager_shared_register_onConnectPeripheral(_ handler: @convention(c) (Swift.UnsafePointer<CoreBluetooth.CBPeripheral>) -> Swift.Void)
+@_cdecl("ucb_manager_shared_register_onDiscoverService")
+public func ucb_manager_shared_register_onDiscoverService(_ handler: @convention(c) (Swift.UnsafePointer<CoreBluetooth.CBService>) -> Swift.Void)
+@_cdecl("ucb_manager_shared_register_onDiscoverCharacteristic")
+public func ucb_manager_shared_register_onDiscoverCharacteristic(_ handler: @convention(c) (Swift.UnsafePointer<CoreBluetooth.CBCharacteristic>) -> Swift.Void)
+@_cdecl("ucb_manager_shared_register_onUpdateValue")
+public func ucb_manager_shared_register_onUpdateValue(_ handler: @convention(c) (Swift.UnsafePointer<CoreBluetooth.CBCharacteristic>, Swift.UnsafePointer<Swift.UInt8>, Swift.CLong) -> Swift.Void)
+@_cdecl("ucb_peripheral_getName")
+public func ucb_peripheral_getName(_ peripheral: Swift.UnsafePointer<CoreBluetooth.CBPeripheral>) -> Swift.UnsafePointer<Swift.CChar>?
+@_cdecl("ucb_peripheral_discoverServicesWithPeripheral")
+public func ucb_peripheral_discoverServicesWithPeripheral(_ peripheral: Swift.UnsafePointer<CoreBluetooth.CBPeripheral>)
+@_cdecl("ucb_service_getUuid")
+public func ucb_service_getUuid(_ service: Swift.UnsafePointer<CoreBluetooth.CBService>) -> Swift.UnsafePointer<Swift.CChar>?
+@_cdecl("ucb_service_discoverCharacteristic")
+public func ucb_service_discoverCharacteristic(_ service: Swift.UnsafePointer<CoreBluetooth.CBService>)

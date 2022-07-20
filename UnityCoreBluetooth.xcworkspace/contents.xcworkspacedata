@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Makefile">
+   </FileRef>
+   <FileRef
+      location = "group:README.md">
+   </FileRef>
+   <FileRef
       location = "group:Examples/NativeExamples/NativeExamples.xcodeproj">
    </FileRef>
    <FileRef
@@ -9,5 +15,8 @@
    </FileRef>
    <FileRef
       location = "group:">
+   </FileRef>
+   <FileRef
+      location = "group:tools">
    </FileRef>
 </Workspace>

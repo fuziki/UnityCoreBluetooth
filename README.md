@@ -1,10 +1,9 @@
 # UnityCoreBluetooth
 ![Platform](https://img.shields.io/badge/platform-%20iOS%20%7C%20macOS%20-lightgrey.svg)
 ![Unity](https://img.shields.io/badge/unity-2020-green.svg)
-![Xode](https://img.shields.io/badge/xcode-xcode12-green.svg)
+![Xode](https://img.shields.io/badge/xcode-xcode13-green.svg)
 
 * iOS & macOS Unity Bluetooth Native Plugin
-* Inspired by [UnityPluginXcodeTemplate](https://github.com/fuziki/UnityPluginXcodeTemplate)
 
 # Example: Get Raw Value from Daydream Controller
 

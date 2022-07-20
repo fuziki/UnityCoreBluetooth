@@ -35,7 +35,7 @@ public func ucb_characteristic_getPropertis(_ characteristic: UnsafePointer<CBCh
 public func ucb_characteristic_write(_ characteristic: UnsafePointer<CBCharacteristic>,
                                      _ value: UnsafePointer<UInt8>?, _ len: CLong) {
     let characteristic = Unmanaged<CBCharacteristic>.fromOpaque(characteristic).takeUnretainedValue()
-    let peripheral: CBPeripheral = characteristic.service.peripheral
+    let peripheral: CBPeripheral = characteristic.service!.peripheral!
     let data = Data(bytes: value!, count: len)
     peripheral.writeValue(data, for: characteristic, type: .withoutResponse)
 }
@@ -43,5 +43,5 @@ public func ucb_characteristic_write(_ characteristic: UnsafePointer<CBCharacter
 @_cdecl("ucb_characteristic_setNotify")
 public func ucb_characteristic_setNotify(_ characteristic: UnsafePointer<CBCharacteristic>, _ enable: Bool) {
     let characteristic = Unmanaged<CBCharacteristic>.fromOpaque(characteristic).takeUnretainedValue()
-    characteristic.service.peripheral.setNotifyValue(enable, for: characteristic)
+    characteristic.service!.peripheral!.setNotifyValue(enable, for: characteristic)
 }

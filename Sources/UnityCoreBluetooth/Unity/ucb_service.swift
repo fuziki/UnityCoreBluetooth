@@ -23,5 +23,5 @@ public func ucb_service_getUuid(_ service: UnsafePointer<CBService>) -> UnsafePo
 @_cdecl("ucb_service_discoverCharacteristic")
 public func ucb_service_discoverCharacteristic(_ service: UnsafePointer<CBService>) {
     let service = Unmanaged<CBService>.fromOpaque(service).takeUnretainedValue()
-    service.peripheral.discoverCharacteristics(nil, for: service)
+    service.peripheral?.discoverCharacteristics(nil, for: service)
 }
