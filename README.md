@@ -10,7 +10,7 @@
 ![daydream](docs/videos/daydream.gif)  
 
 # Installation
-* Copy [`Examples/UnityExample/Assets/Plugins/UnityCoreBluetooth`](Examples/UnityExample/Assets/Plugins/UnityCoreBluetooth) to your project
+* Download VideoCreator.unitypakcage from [Releases](https://github.com/fuziki/UnityCoreBluetooth/releases) and install it in your project.
 
 # Features
 - Peripheral
