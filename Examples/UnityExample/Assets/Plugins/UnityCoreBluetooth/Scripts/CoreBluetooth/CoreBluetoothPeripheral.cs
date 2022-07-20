@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 #if UNITY_EDITOR_OSX || UNITY_IOS
 namespace UnityCoreBluetooth

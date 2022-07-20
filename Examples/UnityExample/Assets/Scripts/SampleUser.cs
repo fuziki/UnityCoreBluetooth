@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 #if UNITY_EDITOR_OSX || UNITY_IOS
@@ -27,8 +27,8 @@ public class SampleUser : MonoBehaviour
         manager.OnDiscoverPeripheral((CoreBluetoothPeripheral peripheral) =>
         {
             if (peripheral.name != "")
-                Debug.Log("discover peripheral name: " + peripheral.name);
-            if ((peripheral.name != "Daydream controller") && (peripheral.name != "M5StickC") && (peripheral.name != "M5Stack")) return;
+                Debug.Log("discover peripheral name: " + peripheral.name); 
+            if ((peripheral.name != "Daydream controller") && (peripheral.name != "M5Stack") && (peripheral.name != "M5StickC")) return;
 
             manager.StopScan();
             manager.ConnectToPeripheral(peripheral);
