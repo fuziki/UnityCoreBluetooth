@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		522D111A2723AF780035B824 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 522D11192723AF780035B824 /* .swiftlint.yml */; };
 		527971172687678900A1C60B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527971162687678900A1C60B /* AppDelegate.swift */; };
 		527971192687678900A1C60B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527971182687678900A1C60B /* GameViewController.swift */; };
 		5279711C2687678900A1C60B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5279711A2687678900A1C60B /* Main.storyboard */; };
@@ -25,10 +24,10 @@
 		527971402691D28700A1C60B /* UnityCoreBluetooth in Frameworks */ = {isa = PBXBuildFile; productRef = 5279713F2691D28700A1C60B /* UnityCoreBluetooth */; };
 		527971422691D33000A1C60B /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527971412691D33000A1C60B /* BluetoothService.swift */; };
 		527971432691D33000A1C60B /* BluetoothService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527971412691D33000A1C60B /* BluetoothService.swift */; };
+		52E3A4382887CE82000F0533 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 52E3A4372887CE82000F0533 /* Makefile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		522D11192723AF780035B824 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		5279710C2687678600A1C60B /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameController.swift; sourceTree = "<group>"; };
 		5279710D2687678600A1C60B /* Art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Art.scnassets; sourceTree = "<group>"; };
 		5279710E2687678900A1C60B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -45,6 +44,7 @@
 		5279712E2687678900A1C60B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5279712F2687678900A1C60B /* DaydreamExample_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DaydreamExample_macOS.entitlements; sourceTree = "<group>"; };
 		527971412691D33000A1C60B /* BluetoothService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothService.swift; sourceTree = "<group>"; };
+		52E3A4372887CE82000F0533 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +70,7 @@
 		527971042687661B00A1C60B = {
 			isa = PBXGroup;
 			children = (
-				522D11192723AF780035B824 /* .swiftlint.yml */,
+				52E3A4372887CE82000F0533 /* Makefile */,
 				5279710B2687678600A1C60B /* DaydreamExample Shared */,
 				527971152687678900A1C60B /* DaydreamExample iOS */,
 				527971262687678900A1C60B /* DaydreamExample macOS */,
@@ -216,7 +216,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				522D111A2723AF780035B824 /* .swiftlint.yml in Resources */,
 				5279711C2687678900A1C60B /* Main.storyboard in Resources */,
 				5279711F2687678900A1C60B /* LaunchScreen.storyboard in Resources */,
 				527971342687678900A1C60B /* Assets.xcassets in Resources */,
@@ -278,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52E3A4382887CE82000F0533 /* Makefile in Sources */,
 				527971422691D33000A1C60B /* BluetoothService.swift in Sources */,
 				527971192687678900A1C60B /* GameViewController.swift in Sources */,
 				527971302687678900A1C60B /* GameController.swift in Sources */,
@@ -376,7 +376,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = N8B2B6D2KS;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -394,7 +394,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "DaydreamExample iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -402,7 +402,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example4;
+				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example2;
 				PRODUCT_NAME = DaydreamExample;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -450,7 +450,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = N8B2B6D2KS;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -462,14 +462,14 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "DaydreamExample iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example4;
+				PRODUCT_BUNDLE_IDENTIFIER = factory.fuziki.example2;
 				PRODUCT_NAME = DaydreamExample;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -541,7 +541,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -609,7 +609,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = hogehogehoge.DaydreamExample;
