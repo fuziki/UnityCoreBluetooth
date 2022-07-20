@@ -1,7 +1,8 @@
 # UnityCoreBluetooth Examples
 ## [UnityExample](UnityExample)
 * Example for Unity
-* Unity Version: 2020.3.5
+* Unity Version
+  * check [UnityExample/ProjectSettings/ProjectVersion.txt](UnityExample/ProjectSettings/ProjectVersion.txt)
 * Work on Unity Editor And iOS device
 * Show raw value from Daydream controller or M5StickC
 
