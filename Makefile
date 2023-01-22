@@ -27,7 +27,7 @@ bundle:
 		-scheme mcUnityCoreBluetooth-release \
 		-configuration Release \
 		-sdk macosx \
-		CONFIGURATION_BUILD_DIR=${BUILD_DIR}
+		CONFIGURATION_BUILD_DIR=$(CURDIR)/${BUILD_DIR}
 
 lint:
 	xcrun --sdk macosx \
