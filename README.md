@@ -22,6 +22,28 @@ iOS & macOS [Unity Native Plugin](https://docs.unity3d.com/Manual/NativePlugins.
 # Installation
 Download VideoCreator.unitypakcage from [Releases](https://github.com/fuziki/UnityCoreBluetooth/releases) and install it in your project.
 
+## Set Info.plist
+
+Set **privacy - bluetooth always usage description** in Info.plist.  
+You can also set it in PostProcessBuild.  
+
+```c#
+public class PostXcodeBuild
+{
+    [PostProcessBuild]
+    public static void SetXcodePlist(BuildTarget buildTarget, string pathToBuiltProject)
+    {
+        if (buildTarget != BuildTarget.iOS) return;
+        var plistPath = pathToBuiltProject + "/Info.plist";
+        var plist = new PlistDocument();
+        plist.ReadFromString(File.ReadAllText(plistPath));
+        var rootDict = plist.root;
+        rootDict.SetString("NSBluetoothAlwaysUsageDescription", "use ble");
+        File.WriteAllText(plistPath, plist.WriteToString());
+    }
+}
+```
+
 # Features
 - Peripheral
   - [x] Get name
@@ -39,11 +61,11 @@ Download VideoCreator.unitypakcage from [Releases](https://github.com/fuziki/Uni
 # Usage
 ## Example (Get Raw Value from Daydream Controller)
 
-* SeeMore [SampleUser.cs](Examples/UnityExample/Assets/Scripts/SampleUser.cs)
+SeeMore [SampleUser.cs](Examples/UnityExample/Assets/Scripts/SampleUser.cs)
 
 ### About Daydream Controller
 
-* Get raw value form Daydream controller
+Get raw value form Daydream controller
 
 | Property | Target |
 |--|--|
@@ -53,7 +75,7 @@ Download VideoCreator.unitypakcage from [Releases](https://github.com/fuziki/Uni
 
 ### 1. Get CoreBluetoothManager instance
 
-* Get shared CoreBluetoothManager instance.
+Get shared CoreBluetoothManager instance.
 
 ```c#
 manager = CoreBluetoothManager.Shared;
