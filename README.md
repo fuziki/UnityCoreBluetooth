@@ -1,16 +1,25 @@
 # UnityCoreBluetooth
 ![Platform](https://img.shields.io/badge/platform-%20iOS%20%7C%20macOS%20-lightgrey.svg)
-![Unity](https://img.shields.io/badge/unity-2021-green.svg)
-![Xode](https://img.shields.io/badge/xcode-xcode13-green.svg)
+![Unity](https://img.shields.io/badge/unity-2022-green.svg)
+![Xode](https://img.shields.io/badge/xcode-xcode14-green.svg)
 
-* iOS & macOS Unity Bluetooth Native Plugin
+iOS & macOS [Unity Native Plugin](https://docs.unity3d.com/Manual/NativePlugins.html) for [Core Bluetooth framework](https://developer.apple.com/documentation/corebluetooth)
 
 # Example: Get Raw Value from Daydream Controller
 
-![daydream](docs/videos/daydream.gif)  
+<img src="docs/videos/daydream.gif" width="800">  
+
+# Requirements
+## Unity
+* Unity 2021.X
+* Unity 2022.X
+* Unity 2022.2+ (Apple Silicon)
+
+## Platforms
+* macOS 12+ (Apple Silicon and Intel)
 
 # Installation
-* Download VideoCreator.unitypakcage from [Releases](https://github.com/fuziki/UnityCoreBluetooth/releases) and install it in your project.
+Download VideoCreator.unitypakcage from [Releases](https://github.com/fuziki/UnityCoreBluetooth/releases) and install it in your project.
 
 # Features
 - Peripheral
