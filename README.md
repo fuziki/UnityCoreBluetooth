@@ -16,6 +16,7 @@ iOS & macOS [Unity Native Plugin](https://docs.unity3d.com/Manual/NativePlugins.
 * Unity 2022.2+ (Apple Silicon)
 
 ## Platforms
+* iOS 14+
 * macOS 12+ (Apple Silicon and Intel)
 
 # Installation
