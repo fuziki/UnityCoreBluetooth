@@ -20,7 +20,7 @@ iOS & macOS [Unity Native Plugin](https://docs.unity3d.com/Manual/NativePlugins.
 * macOS 12+ (Apple Silicon and Intel)
 
 # Installation
-Download VideoCreator.unitypakcage from [Releases](https://github.com/fuziki/UnityCoreBluetooth/releases) and install it in your project.
+Download UnityCoreBluetooth.unitypackage from [Releases](https://github.com/fuziki/UnityCoreBluetooth/releases) and install it in your project.
 
 ## Set Info.plist
 
